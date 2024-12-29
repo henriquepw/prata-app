@@ -1,7 +1,15 @@
-import { QueryClient } from "@tanstack/react-query";
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import { QueryClient } from "@tanstack/react-query";
+import { onlineManager } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { MMKV } from "react-native-mmkv";
+
+onlineManager.setEventListener((setOnline) => {
+  return NetInfo.addEventListener((state) => {
+    setOnline(!!state.isConnected);
+  });
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -13,8 +21,16 @@ const queryClient = new QueryClient({
   },
 });
 
+const storage = new MMKV();
 const persister = createAsyncStoragePersister({
-  storage: AsyncStorage,
+  storage: {
+    setItem: storage.set,
+    removeItem: storage.delete,
+    getItem: (key) => {
+      const value = storage.getString(key);
+      return value !== null ? value : undefined;
+    },
+  },
 });
 
 type Props = {

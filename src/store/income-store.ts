@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { sleep } from "../utils/sleep";
 import { newId } from "../utils/id";
+import { sleep } from "../utils/sleep";
 
 const _incomes: Income[] = [];
 
@@ -12,8 +12,8 @@ const KEYS = {
 export type Income = {
   id: string;
   amount: number;
-  receivedAt: string;
   local?: boolean;
+  receivedAt: string;
 };
 async function getIncomes() {
   await sleep(1000);
