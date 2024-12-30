@@ -1,15 +1,15 @@
-import NetInfo from "@react-native-community/netinfo";
-import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
-import { QueryClient } from "@tanstack/react-query";
-import { onlineManager } from "@tanstack/react-query";
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
-import { MMKV } from "react-native-mmkv";
+import NetInfo from "@react-native-community/netinfo"
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister"
+import { QueryClient } from "@tanstack/react-query"
+import { onlineManager } from "@tanstack/react-query"
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client"
+import { storage } from "./storage"
 
 onlineManager.setEventListener((setOnline) => {
   return NetInfo.addEventListener((state) => {
-    setOnline(!!state.isConnected);
-  });
-});
+    setOnline(!!state.isConnected)
+  })
+})
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,23 +19,13 @@ const queryClient = new QueryClient({
       staleTime: 1000 * 60 * 5, // 5 min
     },
   },
-});
+})
 
-const storage = new MMKV();
-const persister = createAsyncStoragePersister({
-  storage: {
-    setItem: storage.set,
-    removeItem: storage.delete,
-    getItem: (key) => {
-      const value = storage.getString(key);
-      return value !== null ? value : undefined;
-    },
-  },
-});
+const persister = createAsyncStoragePersister({ storage })
 
 type Props = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 export function StoreProvider({ children }: Props) {
   return (
     <PersistQueryClientProvider
@@ -44,5 +34,5 @@ export function StoreProvider({ children }: Props) {
     >
       {children}
     </PersistQueryClientProvider>
-  );
+  )
 }
