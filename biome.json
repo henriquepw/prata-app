@@ -30,5 +30,10 @@
     "enabled": true,
     "formatWithErrors": true,
     "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded"
+    }
   }
 }

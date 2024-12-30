@@ -9,9 +9,8 @@
     "ios": "expo run:ios",
     "test": "jest --watchAll",
     "prebuild": "npx expo prebuild --clean",
-    "check": "biome check --write --unsafe ./src/",
     "up": "npx npm-check-updates -ui",
-    "lint": "expo lint"
+    "lint": "biome check --write --unsafe ./src/"
   },
   "jest": {
     "preset": "jest-expo"
