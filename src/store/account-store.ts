@@ -1,35 +1,32 @@
-import { useQuery } from "@tanstack/react-query"
-import { storage } from "./storage"
+import { createPersistStore } from "./storage/persist"
 
-const KEY = "account"
-
-export type AccountData = {
-  hasAccount: boolean
+type Account = {
+  id: string
+  name: string
+  email: string
 }
+
+export type AccountData =
+  | {
+      hasAccount: false
+      account: undefined
+    }
+  | {
+      hasAccount: true
+      account: Account
+    }
 
 const defaultAccount: AccountData = {
   hasAccount: false,
+  account: undefined,
 }
 
-async function getAccount(): Promise<AccountData> {
-  try {
-    const data = await storage.getItem(KEY)
-    if (!data) {
-      throw new Error("not found")
-    }
-
-    return JSON.parse(data)
-  } catch {
-    await storage.setItem(KEY, JSON.stringify(defaultAccount))
-    return defaultAccount
-  }
-}
-
-export function useAccount() {
-  const query = useQuery({
-    queryKey: [KEY],
-    queryFn: getAccount,
-  })
-
-  return query
-}
+export const useAccount = createPersistStore<AccountData>("account", (set) => ({
+  ...defaultAccount,
+  setAccount: (account: Account) => {
+    set({ account, hasAccount: true })
+  },
+  logout: () => {
+    set({ account: undefined, hasAccount: false })
+  },
+}))
