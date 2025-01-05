@@ -17,7 +17,12 @@ export default function RootLayout() {
 
   return (
     <StoreProvider>
-      <Stack screenOptions={opts} />
+      <Stack screenOptions={opts}>
+        <Stack.Screen
+          name="incomes/register"
+          options={{ presentation: "modal" }}
+        />
+      </Stack>
     </StoreProvider>
   )
 }

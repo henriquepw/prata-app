@@ -1,7 +1,7 @@
-import { Button, View } from "react-native"
-import { Text } from "./ui/text"
-import { useToggleTheme } from "../store/theme-store"
 import { Feather } from "@expo/vector-icons"
+import { Button, View } from "react-native"
+import { useToggleTheme } from "../store/theme-store"
+import { Text } from "./ui/text"
 
 type Props = {
   title: string
@@ -20,7 +20,7 @@ export function UserHeader({ title, subtitle }: Props) {
       </View>
       <View className="flex-1">
         <Text className="font-bold text-xl leading-none">{title}</Text>
-        <Text className="color-gray-11 dark:color-graydark-11 underline">
+        <Text className="color-neutral-11 dark:color-neutraldark-11 underline">
           {subtitle}
         </Text>
       </View>

@@ -9,8 +9,8 @@ module.exports = {
   plugins: [
     require("tailwindcss-radix-colors")({
       aliases: {
-        orange: "primary",
-        send: "gray",
+        cyan: "primary",
+        slate: "neutral",
       },
     }),
   ],

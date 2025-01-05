@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { newId } from "../utils/id"
 import { sleep } from "../utils/sleep"
+import { createPersistStore } from "./storage/persist"
 
 const _incomes: Income[] = []
 
@@ -12,9 +13,33 @@ const KEYS = {
 export type Income = {
   id: string
   amount: number
-  local?: boolean
   receivedAt: string
+  local?: boolean
 }
+
+type IncomeStore = {
+  incomes: Income[]
+  addIncome: (amount: number, receivedAt: Date) => void
+}
+
+export const useIncomes = createPersistStore<IncomeStore>("incomes", (set) => ({
+  incomes: [] as Income[],
+
+  addIncome: (amount: number, receivedAt: Date) => {
+    set((state) => ({
+      incomes: [
+        ...state.incomes,
+        {
+          id: newId(),
+          amount,
+          local: true,
+          receivedAt: receivedAt.toISOString(),
+        },
+      ],
+    }))
+  },
+}))
+
 async function getIncomes() {
   await sleep(1000)
   return _incomes
@@ -32,7 +57,7 @@ async function addIncome(payload: NewIncome) {
   })
 }
 
-export function useIncomes() {
+export function useIncomess() {
   return useQuery({
     queryKey: KEYS.all,
     queryFn: getIncomes,
