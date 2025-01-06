@@ -1,5 +1,5 @@
-import { Text, View } from "react-native"
 import { Slot } from "@radix-ui/react-slot"
+import { Text, View } from "react-native"
 
 export type FieldProps = {
   required?: boolean
@@ -17,7 +17,7 @@ export function Field({ label, required, children, error, asChild }: Props) {
   return (
     <View className="gap-1">
       {!!label && (
-        <Text className="ml-3 font-medium text-neutral-normal text-lg">
+        <Text className="ml-3 font-medium text-lg text-neutral-normal">
           {label}
           {required && <Text className="text-red-dim">{" *"}</Text>}
         </Text>

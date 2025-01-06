@@ -1,11 +1,11 @@
 import { Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
-import { View } from "react-native"
+import { Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { IncomeList } from "../components/incomes/income-list"
 import { Button, ButtonIcon, ButtonText } from "../components/ui/button"
 import { Card } from "../components/ui/card"
 import { IncomeIcon, OutcomeIcon } from "../components/ui/icons"
-import { Text } from "../components/ui/text"
 import { UserHeader } from "../components/user-header"
 import { useTheme } from "../store/theme-store"
 
@@ -31,6 +31,13 @@ export default function DashboardScreen() {
             <ButtonIcon icon={OutcomeIcon} />
             <ButtonText>Dispesas</ButtonText>
           </Button>
+        </View>
+
+        <View className="gap-2">
+          <Text className="font-medium text-neutral-normal text-xl">
+            Últimos Registros
+          </Text>
+          <IncomeList />
         </View>
       </SafeAreaView>
     </View>

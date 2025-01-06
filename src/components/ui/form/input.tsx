@@ -1,6 +1,6 @@
 import { TextInput, TextInputProps } from "react-native"
-import { Field, FieldProps } from "./field"
 import { cn } from "~/src/utils/cn"
+import { Field, FieldProps } from "./field"
 
 type Props = FieldProps &
   TextInputProps & {
