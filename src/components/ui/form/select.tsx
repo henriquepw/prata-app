@@ -1,15 +1,27 @@
 import { Feather } from "@expo/vector-icons"
-import DateTimePicker from "@react-native-community/datetimepicker"
 import { useState } from "react"
 import { Pressable, Text, View } from "react-native"
 import { cn } from "~/src/utils/cn"
 import { Field, FieldProps } from "./field"
 
-type Props = FieldProps & {
-  value: Date
-  onChange: (value: Date) => void
+type Props<O> = FieldProps & {
+  options: O[]
+  getLabel: (o: O) => React.ReactNode
+  getValue: (o: O) => string
+  value: O
+  onChange: (value: O) => void
+  children: (o: O) => JSX.Element
 }
-export function DatePicker({ value, onChange, ...rest }: Props) {
+
+export function Select<O>({
+  value,
+  getLabel,
+  getValue,
+  onChange,
+  options,
+  children,
+  ...rest
+}: Props<O>) {
   const [open, setOpen] = useState(false)
 
   function openPicker() {
@@ -21,7 +33,7 @@ export function DatePicker({ value, onChange, ...rest }: Props) {
       <Field asChild {...rest}>
         <Pressable onPress={openPicker} className="bg-neutrala-action">
           <Text className="flex-1 text-neutral-normal text-xl">
-            {value.toLocaleString()}
+            {getLabel(value)}
           </Text>
           <Feather name="chevron-down" className="text-2xl text-neutral-dim" />
         </Pressable>
@@ -33,16 +45,12 @@ export function DatePicker({ value, onChange, ...rest }: Props) {
           "top-full z-50 m-auto mt-4 rounded-xl border border-neutral-dim bg-primary-app p-4 shadow shadow-neutrala-3 dark:shadow-neutraldarka-4",
         )}
       >
-        <DateTimePicker
-          value={value}
-          display="inline"
-          accentColor=""
-          onChange={(_, newDate) => {
-            onChange(newDate || value)
-            setOpen(false)
-          }}
-        />
+        {options.map((o) => children(o))}
       </View>
     </View>
   )
+}
+
+export function SelectItem() {
+  return <Text>TODO</Text>
 }

@@ -3,10 +3,10 @@ import { Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { TransationDetail } from "../components/transations/transation-detail"
 import { IncomeList } from "../components/transations/transation-list"
-import { Card } from "../components/ui/card"
 import { UserHeader } from "../components/user-header"
 import { useTheme } from "../store/theme-store"
 import { NewTransationFab } from "../components/transations/new-transation-fab"
+import { BalanceCard } from "../components/balance/BalanceCard"
 
 export default function DashboardScreen() {
   const theme = useTheme()
@@ -16,9 +16,7 @@ export default function DashboardScreen() {
       <StatusBar translucent style={theme === "dark" ? "light" : "dark"} />
       <SafeAreaView className="flex-1 gap-6 p-4">
         <UserHeader title="Anônimo" subtitle="Cadastrar" />
-        <Card className="h-24">
-          <Text>TODO</Text>
-        </Card>
+        <BalanceCard />
 
         <View className="gap-2">
           <Text className="font-medium text-lg text-neutral-normal">
