@@ -1,13 +1,12 @@
-import { Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import { Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { IncomeList } from "../components/incomes/income-list"
-import { Button, ButtonIcon, ButtonText } from "../components/ui/button"
+import { TransationDetail } from "../components/transations/transation-detail"
+import { IncomeList } from "../components/transations/transation-list"
 import { Card } from "../components/ui/card"
-import { IncomeIcon, OutcomeIcon } from "../components/ui/icons"
 import { UserHeader } from "../components/user-header"
 import { useTheme } from "../store/theme-store"
+import { NewTransationFab } from "../components/transations/new-transation-fab"
 
 export default function DashboardScreen() {
   const theme = useTheme()
@@ -20,26 +19,16 @@ export default function DashboardScreen() {
         <Card className="h-24">
           <Text>TODO</Text>
         </Card>
-        <View className="flex-row justify-stretch gap-2">
-          <Link href="/incomes/register" asChild>
-            <Button className="grow">
-              <ButtonIcon icon={IncomeIcon} />
-              <ButtonText>Entradas</ButtonText>
-            </Button>
-          </Link>
-          <Button className="grow">
-            <ButtonIcon icon={OutcomeIcon} />
-            <ButtonText>Dispesas</ButtonText>
-          </Button>
-        </View>
 
         <View className="gap-2">
-          <Text className="font-medium text-neutral-normal text-xl">
+          <Text className="font-medium text-lg text-neutral-normal">
             Últimos Registros
           </Text>
           <IncomeList />
         </View>
       </SafeAreaView>
+      <TransationDetail />
+      <NewTransationFab />
     </View>
   )
 }

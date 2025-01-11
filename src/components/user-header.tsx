@@ -1,7 +1,6 @@
 import { Feather } from "@expo/vector-icons"
-import { Button, View } from "react-native"
+import { Button, Text, View } from "react-native"
 import { useToggleTheme } from "../store/theme-store"
-import { Text } from "./ui/text"
 
 type Props = {
   title: string
@@ -19,10 +18,10 @@ export function UserHeader({ title, subtitle }: Props) {
         />
       </View>
       <View className="flex-1">
-        <Text className="font-bold text-xl leading-none">{title}</Text>
-        <Text className="color-neutral-11 dark:color-neutraldark-11 underline">
-          {subtitle}
+        <Text className="font-bold text-primary-dim text-xl leading-none">
+          {title}
         </Text>
+        <Text className="text-neutral-dim underline">{subtitle}</Text>
       </View>
       <Button title="a" onPress={toggleTheme} />
     </View>

@@ -7,25 +7,26 @@ import { Button, ButtonIcon, ButtonText } from "~/src/components/ui/button"
 import { DatePicker } from "~/src/components/ui/form/date-input"
 import { Input } from "~/src/components/ui/form/input"
 import { AddIcon } from "~/src/components/ui/icons"
-import { useIncomes } from "~/src/store/income-store"
+import { useTransationStore } from "~/src/store/transation-store"
+import { formatAmount } from "~/src/utils/format-amount"
 
-export default function RegisterIncomeScreen() {
+export default function RegisterTransationScreen() {
   const navigate = useNavigation()
   const [amount, setAmount] = useState("0,00")
   const [receivedAt, setReceivedAt] = useState(new Date())
-  const addIncome = useIncomes((s) => s.addIncome)
+  const addTransation = useTransationStore((s) => s.addTransation)
 
   function updateCurrency(input: string) {
     const nums = Number(input.replace(/[^0-9]/g, ""))
-      .toString()
-      .padStart(3, "0")
-
-    const cents = nums.length - 2
-    setAmount(`${nums.slice(0, cents)},${nums.slice(cents)}`)
+    setAmount(formatAmount(nums, false))
   }
 
   function createIncome() {
-    addIncome(Number(amount.replace(/[^0-9]/g, "")), receivedAt)
+    addTransation({
+      amount: Number(amount.replace(/[^0-9]/g, "")),
+      type: "INCOME",
+      dueAt: receivedAt,
+    })
     navigate.goBack()
   }
 

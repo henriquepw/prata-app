@@ -27,3 +27,7 @@ export function OutcomeIcon({ className }: IconProps) {
 export function AddIcon({ className }: IconProps) {
   return <Feather name="plus" className={cn("text-2xl", className)} />
 }
+
+export function DeleteIcon({ className }: IconProps) {
+  return <Feather name="trash-2" className={cn("text-2xl", className)} />
+}
