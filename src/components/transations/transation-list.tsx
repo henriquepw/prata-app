@@ -1,5 +1,5 @@
 import { View } from "react-native"
-import { useTransationStore } from "~/src/store/transation-store"
+import { useTransationStore } from "~/store/transation-store"
 import { TransationCard } from "./transation-card"
 
 export function IncomeList() {

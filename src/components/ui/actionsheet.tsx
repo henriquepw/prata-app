@@ -1,6 +1,6 @@
 import { Modal, Pressable, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { cn } from "~/src/utils/cn"
+import { cn } from "~/utils/cn"
 
 type Props = {
   open: boolean

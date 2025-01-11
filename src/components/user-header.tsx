@@ -1,6 +1,9 @@
-import { Feather } from "@expo/vector-icons"
-import { Button, Text, View } from "react-native"
-import { useToggleTheme } from "../store/theme-store"
+import { Box } from "@ui/box"
+import { Text } from "react-native"
+import { useTheme, useToggleTheme } from "../store/theme-store"
+import { Icon } from "@/components/ui/icon"
+import { User } from "lucide-react-native"
+import { Button, ButtonText } from "@/components/ui/button"
 
 type Props = {
   title: string
@@ -9,21 +12,22 @@ type Props = {
 
 export function UserHeader({ title, subtitle }: Props) {
   const toggleTheme = useToggleTheme()
+  const theme = useTheme()
+
   return (
-    <View className="flex-row items-center gap-4">
-      <View className="h-14 w-14 items-center justify-center rounded-full bg-primary-8 dark:bg-primarydark-8">
-        <Feather
-          name="user"
-          className="color-primary-12 dark:color-primarydark-12 text-2xl"
-        />
-      </View>
-      <View className="flex-1">
-        <Text className="font-bold text-primary-dim text-xl leading-none">
+    <Box className="flex-row items-center gap-4">
+      <Box className="h-14 w-14 items-center justify-center rounded-full bg-primary-500/50">
+        <Icon as={User} size="xl" />
+      </Box>
+      <Box className="flex-1">
+        <Text className="font-bold text-primary-900 text-xl leading-none">
           {title}
         </Text>
-        <Text className="text-neutral-dim underline">{subtitle}</Text>
-      </View>
-      <Button title="a" onPress={toggleTheme} />
-    </View>
+        <Text className="text-neutral-500 underline">{subtitle}</Text>
+      </Box>
+      <Button onPress={toggleTheme}>
+        <ButtonText>{theme}</ButtonText>
+      </Button>
+    </Box>
   )
 }

@@ -1,4 +1,6 @@
-import "../../assets/global.css"
+import "@/assets/global.css"
+
+import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider"
 import { Stack } from "expo-router"
 import { useColorScheme } from "nativewind"
 import { useEffect } from "react"
@@ -16,13 +18,15 @@ export default function RootLayout() {
   }, [theme, setColorScheme])
 
   return (
-    <StoreProvider>
-      <Stack screenOptions={opts}>
-        <Stack.Screen
-          name="incomes/register"
-          options={{ presentation: "modal" }}
-        />
-      </Stack>
-    </StoreProvider>
+    <GluestackUIProvider mode={theme}>
+      <StoreProvider>
+        <Stack screenOptions={opts}>
+          <Stack.Screen
+            name="transations/register"
+            options={{ presentation: "modal" }}
+          />
+        </Stack>
+      </StoreProvider>
+    </GluestackUIProvider>
   )
 }

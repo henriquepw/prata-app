@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native"
-import { Transation, useTransationStore } from "~/src/store/transation-store"
-import { formatAmount } from "~/src/utils/format-amount"
-import { formatDate } from "~/src/utils/format-date"
+import { Transation, useTransationStore } from "~/store/transation-store"
+import { formatAmount } from "~/utils/format-amount"
+import { formatDate } from "~/utils/format-date"
 import { IncomeIcon } from "../ui/icons"
 
 type Props = {

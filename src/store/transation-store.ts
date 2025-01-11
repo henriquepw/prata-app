@@ -1,4 +1,4 @@
-import { newId } from "../utils/id"
+import { newId } from "~/utils/id"
 import { createPersistStore } from "./storage/persist"
 
 export type TransationType = "INCOME" | "OUTCOME"

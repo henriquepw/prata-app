@@ -1,5 +1,5 @@
 import { View } from "react-native"
-import { cn } from "~/src/utils/cn"
+import { cn } from "~/utils/cn"
 
 type Props = {
   children?: React.ReactNode

@@ -3,12 +3,12 @@ import { useNavigation } from "expo-router"
 import { useState } from "react"
 import { Text, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Button, ButtonIcon, ButtonText } from "~/src/components/ui/button"
-import { DatePicker } from "~/src/components/ui/form/date-input"
-import { Input } from "~/src/components/ui/form/input"
-import { AddIcon } from "~/src/components/ui/icons"
-import { useTransationStore } from "~/src/store/transation-store"
-import { formatAmount } from "~/src/utils/format-amount"
+import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
+import { DatePicker } from "~/components/ui/form/date-input"
+import { Input } from "~/components/ui/form/input"
+import { AddIcon } from "~/components/ui/icons"
+import { useTransationStore } from "~/store/transation-store"
+import { formatAmount } from "~/utils/format-amount"
 
 export default function RegisterTransationScreen() {
   const navigate = useNavigation()

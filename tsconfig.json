@@ -3,7 +3,10 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./src/*"],
+      "@/*": ["./*"],
+      "@ui/*": ["./components/ui/*"],
+      "tailwind.config": ["./tailwind.config.js"]
     }
   },
   "include": [

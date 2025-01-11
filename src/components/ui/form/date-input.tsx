@@ -2,7 +2,7 @@ import { Feather } from "@expo/vector-icons"
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { useState } from "react"
 import { Pressable, Text, View } from "react-native"
-import { cn } from "~/src/utils/cn"
+import { cn } from "~/utils/cn"
 import { Field, FieldProps } from "./field"
 
 type Props = FieldProps & {

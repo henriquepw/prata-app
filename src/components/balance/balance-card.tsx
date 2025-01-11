@@ -1,7 +1,7 @@
 import { useMemo } from "react"
 import { Text, View } from "react-native"
-import { useTransationStore } from "~/src/store/transation-store"
-import { formatAmount } from "~/src/utils/format-amount"
+import { useTransationStore } from "~/store/transation-store"
+import { formatAmount } from "~/utils/format-amount"
 import { IncomeIcon, OutcomeIcon } from "../ui/icons"
 
 export function BalanceCard() {
