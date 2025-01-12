@@ -1,6 +1,6 @@
+import { IInputFieldProps, InputField, Input as UIInput } from "@ui/input"
 import { cn } from "~/utils/cn"
 import { Field, FieldProps } from "./field"
-import { IInputFieldProps, InputField, Input as UIInput } from "@ui/input"
 
 type Props = FieldProps &
   IInputFieldProps & {

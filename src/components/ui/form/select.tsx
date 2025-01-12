@@ -1,5 +1,4 @@
 import { ISelectItemProps } from "@gluestack-ui/select/lib/types"
-import { Field, FieldProps } from "./field"
 import {
   SelectBackdrop,
   SelectContent,
@@ -9,12 +8,13 @@ import {
   SelectInput,
   SelectPortal,
   SelectTrigger,
-  SelectItem as UISelectItem,
   Select as UISelect,
+  SelectItem as UISelectItem,
 } from "@ui/select"
 import { ChevronDownIcon } from "lucide-react-native"
 import { useState } from "react"
 import { SafeAreaView } from "react-native"
+import { Field, FieldProps } from "./field"
 
 type Props = FieldProps & {
   children: React.ReactNode
@@ -22,7 +22,7 @@ type Props = FieldProps & {
 }
 
 export function Select({ children, onChange, ...rest }: Props) {
-  const [isOpen, setOpen] = useState(true)
+  const [isOpen, setOpen] = useState(false)
   function toggleOpen() {
     setOpen((o) => !o)
   }
@@ -37,7 +37,7 @@ export function Select({ children, onChange, ...rest }: Props) {
         <SelectTrigger
           size="md"
           variant="outline"
-          className="gap-2 rounded-lg px-2"
+          className="gap-2 rounded-lg px-2 active:opacity-50"
           onPress={toggleOpen}
         >
           <SelectInput

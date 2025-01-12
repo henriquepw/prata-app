@@ -16,7 +16,6 @@ export function TransationCard({ transation }: Props) {
 
   const amount = formatAmount(transation.amount)
   const dueAt = formatDate(transation.dueAt)
-
   const isIncome = transation.type === "INCOME"
 
   return (
@@ -26,7 +25,7 @@ export function TransationCard({ transation }: Props) {
           className={cn(
             "size-12 items-center justify-center rounded-lg border p-0",
             isIncome
-              ? "border-green-300 bg-green-300/50"
+              ? "border-green-300/90 bg-green-300/50"
               : "border-red-300 bg-red-300/50",
           )}
         >
@@ -36,7 +35,7 @@ export function TransationCard({ transation }: Props) {
           />
         </Box>
         <Box>
-          <Text className="text-neutral-500">{dueAt}</Text>
+          <Text className="text-typography-500">{dueAt}</Text>
           <Text
             bold
             size="xl"

@@ -1,10 +1,10 @@
 import {
   FormControl,
-  FormControlLabel,
-  FormControlLabelText,
   FormControlError,
   FormControlErrorIcon,
   FormControlErrorText,
+  FormControlLabel,
+  FormControlLabelText,
 } from "@ui/form-control"
 import { AlertCircleIcon } from "lucide-react-native"
 

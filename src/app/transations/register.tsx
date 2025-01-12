@@ -1,7 +1,7 @@
-import { Feather } from "@expo/vector-icons"
 import { Button, ButtonIcon, ButtonText } from "@ui/button"
+import { Icon } from "@ui/icon"
 import { useNavigation } from "expo-router"
-import { PlusIcon } from "lucide-react-native"
+import { ChevronLeftIcon, PlusIcon } from "lucide-react-native"
 import { useState } from "react"
 import { Text, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -33,15 +33,12 @@ export default function RegisterTransationScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 gap-6 bg-neutral-2 p-4 dark:bg-neutraldark-1">
+    <SafeAreaView className="flex-1 gap-6 bg-background-50 p-4">
       <View className="flex-row items-center gap-4 py-4">
         <TouchableOpacity className="w-6" onPress={navigate.goBack}>
-          <Feather
-            name="chevron-left"
-            className="color-neutral-12 dark:color-neutraldark-12 text-2xl"
-          />
+          <Icon as={ChevronLeftIcon} size="xl" />
         </TouchableOpacity>
-        <Text className="color-neutral-12 dark:color-neutraldark-12 font-bold text-2xl">
+        <Text className="font-bold text-2xl text-typography-900">
           Nova Entrada
         </Text>
       </View>
@@ -58,13 +55,14 @@ export default function RegisterTransationScreen() {
       />
       <Input
         isRequired
-        error="sajhdkasjdk"
         label="Quanto foi?"
         keyboardType="numeric"
         placeholder="0,00"
         value={amount}
         onChangeText={updateCurrency}
-        prefix={<Text className="font-medium text-gray-900 text-lg">R$</Text>}
+        prefix={
+          <Text className="font-medium text-lg text-typography-900">R$</Text>
+        }
       />
 
       <Button className="mt-4 ml-auto" onPress={createTransation}>

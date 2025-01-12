@@ -30,8 +30,8 @@ export function BalanceCard() {
 
   return (
     <Box className="items-center">
-      <Text className="text-neutral-500">Total em conta</Text>
-      <Text className="mb-4 font-bold text-2xl text-neutral-800">
+      <Text className="text-typography-500">Total em conta</Text>
+      <Text className="mb-4 font-bold text-2xl text-typography-900">
         {totals.current}
       </Text>
       <Box className="w-full flex-row justify-between">

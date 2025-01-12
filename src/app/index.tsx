@@ -19,7 +19,7 @@ export default function DashboardScreen() {
         <BalanceCard />
 
         <View className="gap-2">
-          <Text className="font-medium text-lg text-neutral-normal">
+          <Text className="font-medium text-lg text-typography-900">
             Últimos Registros
           </Text>
           <IncomeList />
