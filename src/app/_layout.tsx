@@ -1,6 +1,6 @@
 import "@/assets/global.css"
 
-import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider"
+import { GluestackUIProvider } from "@ui/gluestack-ui-provider"
 import { Stack } from "expo-router"
 import { useColorScheme } from "nativewind"
 import { useEffect } from "react"

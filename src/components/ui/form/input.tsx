@@ -1,32 +1,39 @@
-import { TextInput, TextInputProps } from "react-native"
 import { cn } from "~/utils/cn"
 import { Field, FieldProps } from "./field"
+import { IInputFieldProps, InputField, Input as UIInput } from "@ui/input"
 
 type Props = FieldProps &
-  TextInputProps & {
+  IInputFieldProps & {
     prefix?: React.ReactNode
     sufix?: React.ReactNode
   }
+
 export function Input({
   prefix,
   sufix,
-  required,
   label,
   error,
+  isRequired,
+  isReadOnly,
+  isDisabled,
+  className,
   ...rest
 }: Props) {
   return (
-    <Field required={required} label={label} error={error}>
-      {prefix}
-      <TextInput
-        placeholder="todo"
-        {...rest}
-        className={cn(
-          "mt-1 h-10 flex-1 text-neutral-normal text-xl leading-none placeholder:text-neutrala-10 dark:placeholder:text-neutraldarka-10",
-          rest.className,
-        )}
-      />
-      {sufix}
+    <Field
+      isDisabled={isDisabled}
+      isReadOnly={isReadOnly}
+      isRequired={isRequired}
+      label={label}
+      error={error}
+    >
+      <UIInput
+        className={cn("h-10 gap-2 rounded-lg px-2 text-neutral-500", className)}
+      >
+        {prefix}
+        <InputField className="px-0 text-lg" {...rest} />
+        {sufix}
+      </UIInput>
     </Field>
   )
 }

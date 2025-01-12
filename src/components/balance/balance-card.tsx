@@ -1,8 +1,10 @@
+import { Box } from "@ui/box"
+import { Icon } from "@ui/icon"
+import { Text } from "@ui/text"
+import { ArrowDownIcon, ArrowUpIcon } from "lucide-react-native"
 import { useMemo } from "react"
-import { Text, View } from "react-native"
 import { useTransationStore } from "~/store/transation-store"
 import { formatAmount } from "~/utils/format-amount"
-import { IncomeIcon, OutcomeIcon } from "../ui/icons"
 
 export function BalanceCard() {
   const transations = useTransationStore((s) => s.transations)
@@ -27,21 +29,21 @@ export function BalanceCard() {
   }, [transations])
 
   return (
-    <View className="items-center">
-      <Text className="mb-1 text-neutral-dim">Total em conta</Text>
-      <Text className="mb-4 font-bold text-2xl text-neutral-normal">
+    <Box className="items-center">
+      <Text className="text-neutral-500">Total em conta</Text>
+      <Text className="mb-4 font-bold text-2xl text-neutral-800">
         {totals.current}
       </Text>
-      <View className="w-full flex-row justify-between">
-        <View className="flex-row items-center gap-1">
-          <IncomeIcon className="text-green-dim text-lg" />
-          <Text className="text-green-dim">{totals.income}</Text>
-        </View>
-        <View className="flex-row items-center gap-1">
-          <OutcomeIcon className="text-lg text-red-dim" />
-          <Text className="text-red-dim">{totals.outcome}</Text>
-        </View>
-      </View>
-    </View>
+      <Box className="w-full flex-row justify-between">
+        <Box className="flex-row items-center gap-1">
+          <Icon as={ArrowUpIcon} className="text-green-600" />
+          <Text className="text-green-600">{totals.income}</Text>
+        </Box>
+        <Box className="flex-row items-center gap-1">
+          <Icon as={ArrowDownIcon} className="text-red-600" />
+          <Text className="text-red-600">{totals.outcome}</Text>
+        </Box>
+      </Box>
+    </Box>
   )
 }

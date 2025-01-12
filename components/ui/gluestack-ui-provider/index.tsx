@@ -26,16 +26,13 @@ export function GluestackUIProvider({
   style?: ViewProps["style"]
 }) {
   const colorScheme = useColorScheme()
-
   const colorSchemeName = getColorSchemeName(colorScheme, mode)
-
   colorSchemeNW.set(mode)
 
   return (
     <View
       style={[
         config[colorSchemeName],
-        // eslint-disable-next-line react-native/no-inline-styles
         { flex: 1, height: "100%", width: "100%" },
         props.style,
       ]}

@@ -11,6 +11,7 @@ export type Transation = {
   tags: string[]
   createdAt: string
   updatedAt: string
+  accountId?: string
   local?: boolean
 }
 

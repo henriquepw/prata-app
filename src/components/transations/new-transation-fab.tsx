@@ -1,15 +1,13 @@
+import { Fab, FabIcon } from "@ui/fab"
 import { Link } from "expo-router"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { Button, ButtonIcon } from "../ui/button"
-import { AddIcon } from "../ui/icons"
+import { PlusIcon } from "lucide-react-native"
+
 export function NewTransationFab() {
   return (
-    <SafeAreaView className="absolute right-6 bottom-0">
-      <Link href="/transations/register" asChild>
-        <Button className="h-12 w-12 grow items-center justify-center rounded-full bg-primary-solid shadow-sm">
-          <ButtonIcon icon={AddIcon} className="text-2xl text-primary-normal" />
-        </Button>
-      </Link>
-    </SafeAreaView>
+    <Link href="/transations/register" asChild>
+      <Fab size="lg" placement="bottom right" className="mr-2 mb-6">
+        <FabIcon as={PlusIcon} />
+      </Fab>
+    </Link>
   )
 }

@@ -1,31 +1,39 @@
-import { Slot } from "@radix-ui/react-slot"
-import { Text, View } from "react-native"
+import {
+  FormControl,
+  FormControlLabel,
+  FormControlLabelText,
+  FormControlError,
+  FormControlErrorIcon,
+  FormControlErrorText,
+} from "@ui/form-control"
+import { AlertCircleIcon } from "lucide-react-native"
 
 export type FieldProps = {
-  required?: boolean
+  isRequired?: boolean
+  isDisabled?: boolean
+  isReadOnly?: boolean
   label?: string
   error?: string
 }
 
 type Props = FieldProps & {
   children: React.ReactNode
-  asChild?: true
 }
-export function Field({ label, required, children, error, asChild }: Props) {
-  const Comp = asChild ? Slot : View
-
+export function Field({ label, children, error, ...rest }: Props) {
   return (
-    <View className="gap-1">
-      {!!label && (
-        <Text className="ml-3 font-medium text-lg text-neutral-normal">
-          {label}
-          {required && <Text className="text-red-dim">{" *"}</Text>}
-        </Text>
+    <FormControl size="md" isInvalid={!!error} {...rest}>
+      {label && (
+        <FormControlLabel>
+          <FormControlLabelText>{label}</FormControlLabelText>
+        </FormControlLabel>
       )}
-      <Comp className="h-10 flex-row items-center rounded-xl bg-neutrala-4 px-3 dark:bg-neutraldarka-4">
-        {children}
-      </Comp>
-      {!!error && <Text className="text-base text-red-dim">{error}</Text>}
-    </View>
+
+      {children}
+
+      <FormControlError>
+        <FormControlErrorIcon as={AlertCircleIcon} size="sm" />
+        <FormControlErrorText>{error}</FormControlErrorText>
+      </FormControlError>
+    </FormControl>
   )
 }

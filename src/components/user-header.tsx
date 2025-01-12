@@ -1,9 +1,9 @@
 import { Box } from "@ui/box"
+import { Button, ButtonText } from "@ui/button"
+import { Icon } from "@ui/icon"
+import { User } from "lucide-react-native"
 import { Text } from "react-native"
 import { useTheme, useToggleTheme } from "../store/theme-store"
-import { Icon } from "@/components/ui/icon"
-import { User } from "lucide-react-native"
-import { Button, ButtonText } from "@/components/ui/button"
 
 type Props = {
   title: string

@@ -1,9 +1,10 @@
 import { Feather } from "@expo/vector-icons"
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { useState } from "react"
-import { Pressable, Text, View } from "react-native"
+import { Text, TouchableOpacity, View } from "react-native"
 import { cn } from "~/utils/cn"
 import { Field, FieldProps } from "./field"
+import { Input } from "@ui/input"
 
 type Props = FieldProps & {
   value: Date
@@ -18,13 +19,15 @@ export function DatePicker({ value, onChange, ...rest }: Props) {
 
   return (
     <View className="relative">
-      <Field asChild {...rest}>
-        <Pressable onPress={openPicker} className="bg-neutrala-action">
-          <Text className="flex-1 text-neutral-normal text-xl">
-            {value.toLocaleString()}
-          </Text>
-          <Feather name="chevron-down" className="text-2xl text-neutral-dim" />
-        </Pressable>
+      <Field {...rest}>
+        <TouchableOpacity onPress={openPicker}>
+          <Input className="h-10 gap-2 rounded-lg px-2 py-0">
+            <Text className="flex-1 text-lg text-neutral-900">
+              {value.toLocaleString()}
+            </Text>
+            <Feather name="chevron-down" className="text-neutral-600 text-xl" />
+          </Input>
+        </TouchableOpacity>
       </Field>
 
       <View

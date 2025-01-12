@@ -1,19 +1,21 @@
 import { Feather } from "@expo/vector-icons"
+import { Button, ButtonIcon, ButtonText } from "@ui/button"
 import { useNavigation } from "expo-router"
+import { PlusIcon } from "lucide-react-native"
 import { useState } from "react"
 import { Text, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
 import { DatePicker } from "~/components/ui/form/date-input"
 import { Input } from "~/components/ui/form/input"
-import { AddIcon } from "~/components/ui/icons"
-import { useTransationStore } from "~/store/transation-store"
+import { Select, SelectItem } from "~/components/ui/form/select"
+import { TransationType, useTransationStore } from "~/store/transation-store"
 import { formatAmount } from "~/utils/format-amount"
 
 export default function RegisterTransationScreen() {
   const navigate = useNavigation()
   const [amount, setAmount] = useState("0,00")
   const [receivedAt, setReceivedAt] = useState(new Date())
+  const [transationType, setTransationType] = useState<string>()
   const addTransation = useTransationStore((s) => s.addTransation)
 
   function updateCurrency(input: string) {
@@ -21,10 +23,10 @@ export default function RegisterTransationScreen() {
     setAmount(formatAmount(nums, false))
   }
 
-  function createIncome() {
+  function createTransation() {
     addTransation({
       amount: Number(amount.replace(/[^0-9]/g, "")),
-      type: "INCOME",
+      type: transationType as TransationType,
       dueAt: receivedAt,
     })
     navigate.goBack()
@@ -43,26 +45,30 @@ export default function RegisterTransationScreen() {
           Nova Entrada
         </Text>
       </View>
+
+      <Select isRequired label="Tipo" onChange={setTransationType}>
+        <SelectItem label="Entrada" value="INCOME" />
+        <SelectItem label="Saída" value="OUTCOMe" />
+      </Select>
       <DatePicker
-        required
+        isRequired
         label="Data do Recebimento"
         value={receivedAt}
         onChange={setReceivedAt}
       />
       <Input
-        required
+        isRequired
         error="sajhdkasjdk"
         label="Quanto foi?"
         keyboardType="numeric"
         placeholder="0,00"
         value={amount}
         onChangeText={updateCurrency}
-        prefix={
-          <Text className="mr-2 font-bold text-gray-normal text-xl">R$</Text>
-        }
+        prefix={<Text className="font-medium text-gray-900 text-lg">R$</Text>}
       />
-      <Button className="mt-4 ml-auto" onPress={createIncome}>
-        <ButtonIcon icon={AddIcon} />
+
+      <Button className="mt-4 ml-auto" onPress={createTransation}>
+        <ButtonIcon as={PlusIcon} />
         <ButtonText>Registrar</ButtonText>
       </Button>
     </SafeAreaView>
