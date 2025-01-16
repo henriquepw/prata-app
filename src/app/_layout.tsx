@@ -1,4 +1,4 @@
-import "@/assets/global.css"
+import "../../assets/global.css"
 
 import { GluestackUIProvider } from "@ui/gluestack-ui-provider"
 import { Stack } from "expo-router"
@@ -21,6 +21,7 @@ export default function RootLayout() {
     <GluestackUIProvider mode={theme}>
       <StoreProvider>
         <Stack screenOptions={opts}>
+          <Stack.Screen name="(tabs)" />
           <Stack.Screen
             name="transations/register"
             options={{ presentation: "modal" }}

@@ -11,6 +11,7 @@ export type Transation = {
   tags: string[]
   createdAt: string
   updatedAt: string
+  deletedAt?: string
   accountId?: string
   local?: boolean
 }
@@ -58,10 +59,10 @@ export const useTransationStore = createPersistStore<TransationStore>(
             type: payload.type,
             amount: payload.amount,
             dueAt: payload.dueAt.toISOString(),
-            tags: [],
-            local: true,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
+            tags: [],
+            local: true,
           },
         ],
       }))

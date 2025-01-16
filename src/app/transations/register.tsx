@@ -11,7 +11,7 @@ import { Select, SelectItem } from "~/components/ui/form/select"
 import { TransationType, useTransationStore } from "~/store/transation-store"
 import { formatAmount } from "~/utils/format-amount"
 
-export default function RegisterTransationScreen() {
+export default function RegisterTransationPage() {
   const navigate = useNavigation()
   const [amount, setAmount] = useState("0,00")
   const [receivedAt, setReceivedAt] = useState(new Date())

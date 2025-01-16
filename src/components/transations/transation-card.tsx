@@ -25,12 +25,12 @@ export function TransationCard({ transation }: Props) {
           className={cn(
             "size-12 items-center justify-center rounded-lg border p-0",
             isIncome
-              ? "border-green-300/90 bg-green-300/50"
-              : "border-red-300 bg-red-300/50",
+              ? "border-success-300 bg-success-200/70"
+              : "border-error-300 bg-error-200/70",
           )}
         >
           <Icon
-            className={isIncome ? "text-green-600" : "text-red-600"}
+            className={isIncome ? "text-success-600" : "text-error-600"}
             as={isIncome ? ArrowUpIcon : ArrowDownIcon}
           />
         </Box>
@@ -39,7 +39,7 @@ export function TransationCard({ transation }: Props) {
           <Text
             bold
             size="xl"
-            className={isIncome ? "text-green-600" : "text-red-600"}
+            className={isIncome ? "text-success-600" : "text-error-600"}
           >
             {amount}
           </Text>
