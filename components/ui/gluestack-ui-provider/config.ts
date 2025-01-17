@@ -1,47 +1,80 @@
 "use client"
 import { vars } from "nativewind"
 
+function getAccentColor(theme: "light" | "dark", color: string) {
+  if (theme === "light") {
+    return {
+      [`--color-${color}-50`]: "240 253 250",
+      [`--color-${color}-100`]: "204 251 241",
+      [`--color-${color}-200`]: "153 246 228",
+      [`--color-${color}-300`]: "94 234 212",
+      [`--color-${color}-400`]: "45 212 191",
+      [`--color-${color}-500`]: "20 184 166",
+      [`--color-${color}-600`]: "13 148 136",
+      [`--color-${color}-700`]: "15 118 110",
+      [`--color-${color}-800`]: "17 94 89",
+      [`--color-${color}-900`]: "19 78 74",
+      [`--color-${color}-950`]: "4 47 46",
+    } as const
+  }
+
+  return {
+    [`--color-${color}-50`]: "4 47 46",
+    [`--color-${color}-100`]: "19 78 74",
+    [`--color-${color}-200`]: "17 94 89",
+    [`--color-${color}-300`]: "15 118 110",
+    [`--color-${color}-400`]: "13 148 136",
+    [`--color-${color}-500`]: "20 184 166",
+    [`--color-${color}-600`]: "45 212 191",
+    [`--color-${color}-700`]: "94 234 212",
+    [`--color-${color}-800`]: "153 246 228",
+    [`--color-${color}-900`]: "204 251 241",
+    [`--color-${color}-950`]: "240 253 250",
+  } as const
+}
+
+function getNeutralColor(theme: "light" | "dark", color: string) {
+  if (theme === "light") {
+    return {
+      [`--color-${color}-50`]: "250 250 250",
+      [`--color-${color}-100`]: "244 244 245",
+      [`--color-${color}-200`]: "228 228 231",
+      [`--color-${color}-300`]: "212 212 216",
+      [`--color-${color}-400`]: "161 161 170",
+      [`--color-${color}-500`]: "113 113 122",
+      [`--color-${color}-600`]: "82 82 91",
+      [`--color-${color}-700`]: "63 63 70",
+      [`--color-${color}-800`]: "39 39 42",
+      [`--color-${color}-900`]: "24 24 27",
+      [`--color-${color}-950`]: "9 9 11",
+    } as const
+  }
+
+  return {
+    [`--color-${color}-50`]: "9 9 11",
+    [`--color-${color}-100`]: "24 24 27",
+    [`--color-${color}-200`]: "39 39 42",
+    [`--color-${color}-300`]: "63 63 70",
+    [`--color-${color}-400`]: "82 82 91",
+    [`--color-${color}-500`]: "113 113 122",
+    [`--color-${color}-600`]: "161 161 170",
+    [`--color-${color}-700`]: "212 212 216",
+    [`--color-${color}-800`]: "228 228 231",
+    [`--color-${color}-900`]: "244 244 245",
+    [`--color-${color}-950`]: "250 250 250",
+  } as const
+}
+
 export const config = {
   light: vars({
-    "--color-primary-50": "145 239 255",
-    "--color-primary-100": "109 233 255",
-    "--color-primary-200": "73 228 255",
-    "--color-primary-300": "37 222 254",
-    "--color-primary-400": "8 211 247",
-    "--color-primary-500": "6 182 212",
-    "--color-primary-600": "11 160 187",
-    "--color-primary-700": "15 140 162",
-    "--color-primary-800": "17 120 138",
-    "--color-primary-900": "19 101 115",
-    "--color-primary-950": "19 82 94",
+    ...getNeutralColor("light", "background"),
+    ...getNeutralColor("light", "typography"),
+    ...getNeutralColor("light", "outline"),
+    ...getNeutralColor("light", "neutral"),
 
-    /* Secondary  */
-    "--color-secondary-0": "253 253 253",
-    "--color-secondary-50": "251 251 251",
-    "--color-secondary-100": "246 246 246",
-    "--color-secondary-200": "242 242 242",
-    "--color-secondary-300": "237 237 237",
-    "--color-secondary-400": "230 230 231",
-    "--color-secondary-500": "217 217 219",
-    "--color-secondary-600": "198 199 199",
-    "--color-secondary-700": "189 189 189",
-    "--color-secondary-800": "177 177 177",
-    "--color-secondary-900": "165 164 164",
-    "--color-secondary-950": "157 157 157",
-
-    /* Tertiary */
-    "--color-tertiary-0": "255 250 245",
-    "--color-tertiary-50": "255 242 229",
-    "--color-tertiary-100": "255 233 213",
-    "--color-tertiary-200": "254 209 170",
-    "--color-tertiary-300": "253 180 116",
-    "--color-tertiary-400": "251 157 75",
-    "--color-tertiary-500": "231 129 40",
-    "--color-tertiary-600": "215 117 31",
-    "--color-tertiary-700": "180 98 26",
-    "--color-tertiary-800": "130 73 23",
-    "--color-tertiary-900": "108 61 19",
-    "--color-tertiary-950": "84 49 18",
+    ...getAccentColor("light", "primary"),
+    ...getAccentColor("light", "secondary"),
+    ...getAccentColor("light", "tertiary"),
 
     /* Error */
     "--color-error-0": "254 233 233",
@@ -99,48 +132,6 @@ export const config = {
     "--color-info-900": "5 64 93",
     "--color-info-950": "3 38 56",
 
-    /* Typography */
-    "--color-typography-0": "254 254 255",
-    "--color-typography-50": "245 245 245",
-    "--color-typography-100": "229 229 229",
-    "--color-typography-200": "219 219 220",
-    "--color-typography-300": "212 212 212",
-    "--color-typography-400": "163 163 163",
-    "--color-typography-500": "140 140 140",
-    "--color-typography-600": "115 115 115",
-    "--color-typography-700": "82 82 82",
-    "--color-typography-800": "64 64 64",
-    "--color-typography-900": "38 38 39",
-    "--color-typography-950": "23 23 23",
-
-    /* Outline */
-    "--color-outline-0": "253 254 254",
-    "--color-outline-50": "243 243 243",
-    "--color-outline-100": "230 230 230",
-    "--color-outline-200": "221 220 219",
-    "--color-outline-300": "211 211 211",
-    "--color-outline-400": "165 163 163",
-    "--color-outline-500": "140 141 141",
-    "--color-outline-600": "115 116 116",
-    "--color-outline-700": "83 82 82",
-    "--color-outline-800": "65 65 65",
-    "--color-outline-900": "39 38 36",
-    "--color-outline-950": "26 23 23",
-
-    /* Background */
-    "--color-background-0": "255 255 255",
-    "--color-background-50": "246 246 246",
-    "--color-background-100": "242 241 241",
-    "--color-background-200": "220 219 219",
-    "--color-background-300": "213 212 212",
-    "--color-background-400": "162 163 163",
-    "--color-background-500": "142 142 142",
-    "--color-background-600": "116 116 116",
-    "--color-background-700": "83 82 82",
-    "--color-background-800": "65 64 64",
-    "--color-background-900": "39 38 37",
-    "--color-background-950": "18 18 18",
-
     /* Background Special */
     "--color-background-error": "254 241 241",
     "--color-background-warning": "255 243 234",
@@ -154,46 +145,14 @@ export const config = {
     "--color-indicator-error": "185 28 28",
   }),
   dark: vars({
-    "--color-primary-0": "166 166 166",
-    "--color-primary-50": "175 175 175",
-    "--color-primary-100": "186 186 186",
-    "--color-primary-200": "197 197 197",
-    "--color-primary-300": "212 212 212",
-    "--color-primary-400": "221 221 221",
-    "--color-primary-500": "230 230 230",
-    "--color-primary-600": "240 240 240",
-    "--color-primary-700": "250 250 250",
-    "--color-primary-800": "253 253 253",
-    "--color-primary-900": "254 249 249",
-    "--color-primary-950": "253 252 252",
+    ...getNeutralColor("dark", "background"),
+    ...getNeutralColor("dark", "typography"),
+    ...getNeutralColor("dark", "outline"),
+    ...getNeutralColor("dark", "neutral"),
 
-    /* Secondary  */
-    "--color-secondary-0": "20 20 20",
-    "--color-secondary-50": "23 23 23",
-    "--color-secondary-100": "31 31 31",
-    "--color-secondary-200": "39 39 39",
-    "--color-secondary-300": "44 44 44",
-    "--color-secondary-400": "56 57 57",
-    "--color-secondary-500": "63 64 64",
-    "--color-secondary-600": "86 86 86",
-    "--color-secondary-700": "110 110 110",
-    "--color-secondary-800": "135 135 135",
-    "--color-secondary-900": "150 150 150",
-    "--color-secondary-950": "164 164 164",
-
-    /* Tertiary */
-    "--color-tertiary-0": "84 49 18",
-    "--color-tertiary-50": "108 61 19",
-    "--color-tertiary-100": "130 73 23",
-    "--color-tertiary-200": "180 98 26",
-    "--color-tertiary-300": "215 117 31",
-    "--color-tertiary-400": "231 129 40",
-    "--color-tertiary-500": "251 157 75",
-    "--color-tertiary-600": "253 180 116",
-    "--color-tertiary-700": "254 209 170",
-    "--color-tertiary-800": "255 233 213",
-    "--color-tertiary-900": "255 242 229",
-    "--color-tertiary-950": "255 250 245",
+    ...getAccentColor("dark", "primary"),
+    ...getAccentColor("dark", "secondary"),
+    ...getAccentColor("dark", "tertiary"),
 
     /* Error */
     "--color-error-0": "83 19 19",
@@ -250,48 +209,6 @@ export const config = {
     "--color-info-800": "162 221 250",
     "--color-info-900": "199 235 252",
     "--color-info-950": "236 248 254",
-
-    /* Typography */
-    "--color-typography-0": "23 23 23",
-    "--color-typography-50": "38 38 39",
-    "--color-typography-100": "64 64 64",
-    "--color-typography-200": "82 82 82",
-    "--color-typography-300": "115 115 115",
-    "--color-typography-400": "140 140 140",
-    "--color-typography-500": "163 163 163",
-    "--color-typography-600": "212 212 212",
-    "--color-typography-700": "219 219 220",
-    "--color-typography-800": "229 229 229",
-    "--color-typography-900": "245 245 245",
-    "--color-typography-950": "254 254 255",
-
-    /* Outline */
-    "--color-outline-0": "26 23 23",
-    "--color-outline-50": "39 38 36",
-    "--color-outline-100": "65 65 65",
-    "--color-outline-200": "83 82 82",
-    "--color-outline-300": "115 116 116",
-    "--color-outline-400": "140 141 141",
-    "--color-outline-500": "165 163 163",
-    "--color-outline-600": "211 211 211",
-    "--color-outline-700": "221 220 219",
-    "--color-outline-800": "230 230 230",
-    "--color-outline-900": "243 243 243",
-    "--color-outline-950": "253 254 254",
-
-    /* Background */
-    "--color-background-0": "18 18 18",
-    "--color-background-50": "39 38 37",
-    "--color-background-100": "65 64 64",
-    "--color-background-200": "83 82 82",
-    "--color-background-300": "116 116 116",
-    "--color-background-400": "142 142 142",
-    "--color-background-500": "162 163 163",
-    "--color-background-600": "213 212 212",
-    "--color-background-700": "229 228 228",
-    "--color-background-800": "242 241 241",
-    "--color-background-900": "246 246 246",
-    "--color-background-950": "255 255 255",
 
     /* Background Special */
     "--color-background-error": "66 43 43",
