@@ -16,6 +16,7 @@
         "noUnusedVariables": "warn"
       },
       "suspicious": {
+        "noExplicitAny": "off",
         "noThenProperty": "off"
       },
       "nursery": {
