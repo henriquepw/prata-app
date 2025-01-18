@@ -1,25 +1,34 @@
 import { Link } from "expo-router"
 import { TabList, TabSlot, TabTrigger, Tabs } from "expo-router/ui"
+import { StatusBar } from "expo-status-bar"
 import { HomeIcon, PinIcon, PlusIcon } from "lucide-react-native"
+import { Background } from "~/components/ui/background"
 import { TabButton } from "~/components/ui/tab/tab-button"
+import { TabView } from "~/components/ui/tab/tab-view"
+import { useTheme } from "~/store/theme-store"
 
 export default function TabLayout() {
+  const theme = useTheme()
+
   return (
     <Tabs>
-      <TabSlot />
+      <StatusBar translucent style={theme === "dark" ? "light" : "dark"} />
 
-      <TabList className="-translate-x-1/2 absolute bottom-10 left-1/2 items-center gap-2 rounded-full border border-neutral-300 bg-background-0 p-1">
-        <TabTrigger asChild name="home" href="/(tabs)">
-          <TabButton icon={HomeIcon} />
-        </TabTrigger>
-
-        <Link asChild href="/transations/register">
-          <TabButton icon={PlusIcon} />
-        </Link>
-
-        <TabTrigger asChild name="recurrent" href="/(tabs)/recurrent">
-          <TabButton icon={PinIcon} />
-        </TabTrigger>
+      <Background>
+        <TabSlot />
+      </Background>
+      <TabList asChild>
+        <TabView>
+          <TabTrigger asChild name="home" href="/(tabs)">
+            <TabButton icon={HomeIcon} />
+          </TabTrigger>
+          <Link asChild href="/transations/register">
+            <TabButton icon={PlusIcon} />
+          </Link>
+          <TabTrigger asChild name="recurrent" href="/(tabs)/recurrent">
+            <TabButton icon={PinIcon} />
+          </TabTrigger>
+        </TabView>
       </TabList>
     </Tabs>
   )

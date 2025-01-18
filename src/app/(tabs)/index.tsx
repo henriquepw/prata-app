@@ -1,27 +1,22 @@
-import { Text } from "@ui/text"
-import { StatusBar } from "expo-status-bar"
 import { SafeAreaView, View } from "react-native"
 import { BalanceCard } from "~/components/balance/balance-card"
 import { TransationDetail } from "~/components/transations/transation-detail"
 import { IncomeList } from "~/components/transations/transation-list"
+import { Card } from "~/components/ui/card"
+import { Heading } from "~/components/ui/heading"
 import { UserHeader } from "~/components/user-header"
-import { useTheme } from "~/store/theme-store"
 
 export default function HomePage() {
-  const theme = useTheme()
   return (
-    <View className="flex-1 bg-background-50 px-4">
-      <StatusBar translucent style={theme === "dark" ? "light" : "dark"} />
+    <View className="flex-1 px-4">
       <SafeAreaView className="flex-1 gap-6 p-4">
         <UserHeader title="Anônimo" subtitle="Cadastrar" />
         <BalanceCard />
 
-        <View className="gap-2">
-          <Text className="font-medium text-lg text-typography-900">
-            Últimos Registros
-          </Text>
+        <Card>
+          <Heading className="mb-2 text-center">Últimos Registros</Heading>
           <IncomeList />
-        </View>
+        </Card>
       </SafeAreaView>
       <TransationDetail />
     </View>

@@ -33,48 +33,88 @@ function getAccentColor(theme: "light" | "dark", color: string) {
   } as const
 }
 
-function getNeutralColor(theme: "light" | "dark", color: string) {
-  if (theme === "light") {
-    return {
-      [`--color-${color}-50`]: "250 250 250",
-      [`--color-${color}-100`]: "244 244 245",
-      [`--color-${color}-200`]: "228 228 231",
-      [`--color-${color}-300`]: "212 212 216",
-      [`--color-${color}-400`]: "161 161 170",
-      [`--color-${color}-500`]: "113 113 122",
-      [`--color-${color}-600`]: "82 82 91",
-      [`--color-${color}-700`]: "63 63 70",
-      [`--color-${color}-800`]: "39 39 42",
-      [`--color-${color}-900`]: "24 24 27",
-      [`--color-${color}-950`]: "9 9 11",
-    } as const
-  }
-
-  return {
-    [`--color-${color}-50`]: "9 9 11",
-    [`--color-${color}-100`]: "24 24 27",
-    [`--color-${color}-200`]: "39 39 42",
-    [`--color-${color}-300`]: "63 63 70",
-    [`--color-${color}-400`]: "82 82 91",
-    [`--color-${color}-500`]: "113 113 122",
-    [`--color-${color}-600`]: "161 161 170",
-    [`--color-${color}-700`]: "212 212 216",
-    [`--color-${color}-800`]: "228 228 231",
-    [`--color-${color}-900`]: "244 244 245",
-    [`--color-${color}-950`]: "250 250 250",
-  } as const
-}
+// function getNeutralColor(theme: "light" | "dark", color: string) {
+//   if (theme === "light") {
+//     return {
+//       [`--color-${color}-50`]: "250 250 250",
+//       [`--color-${color}-100`]: "244 244 245",
+//       [`--color-${color}-200`]: "228 228 231",
+//       [`--color-${color}-300`]: "212 212 216",
+//       [`--color-${color}-400`]: "161 161 170",
+//       [`--color-${color}-500`]: "113 113 122",
+//       [`--color-${color}-600`]: "82 82 91",
+//       [`--color-${color}-700`]: "63 63 70",
+//       [`--color-${color}-800`]: "39 39 42",
+//       [`--color-${color}-900`]: "24 24 27",
+//       [`--color-${color}-950`]: "9 9 11",
+//     } as const
+//   }
+//
+//   return {
+//     [`--color-${color}-50`]: "9 9 11",
+//     [`--color-${color}-100`]: "24 24 27",
+//     [`--color-${color}-200`]: "39 39 42",
+//     [`--color-${color}-300`]: "63 63 70",
+//     [`--color-${color}-400`]: "82 82 91",
+//     [`--color-${color}-500`]: "113 113 122",
+//     [`--color-${color}-600`]: "161 161 170",
+//     [`--color-${color}-700`]: "212 212 216",
+//     [`--color-${color}-800`]: "228 228 231",
+//     [`--color-${color}-900`]: "244 244 245",
+//     [`--color-${color}-950`]: "250 250 250",
+//   } as const
+// }
 
 export const config = {
   light: vars({
-    ...getNeutralColor("light", "background"),
-    ...getNeutralColor("light", "typography"),
-    ...getNeutralColor("light", "outline"),
-    ...getNeutralColor("light", "neutral"),
-
     ...getAccentColor("light", "primary"),
     ...getAccentColor("light", "secondary"),
     ...getAccentColor("light", "tertiary"),
+
+    // ...getNeutralColor("light", "background"),
+    // ...getNeutralColor("light", "neutral"),
+
+    // /* Typography */
+    "--color-typography-0": "254 254 255",
+    "--color-typography-50": "245 245 245",
+    "--color-typography-100": "229 229 229",
+    "--color-typography-200": "219 219 220",
+    "--color-typography-300": "212 212 212",
+    "--color-typography-400": "163 163 163",
+    "--color-typography-500": "140 140 140",
+    "--color-typography-600": "115 115 115",
+    "--color-typography-700": "82 82 82",
+    "--color-typography-800": "64 64 64",
+    "--color-typography-900": "38 38 39",
+    "--color-typography-950": "23 23 23",
+
+    /* Outline */
+    "--color-outline-0": "253 254 254",
+    "--color-outline-50": "243 243 243",
+    "--color-outline-100": "230 230 230",
+    "--color-outline-200": "221 220 219",
+    "--color-outline-300": "211 211 211",
+    "--color-outline-400": "165 163 163",
+    "--color-outline-500": "140 141 141",
+    "--color-outline-600": "115 116 116",
+    "--color-outline-700": "83 82 82",
+    "--color-outline-800": "65 65 65",
+    "--color-outline-900": "39 38 36",
+    "--color-outline-950": "26 23 23",
+
+    /* Background */
+    "--color-background-0": "255 255 255",
+    "--color-background-50": "246 246 246",
+    "--color-background-100": "242 241 241",
+    "--color-background-200": "220 219 219",
+    "--color-background-300": "213 212 212",
+    "--color-background-400": "162 163 163",
+    "--color-background-500": "142 142 142",
+    "--color-background-600": "116 116 116",
+    "--color-background-700": "83 82 82",
+    "--color-background-800": "65 64 64",
+    "--color-background-900": "39 38 37",
+    "--color-background-950": "18 18 18",
 
     /* Error */
     "--color-error-0": "254 233 233",
@@ -145,14 +185,54 @@ export const config = {
     "--color-indicator-error": "185 28 28",
   }),
   dark: vars({
-    ...getNeutralColor("dark", "background"),
-    ...getNeutralColor("dark", "typography"),
-    ...getNeutralColor("dark", "outline"),
-    ...getNeutralColor("dark", "neutral"),
-
     ...getAccentColor("dark", "primary"),
     ...getAccentColor("dark", "secondary"),
     ...getAccentColor("dark", "tertiary"),
+
+    // ...getNeutralColor("dark", "background"),
+    // ...getNeutralColor("dark", "neutral"),
+
+    /* Typography */
+    "--color-typography-0": "23 23 23",
+    "--color-typography-50": "38 38 39",
+    "--color-typography-100": "64 64 64",
+    "--color-typography-200": "82 82 82",
+    "--color-typography-300": "115 115 115",
+    "--color-typography-400": "140 140 140",
+    "--color-typography-500": "163 163 163",
+    "--color-typography-600": "212 212 212",
+    "--color-typography-700": "219 219 220",
+    "--color-typography-800": "229 229 229",
+    "--color-typography-900": "245 245 245",
+    "--color-typography-950": "254 254 255",
+
+    /* Outline */
+    "--color-outline-0": "26 23 23",
+    "--color-outline-50": "39 38 36",
+    "--color-outline-100": "65 65 65",
+    "--color-outline-200": "83 82 82",
+    "--color-outline-300": "115 116 116",
+    "--color-outline-400": "140 141 141",
+    "--color-outline-500": "165 163 163",
+    "--color-outline-600": "211 211 211",
+    "--color-outline-700": "221 220 219",
+    "--color-outline-800": "230 230 230",
+    "--color-outline-900": "243 243 243",
+    "--color-outline-950": "253 254 254",
+
+    /* Background */
+    "--color-background-0": "18 18 18",
+    "--color-background-50": "39 38 37",
+    "--color-background-100": "65 64 64",
+    "--color-background-200": "83 82 82",
+    "--color-background-300": "116 116 116",
+    "--color-background-400": "142 142 142",
+    "--color-background-500": "162 163 163",
+    "--color-background-600": "213 212 212",
+    "--color-background-700": "229 228 228",
+    "--color-background-800": "242 241 241",
+    "--color-background-900": "246 246 246",
+    "--color-background-950": "255 255 255",
 
     /* Error */
     "--color-error-0": "83 19 19",

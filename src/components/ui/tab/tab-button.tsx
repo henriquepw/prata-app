@@ -14,14 +14,17 @@ export const TabButton = forwardRef(
         ref={ref}
         {...props}
         className={cn(
-          "items-center justify-center rounded-full p-2.5 transition-all active:opacity-50",
+          "items-center justify-center rounded-full p-3 transition-all active:opacity-50",
           isFocused && "bg-primary-500",
         )}
       >
         <Icon
           as={icon}
+          size="xl"
           className={
-            isFocused ? "text-typography-white" : "text-typography-700"
+            isFocused
+              ? "text-typography-white"
+              : "text-typography-800 dark:text-typography-900"
           }
         />
       </Pressable>
