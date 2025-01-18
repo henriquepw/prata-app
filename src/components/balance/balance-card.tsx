@@ -1,6 +1,3 @@
-import { Box } from "@ui/box"
-import { Icon } from "@ui/icon"
-import { Text } from "@ui/text"
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -9,6 +6,9 @@ import {
 } from "lucide-react-native"
 import { useMemo, useState } from "react"
 import { Pressable } from "react-native"
+import { Box } from "~/components/ui/box"
+import { Icon } from "~/components/ui/icon"
+import { Text } from "~/components/ui/text"
 import { useTransationStore } from "~/store/transation-store"
 import { formatAmount } from "~/utils/format-amount"
 

@@ -1,4 +1,7 @@
 import DateTimePicker from "@react-native-community/datetimepicker"
+import { ChevronDownIcon } from "lucide-react-native"
+import { useState } from "react"
+import { SafeAreaView } from "react-native"
 import {
   SelectBackdrop,
   SelectContent,
@@ -9,10 +12,7 @@ import {
   SelectPortal,
   SelectTrigger,
   Select as UISelect,
-} from "@ui/select"
-import { ChevronDownIcon } from "lucide-react-native"
-import { useState } from "react"
-import { SafeAreaView } from "react-native"
+} from "~/components/ui/select"
 import { formatDate } from "~/utils/format-date"
 import { Field, FieldProps } from "./field"
 

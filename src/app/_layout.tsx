@@ -1,9 +1,9 @@
 import "../../assets/global.css"
 
-import { GluestackUIProvider } from "@ui/gluestack-ui-provider"
 import { Stack } from "expo-router"
 import { useColorScheme } from "nativewind"
 import { useEffect } from "react"
+import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/theme-store"
 

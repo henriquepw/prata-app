@@ -1,4 +1,8 @@
-import { IInputFieldProps, InputField, Input as UIInput } from "@ui/input"
+import {
+  IInputFieldProps,
+  InputField,
+  Input as UIInput,
+} from "~/components/ui/input"
 import { cn } from "~/utils/cn"
 import { Field, FieldProps } from "./field"
 

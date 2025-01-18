@@ -1,9 +1,9 @@
-import { Box } from "@ui/box"
-import { Button, ButtonIcon } from "@ui/button"
-import { Icon } from "@ui/icon"
 import { Link } from "expo-router"
 import { MoonIcon, SunIcon, UserIcon } from "lucide-react-native"
 import { Pressable, Text } from "react-native"
+import { Box } from "~/components/ui/box"
+import { Button, ButtonIcon } from "~/components/ui/button"
+import { Icon } from "~/components/ui/icon"
 import { useTheme, useToggleTheme } from "../store/theme-store"
 
 type Props = {

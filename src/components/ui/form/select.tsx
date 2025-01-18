@@ -1,4 +1,7 @@
 import { ISelectItemProps } from "@gluestack-ui/select/lib/types"
+import { ChevronDownIcon } from "lucide-react-native"
+import { useState } from "react"
+import { SafeAreaView } from "react-native"
 import {
   SelectBackdrop,
   SelectContent,
@@ -10,10 +13,7 @@ import {
   SelectTrigger,
   Select as UISelect,
   SelectItem as UISelectItem,
-} from "@ui/select"
-import { ChevronDownIcon } from "lucide-react-native"
-import { useState } from "react"
-import { SafeAreaView } from "react-native"
+} from "~/components/ui/select"
 import { Field, FieldProps } from "./field"
 
 type Props = FieldProps & {

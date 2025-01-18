@@ -18,7 +18,6 @@ module.exports = (api) => {
           root: ["./"],
           alias: {
             "~/": "./src/",
-            "@ui/": ["./src/components/ui/"],
             "tailwind.config": "./tailwind.config.js",
           },
         },

@@ -1,3 +1,6 @@
+import { Trash2Icon } from "lucide-react-native"
+import { Text } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import {
   Actionsheet,
   ActionsheetBackdrop,
@@ -5,13 +8,10 @@ import {
   ActionsheetDragIndicator,
   ActionsheetDragIndicatorWrapper,
   ActionsheetItem,
-} from "@ui/actionsheet"
-import { Box } from "@ui/box"
-import { Button, ButtonIcon } from "@ui/button"
-import { Heading } from "@ui/heading"
-import { Trash2Icon } from "lucide-react-native"
-import { Text } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+} from "~/components/ui/actionsheet"
+import { Box } from "~/components/ui/box"
+import { Button, ButtonIcon } from "~/components/ui/button"
+import { Heading } from "~/components/ui/heading"
 import { useTransationStore } from "~/store/transation-store"
 import { formatAmount } from "~/utils/format-amount"
 import { formatDate } from "~/utils/format-date"

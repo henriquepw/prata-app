@@ -1,6 +1,6 @@
-import { Fab, FabIcon } from "@ui/fab"
 import { Link } from "expo-router"
 import { PlusIcon } from "lucide-react-native"
+import { Fab, FabIcon } from "~/components/ui/fab"
 
 export function NewTransationFab() {
   return (

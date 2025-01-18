@@ -1,3 +1,4 @@
+import { AlertCircleIcon } from "lucide-react-native"
 import {
   FormControl,
   FormControlError,
@@ -5,8 +6,7 @@ import {
   FormControlErrorText,
   FormControlLabel,
   FormControlLabelText,
-} from "@ui/form-control"
-import { AlertCircleIcon } from "lucide-react-native"
+} from "~/components/ui/form-control"
 
 export type FieldProps = {
   isRequired?: boolean
