@@ -2,25 +2,25 @@
 
 import { H4 } from "@expo/html-elements"
 import { createActionsheet } from "@gluestack-ui/actionsheet"
-import {
-  Pressable,
-  View,
-  Text,
-  ScrollView,
-  VirtualizedList,
-  FlatList,
-  SectionList,
-} from "react-native"
 import { PrimitiveIcon, UIIcon } from "@gluestack-ui/icon"
-import { tva } from "@gluestack-ui/nativewind-utils/tva"
 import type { VariantProps } from "@gluestack-ui/nativewind-utils"
+import { tva } from "@gluestack-ui/nativewind-utils/tva"
 import { withStyleContext } from "@gluestack-ui/nativewind-utils/withStyleContext"
-import { cssInterop } from "nativewind"
 import {
-  Motion,
   AnimatePresence,
+  Motion,
   createMotionAnimatedComponent,
 } from "@legendapp/motion"
+import { cssInterop } from "nativewind"
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  SectionList,
+  Text,
+  View,
+  VirtualizedList,
+} from "react-native"
 
 import React from "react"
 

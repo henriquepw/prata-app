@@ -1,21 +1,29 @@
 import { Box } from "@ui/box"
 import { Button, ButtonText } from "@ui/button"
+import { Card } from "@ui/card"
 import { Heading } from "@ui/heading"
 import { Text } from "@ui/text"
-import { LinearGradient } from "expo-linear-gradient"
 import { Link } from "expo-router"
+import { StatusBar } from "expo-status-bar"
 import { KeyboardAvoidingView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Input } from "~/components/ui/form/input"
-import { cssInterop } from "nativewind"
-import { StatusBar } from "expo-status-bar"
-import { Card } from "@ui/card"
-
-cssInterop(LinearGradient, { className: "style" })
+import { useAccountStore } from "~/store/account-store"
 
 export default function SignUpPage() {
-  function createAccount() {
-    // TODO:
+  const signUp = useAccountStore((s) => s.signUp)
+
+  // TODO:
+  async function createAccount() {
+    try {
+      await signUp({
+        name: "",
+        email: "",
+        password: "",
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return (

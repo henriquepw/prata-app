@@ -25,17 +25,18 @@ export function GluestackUIProvider({
   children?: React.ReactNode
 }) {
   let cssVariablesWithMode = ""
-  Object.keys(config).forEach((configKey) => {
+  for (const configKey of Object.keys(config)) {
     cssVariablesWithMode +=
       configKey === "dark" ? "\n .dark {\n " : "\n:root {\n"
     const cssVariables = Object.keys(
       config[configKey as keyof typeof config],
-    ).reduce((acc: string, curr: string) => {
-      acc += `${curr}:${config[configKey as keyof typeof config][curr]}; `
-      return acc
-    }, "")
+    ).reduce(
+      (acc: string, curr: string) =>
+        `${acc}${curr}:${config[configKey as keyof typeof config][curr]}; `,
+      "",
+    )
     cssVariablesWithMode += `${cssVariables} \n}`
-  })
+  }
 
   setFlushStyles(cssVariablesWithMode)
 
@@ -57,7 +58,6 @@ export function GluestackUIProvider({
   useSafeLayoutEffect(() => {
     if (mode !== "system") return
     const media = window.matchMedia("(prefers-color-scheme: dark)")
-
     media.addListener(handleMediaQuery)
 
     return () => media.removeListener(handleMediaQuery)
@@ -71,8 +71,8 @@ export function GluestackUIProvider({
         let style = head?.querySelector(`[id='${variableStyleTagId}']`)
         if (!style) {
           style = createStyle(variableStyleTagId)
-          style.innerHTML = cssVariablesWithMode
           if (head) head.appendChild(style)
+          style.innerHTML = cssVariablesWithMode
         }
       }
     }
@@ -82,6 +82,7 @@ export function GluestackUIProvider({
     <>
       <script
         suppressHydrationWarning
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{
           __html: `(${script.toString()})('${mode}')`,
         }}
