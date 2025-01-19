@@ -5,6 +5,7 @@ export type TransationType = "INCOME" | "OUTCOME"
 
 export type Transation = {
   id: string
+  description: string
   amount: number
   dueAt: string
   type: TransationType
@@ -17,6 +18,7 @@ export type Transation = {
 }
 
 type AddTransation = {
+  description: string
   amount: number
   type: TransationType
   dueAt: Date
@@ -56,6 +58,7 @@ export const useTransationStore = createPersistStore<TransationStore>(
           ...state.transations,
           {
             id: newId(),
+            description: payload.description,
             type: payload.type,
             amount: payload.amount,
             dueAt: payload.dueAt.toISOString(),
