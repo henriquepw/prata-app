@@ -25,7 +25,7 @@ export default function TabLayout() {
           <Link asChild href="/transations/register">
             <TabButton icon={PlusIcon} />
           </Link>
-          <TabTrigger asChild name="recurrent" href="/(tabs)/recurrent">
+          <TabTrigger asChild name="recurrent" href="/(tabs)/recurrents">
             <TabButton icon={PinIcon} />
           </TabTrigger>
         </TabView>

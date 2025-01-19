@@ -26,6 +26,7 @@ export default function RegisterTransationPage() {
 
   function createTransation() {
     addTransation({
+      description: "", // TODO:
       amount: Number(amount.replace(/[^0-9]/g, "")),
       type: transationType as TransationType,
       dueAt: receivedAt,
