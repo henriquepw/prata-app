@@ -8,20 +8,24 @@ import {
   FormControlLabelText,
 } from "~/components/ui/form-control"
 
+type FieldError = undefined | false | null | string
+
 export type FieldProps = {
   isRequired?: boolean
   isDisabled?: boolean
   isReadOnly?: boolean
   label?: string
-  error?: string
+  errors?: FieldError[]
 }
 
 type Props = FieldProps & {
   children: React.ReactNode
 }
-export function Field({ label, children, error, ...rest }: Props) {
+export function Field({ label, children, errors, ...rest }: Props) {
+  const isInvalid = !!errors?.length
+
   return (
-    <FormControl size="md" isInvalid={!!error} {...rest}>
+    <FormControl size="md" isInvalid={isInvalid} {...rest}>
       {label && (
         <FormControlLabel>
           <FormControlLabelText>{label}</FormControlLabelText>
@@ -32,7 +36,7 @@ export function Field({ label, children, error, ...rest }: Props) {
 
       <FormControlError>
         <FormControlErrorIcon as={AlertCircleIcon} size="sm" />
-        <FormControlErrorText>{error}</FormControlErrorText>
+        <FormControlErrorText>{errors?.join(", ")}</FormControlErrorText>
       </FormControlError>
     </FormControl>
   )

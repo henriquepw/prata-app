@@ -1,3 +1,5 @@
+import { forwardRef } from "react"
+import { TextInput } from "react-native"
 import {
   IInputFieldProps,
   InputField,
@@ -10,34 +12,49 @@ type Props = FieldProps &
   IInputFieldProps & {
     prefix?: React.ReactNode
     sufix?: React.ReactNode
+    isDirty?: boolean
   }
 
-export function Input({
-  prefix,
-  sufix,
-  label,
-  error,
-  isRequired,
-  isReadOnly,
-  isDisabled,
-  className,
-  ...rest
-}: Props) {
-  return (
-    <Field
-      isDisabled={isDisabled}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-      label={label}
-      error={error}
-    >
-      <UIInput
-        className={cn("h-10 gap-2 rounded-lg px-2 text-neutral-500", className)}
+export type InputRef = TextInput
+
+export const Input = forwardRef<TextInput, Props>(
+  (
+    {
+      prefix,
+      sufix,
+      label,
+      errors,
+      isDirty,
+      isRequired,
+      isReadOnly,
+      isDisabled,
+      className,
+      ...rest
+    },
+    ref,
+  ) => {
+    const active = isDirty && !errors?.length
+
+    return (
+      <Field
+        isDisabled={isDisabled}
+        isReadOnly={isReadOnly}
+        isRequired={isRequired}
+        label={label}
+        errors={errors}
       >
-        {prefix}
-        <InputField className="px-0 text-lg" {...rest} />
-        {sufix}
-      </UIInput>
-    </Field>
-  )
-}
+        <UIInput
+          className={cn(
+            "h-10 gap-2 rounded-lg px-2 text-neutral-500",
+            active && "border-primary-500",
+            className,
+          )}
+        >
+          {prefix}
+          <InputField ref={ref as any} className="px-0 text-lg" {...rest} />
+          {sufix}
+        </UIInput>
+      </Field>
+    )
+  },
+)
