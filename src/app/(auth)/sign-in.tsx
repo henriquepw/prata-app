@@ -1,30 +1,61 @@
-import { Link } from "expo-router"
+import { useSignIn } from "@clerk/clerk-expo"
+import { useForm } from "@tanstack/react-form"
+import { Link, useRouter } from "expo-router"
 import { StatusBar } from "expo-status-bar"
+import { useRef } from "react"
 import { KeyboardAvoidingView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { z } from "zod"
 import { Background } from "~/components/ui/background"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonText } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
-import { Input } from "~/components/ui/form/input"
+import { Input, InputRef } from "~/components/ui/form/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
-import { useAccountStore } from "~/store/account-store"
 
-export default function SignUpPage() {
-  const signIn = useAccountStore((s) => s.signIn)
+const schema = z.object({
+  identifier: z.string(),
+  password: z.string(),
+})
 
-  // TODO:
-  async function login() {
-    try {
-      await signIn({
-        email: "",
-        password: "",
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  }
+export default function SignInPage() {
+  const { signIn, setActive, isLoaded } = useSignIn()
+  const router = useRouter()
+
+  console.log(isLoaded)
+
+  const emailRef = useRef<InputRef>(null)
+  const passwordRef = useRef<InputRef>(null)
+
+  const form = useForm({
+    defaultValues: {
+      identifier: "",
+      password: "",
+    },
+    validators: {
+      onChange: schema,
+    },
+    onSubmit: async ({ value }) => {
+      if (!isLoaded) return
+
+      try {
+        const signInAttempt = await signIn?.create(value)
+
+        if (signInAttempt?.status === "complete") {
+          await setActive?.({ session: signInAttempt.createdSessionId })
+          router.replace("/")
+        } else {
+          // If the status isn't complete, check why. User might need to
+          // complete further steps.
+          console.error(JSON.stringify(signInAttempt, null, 2))
+        }
+      } catch (err) {
+        // See https://clerk.com/docs/custom-flows/error-handling
+        console.error(JSON.stringify(err, null, 2))
+      }
+    },
+  })
 
   return (
     <Background asChild>
@@ -32,23 +63,49 @@ export default function SignUpPage() {
         <StatusBar style="light" />
         <KeyboardAvoidingView>
           <Card>
-            <Heading>Bem vindo!</Heading>
-            <Input
-              label="E-mail"
-              isRequired
-              textContentType="emailAddress"
-              placeholder="exemplo@email.com"
-            />
-            <Input
-              isRequired
-              label="Senha"
-              type="password"
-              textContentType="password"
-              placeholder="Senha ULTRA segura (ou não)"
-            />
+            <Heading>Bem vindo! {isLoaded ? "" : "..."}</Heading>
+            <form.Field name="identifier">
+              {(field) => (
+                <Input
+                  isRequired
+                  label="E-mail"
+                  textContentType="emailAddress"
+                  placeholder="exemplo@email.com"
+                  returnKeyType="next"
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChangeText={field.handleChange}
+                  onSubmitEditing={() => emailRef.current?.focus()}
+                  errors={field.state.meta.errors}
+                  isDirty={field.state.meta.isDirty}
+                />
+              )}
+            </form.Field>
+            <form.Field name="password">
+              {(field) => (
+                <Input
+                  ref={passwordRef}
+                  isRequired
+                  label="Senha"
+                  type="password"
+                  textContentType="password"
+                  placeholder="Sua senha ULTRA segura (ou não)"
+                  returnKeyType="done"
+                  onSubmitEditing={() => form.handleSubmit}
+                  value={field.state.value}
+                  onChangeText={field.handleChange}
+                  onBlur={field.handleBlur}
+                  errors={field.state.meta.errors}
+                  isDirty={field.state.meta.isDirty}
+                />
+              )}
+            </form.Field>
+
             <Box className="mt-4">
-              <Button onPress={login}>
-                <ButtonText>Entrar</ButtonText>
+              <Button onPress={form.handleSubmit}>
+                <ButtonText>
+                  {form.state.isSubmitting ? "Entrando..." : "Entrar"}
+                </ButtonText>
               </Button>
               <Box className="mt-2 flex-row items-center justify-center gap-2">
                 <Text>Não possui uma conta?</Text>

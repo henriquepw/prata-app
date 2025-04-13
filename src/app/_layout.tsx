@@ -1,6 +1,8 @@
 import "../../assets/global.css"
 
-import { Stack } from "expo-router"
+import { ClerkProvider } from "@clerk/clerk-expo"
+import { tokenCache } from "@clerk/clerk-expo/token-cache"
+import { Slot } from "expo-router"
 import { useColorScheme } from "nativewind"
 import { useEffect } from "react"
 import {
@@ -10,8 +12,6 @@ import {
 import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/theme-store"
-
-const opts = { headerShown: false }
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -27,20 +27,12 @@ export default function RootLayout() {
   }, [theme, setColorScheme])
 
   return (
-    <GluestackUIProvider mode={theme}>
-      <StoreProvider>
-        <Stack screenOptions={opts}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen
-            name="transations/register"
-            options={{ presentation: "modal" }}
-          />
-          <Stack.Screen
-            name="recurrents/register"
-            options={{ presentation: "modal" }}
-          />
-        </Stack>
-      </StoreProvider>
-    </GluestackUIProvider>
+    <ClerkProvider tokenCache={tokenCache}>
+      <GluestackUIProvider mode={theme}>
+        <StoreProvider>
+          <Slot />
+        </StoreProvider>
+      </GluestackUIProvider>
+    </ClerkProvider>
   )
 }

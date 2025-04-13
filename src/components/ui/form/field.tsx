@@ -8,7 +8,7 @@ import {
   FormControlLabelText,
 } from "~/components/ui/form-control"
 
-type FieldError = undefined | false | null | string
+type FieldError = any
 
 export type FieldProps = {
   isRequired?: boolean
@@ -36,7 +36,9 @@ export function Field({ label, children, errors, ...rest }: Props) {
 
       <FormControlError>
         <FormControlErrorIcon as={AlertCircleIcon} size="sm" />
-        <FormControlErrorText>{errors?.join(", ")}</FormControlErrorText>
+        <FormControlErrorText>
+          {errors?.map((e) => e?.message).join(", ")}
+        </FormControlErrorText>
       </FormControlError>
     </FormControl>
   )

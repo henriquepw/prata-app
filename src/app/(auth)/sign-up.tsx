@@ -1,7 +1,8 @@
+import { useSignUp } from "@clerk/clerk-expo"
 import { useForm } from "@tanstack/react-form"
-import { Link } from "expo-router"
+import { Link, useRouter } from "expo-router"
 import { StatusBar } from "expo-status-bar"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { KeyboardAvoidingView, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { z } from "zod"
@@ -12,7 +13,6 @@ import { Card } from "~/components/ui/card"
 import { Input, InputRef } from "~/components/ui/form/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
-import { useAccountStore } from "~/store/account-store"
 
 const schema = z.object({
   name: z
@@ -24,30 +24,63 @@ const schema = z.object({
     .email("Deve ser um email válido"),
   password: z
     .string({ message: "A senha é obrigatória" })
-    .min(6, "Deve ter ao menos 6 caracteres"),
+    .min(8, "Deve ter ao menos 8 caracteres"),
   confirmPassword: z
     .string({ message: "A confirmação da senha é obrigatória" })
-    .min(6, "Deve ter ao menos 6 caracteres"),
+    .min(8, "Deve ter ao menos 8 caracteres"),
 })
 
 export default function SignUpPage() {
+  const { isLoaded, signUp, setActive } = useSignUp()
+  const router = useRouter()
+
   const nameRef = useRef<InputRef>(null)
   const emailRef = useRef<InputRef>(null)
   const passwordRef = useRef<InputRef>(null)
   const confirmPasswordRef = useRef<InputRef>(null)
 
-  const signUp = useAccountStore((s) => s.signUp)
+  const [pendingVerification, setPendingVerification] = useState(false)
+
   const form = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
     validators: {
       onBlur: schema,
     },
-    onSubmit: async (payload) => {
-      console.log({ payload })
-      await signUp(payload.value)
+    onSubmit: async ({ value }) => {
+      console.log({ value, isLoaded })
+      if (!isLoaded) return
+
+      try {
+        const [firstName, ...lastName] = value.name.split(" ")
+        console.log({
+          emailAddress: value.email,
+          password: value.password,
+          firstName,
+          lastName: lastName.join(" "),
+        })
+
+        await signUp.create({
+          emailAddress: value.email,
+          password: value.password,
+          firstName,
+          lastName: lastName.join(" "),
+        })
+
+        await signUp.prepareEmailAddressVerification({ strategy: "email_code" })
+        setPendingVerification(true)
+      } catch (err) {
+        // See https://clerk.com/docs/custom-flows/error-handling
+        console.error(JSON.stringify(err, null, 2))
+      }
     },
   })
 
-  function submit() {
+  const submit = () => {
     console.log(form.state.errors)
     const hasError = form.state.errors.length > 0
     if (hasError) {
@@ -57,6 +90,65 @@ export default function SignUpPage() {
     }
 
     form.handleSubmit()
+  }
+
+  const [code, setCode] = useState("")
+  const verifyCode = async () => {
+    if (!isLoaded) return
+
+    try {
+      const signUpAttempt = await signUp.attemptEmailAddressVerification({
+        code,
+      })
+
+      if (signUpAttempt.status !== "complete") {
+        console.error(JSON.stringify(signUpAttempt, null, 2))
+        return
+      }
+
+      await setActive({ session: signUpAttempt.createdSessionId })
+      router.replace("/")
+    } catch (err) {
+      // See https://clerk.com/docs/custom-flows/error-handling
+      console.error(JSON.stringify(err, null, 2))
+    }
+  }
+
+  if (pendingVerification) {
+    return (
+      <Background asChild>
+        <SafeAreaView className="justify-center">
+          <StatusBar style="light" />
+          <KeyboardAvoidingView>
+            <ScrollView contentContainerStyle={{ padding: 24, flexGrow: 1 }}>
+              <Card className="my-auto">
+                <Heading>Verifique seu email</Heading>
+                <Input
+                  isRequired
+                  label="Código"
+                  textContentType="oneTimeCode"
+                  placeholder="Digite o código que enviamos para seu email"
+                  returnKeyType="done"
+                  onChangeText={(code) => setCode(code)}
+                  onSubmitEditing={verifyCode}
+                />
+                <Box className="gap-4">
+                  <Button onPress={verifyCode}>
+                    <ButtonText>Verificar</ButtonText>
+                  </Button>
+                  <Button
+                    variant="link"
+                    onPress={() => setPendingVerification(false)}
+                  >
+                    <ButtonText>Voltar</ButtonText>
+                  </Button>
+                </Box>
+              </Card>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
+      </Background>
+    )
   }
 
   return (
@@ -73,6 +165,8 @@ export default function SignUpPage() {
                     ref={nameRef}
                     isRequired
                     label="Nome"
+                    autoCorrect={false}
+                    autoCapitalize="words"
                     textContentType="givenName"
                     placeholder="Como gosta de ser chamado"
                     returnKeyType="next"
@@ -91,6 +185,8 @@ export default function SignUpPage() {
                     ref={emailRef}
                     isRequired
                     label="E-mail"
+                    autoCorrect={false}
+                    autoCapitalize="none"
                     keyboardType="email-address"
                     textContentType="emailAddress"
                     placeholder="exemplo@email.com"
