@@ -3,7 +3,6 @@ import "../../assets/global.css"
 import { ClerkProvider } from "@clerk/clerk-expo"
 import { tokenCache } from "@clerk/clerk-expo/token-cache"
 import { Slot } from "expo-router"
-import { useColorScheme } from "nativewind"
 import { useEffect } from "react"
 import {
   ReanimatedLogLevel,
@@ -12,6 +11,7 @@ import {
 import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/theme-store"
+import { Appearance, Platform } from "react-native"
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -19,12 +19,12 @@ configureReanimatedLogger({
 })
 
 export default function RootLayout() {
-  const { setColorScheme } = useColorScheme()
   const theme = useTheme()
-
   useEffect(() => {
-    setColorScheme(theme)
-  }, [theme, setColorScheme])
+    if (Platform.OS !== "web") {
+      Appearance.setColorScheme(theme)
+    }
+  }, [theme])
 
   return (
     <ClerkProvider tokenCache={tokenCache}>

@@ -14,21 +14,26 @@ import { Input, InputRef } from "~/components/ui/form/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
 
-const schema = z.object({
-  name: z
-    .string({ message: "O nome é obrigatório" })
-    .min(3, { message: "O nome é obrigatório" })
-    .trim(),
-  email: z
-    .string({ message: "O email é obrigatório" })
-    .email("Deve ser um email válido"),
-  password: z
-    .string({ message: "A senha é obrigatória" })
-    .min(8, "Deve ter ao menos 8 caracteres"),
-  confirmPassword: z
-    .string({ message: "A confirmação da senha é obrigatória" })
-    .min(8, "Deve ter ao menos 8 caracteres"),
-})
+const schema = z
+  .object({
+    name: z
+      .string({ message: "O nome é obrigatório" })
+      .min(3, { message: "O nome é obrigatório" })
+      .trim(),
+    email: z
+      .string({ message: "O email é obrigatório" })
+      .email("Deve ser um email válido"),
+    password: z
+      .string({ message: "A senha é obrigatória" })
+      .min(8, "Deve ter ao menos 8 caracteres"),
+    confirmPassword: z
+      .string({ message: "A confirmação da senha é obrigatória" })
+      .min(8, "Deve ter ao menos 8 caracteres"),
+  })
+  .refine((val) => val.password === val.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "A confirmação deve ser igual a senha",
+  })
 
 export default function SignUpPage() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -49,26 +54,16 @@ export default function SignUpPage() {
       confirmPassword: "",
     },
     validators: {
-      onBlur: schema,
+      onChange: schema,
     },
     onSubmit: async ({ value }) => {
-      console.log({ value, isLoaded })
       if (!isLoaded) return
 
       try {
-        const [firstName, ...lastName] = value.name.split(" ")
-        console.log({
-          emailAddress: value.email,
-          password: value.password,
-          firstName,
-          lastName: lastName.join(" "),
-        })
-
         await signUp.create({
           emailAddress: value.email,
           password: value.password,
-          firstName,
-          lastName: lastName.join(" "),
+          username: value.name,
         })
 
         await signUp.prepareEmailAddressVerification({ strategy: "email_code" })

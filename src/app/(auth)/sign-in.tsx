@@ -23,8 +23,6 @@ export default function SignInPage() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
 
-  console.log(isLoaded)
-
   const emailRef = useRef<InputRef>(null)
   const passwordRef = useRef<InputRef>(null)
 
@@ -42,14 +40,15 @@ export default function SignInPage() {
       try {
         const signInAttempt = await signIn?.create(value)
 
-        if (signInAttempt?.status === "complete") {
-          await setActive?.({ session: signInAttempt.createdSessionId })
-          router.replace("/")
-        } else {
+        if (signInAttempt?.status !== "complete") {
           // If the status isn't complete, check why. User might need to
           // complete further steps.
           console.error(JSON.stringify(signInAttempt, null, 2))
+          return
         }
+
+        await setActive?.({ session: signInAttempt.createdSessionId })
+        router.replace("/")
       } catch (err) {
         // See https://clerk.com/docs/custom-flows/error-handling
         console.error(JSON.stringify(err, null, 2))
@@ -63,11 +62,15 @@ export default function SignInPage() {
         <StatusBar style="light" />
         <KeyboardAvoidingView>
           <Card>
-            <Heading>Bem vindo! {isLoaded ? "" : "..."}</Heading>
+            <Heading>Bem vindo!</Heading>
             <form.Field name="identifier">
               {(field) => (
                 <Input
                   isRequired
+                  autoFocus
+                  autoCorrect={false}
+                  autoComplete="email"
+                  autoCapitalize="none"
                   label="E-mail"
                   textContentType="emailAddress"
                   placeholder="exemplo@email.com"
