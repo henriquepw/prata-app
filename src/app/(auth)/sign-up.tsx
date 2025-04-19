@@ -75,18 +75,6 @@ export default function SignUpPage() {
     },
   })
 
-  const submit = () => {
-    console.log(form.state.errors)
-    const hasError = form.state.errors.length > 0
-    if (hasError) {
-      // TODO:
-      // Focus the input with error
-      return
-    }
-
-    form.handleSubmit()
-  }
-
   const [code, setCode] = useState("")
   const verifyCode = async () => {
     if (!isLoaded) return
@@ -102,7 +90,7 @@ export default function SignUpPage() {
       }
 
       await setActive({ session: signUpAttempt.createdSessionId })
-      router.replace("/")
+      router.replace("/introduction/start")
     } catch (err) {
       // See https://clerk.com/docs/custom-flows/error-handling
       console.error(JSON.stringify(err, null, 2))
@@ -225,7 +213,7 @@ export default function SignUpPage() {
                     textContentType="password"
                     placeholder="A mesma senha de cima"
                     returnKeyType="done"
-                    onSubmitEditing={() => confirmPasswordRef.current?.blur()}
+                    onSubmitEditing={form.handleSubmit}
                     value={field.state.value}
                     onChangeText={field.handleChange}
                     onBlur={field.handleBlur}
@@ -235,7 +223,10 @@ export default function SignUpPage() {
                 )}
               </form.Field>
               <Box className="mt-4">
-                <Button isDisabled={form.state.isSubmitting} onPress={submit}>
+                <Button
+                  isDisabled={form.state.isSubmitting}
+                  onPress={form.handleSubmit}
+                >
                   {form.state.isSubmitting ? (
                     <>
                       <ButtonSpinner className="text-typography-50" />

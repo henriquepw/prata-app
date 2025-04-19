@@ -12,6 +12,13 @@ import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/theme-store"
 import { Appearance, Platform } from "react-native"
+import * as SplashScreen from "expo-splash-screen"
+
+SplashScreen.preventAutoHideAsync()
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+})
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,

@@ -16,11 +16,6 @@ interface Balance {
   pieces: Piece[]
 }
 
-export function useHasBalance() {
-  const query = useBalance()
-  return [!!query.data?.pieces.length, query.isPending]
-}
-
 export function useBalance() {
   const auth = useAuth()
 

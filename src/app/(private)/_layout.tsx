@@ -5,7 +5,6 @@ const opts = { headerShown: false }
 
 export default function PrivateLayout() {
   const { isSignedIn } = useAuth()
-
   if (!isSignedIn) {
     return <Redirect href="/sign-in" />
   }
