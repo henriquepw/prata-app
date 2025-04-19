@@ -14,9 +14,12 @@ onlineManager.setEventListener((setOnline) => {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 3,
+      retry: 2,
       gcTime: 1000 * 60 * 60 * 24, // 24 hour
       staleTime: 1000 * 60 * 5, // 5 min
+    },
+    mutations: {
+      networkMode: "offlineFirst",
     },
   },
 })
