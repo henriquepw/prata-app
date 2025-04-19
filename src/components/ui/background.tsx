@@ -1,32 +1,32 @@
-import { Slot } from "@radix-ui/react-slot"
 import React from "react"
-import { View, ViewProps } from "react-native"
+import { View } from "react-native"
 import { cn } from "~/utils/cn"
+import { Canvas, Rect, FractalNoise } from "@shopify/react-native-skia"
+import { Dimensions } from "react-native"
 
-type Props =
-  | {
-      asChild: true
-      className?: string
-      children: React.ReactElement
-    }
-  | ({ asChild?: false } & ViewProps)
+interface Props {
+  className?: string
+  children: React.ReactElement
+}
 
 const Background = React.forwardRef<View, Props>(
-  ({ asChild, className, children, ...props }, ref) => {
-    if (asChild) {
-      return (
-        <Slot className={cn("flex-1 bg-background-0", className)}>
-          {children}
-        </Slot>
-      )
-    }
-
+  ({ className, children, ...props }, ref) => {
+    const { width, height } = Dimensions.get("window")
     return (
       <View
         ref={ref}
         {...props}
         className={cn("flex-1 bg-background-0", className)}
       >
+        <Canvas style={{ flex: 1, width, height, position: "absolute" }}>
+          <Rect x={0} y={0} width={width} height={height}>
+            <FractalNoise freqX={0.6} freqY={0.6} octaves={4} />
+          </Rect>
+        </Canvas>
+        <View
+          className="absolute bg-background-0/95"
+          style={{ width, height }}
+        />
         {children}
       </View>
     )
