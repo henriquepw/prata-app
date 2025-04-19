@@ -15,5 +15,5 @@ export default function AuthLayout() {
     return <Redirect href="/" />
   }
 
-  return <Stack screenOptions={opts} />
+  return <Stack screenOptions={opts} initialRouteName="sign-in" />
 }

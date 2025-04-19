@@ -1,5 +1,0 @@
-onlyBuiltDependencies:
-  - '@biomejs/biome'
-  - '@clerk/shared'
-  - browser-tabs-lock
-  - core-js
