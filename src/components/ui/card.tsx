@@ -13,7 +13,7 @@ const cardStyle = tva({
     },
     variant: {
       outline:
-        "bg-background-100/30 dark:bg-background-50/10 border border-outline-100",
+        "bg-background-100/40 dark:bg-background-50/20 border border-outline-100",
       ghost: "rounded-none",
     },
   },
