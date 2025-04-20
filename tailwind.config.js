@@ -1,4 +1,5 @@
 import gluestackPlugin from "@gluestack-ui/nativewind-utils/tailwind-plugin"
+import { platformSelect } from "nativewind/theme"
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -170,10 +171,15 @@ module.exports = {
         },
       },
       fontFamily: {
-        heading: undefined,
-        body: undefined,
+        heading: platformSelect({
+          android: "Montserrat_700Bold",
+          ios: "Montserrat-Bold",
+        }),
+        body: platformSelect({
+          android: "Poppins_400Regular",
+          ios: "Poppins-Regular",
+        }),
         mono: undefined,
-        roboto: ["Roboto", "sans-serif"],
       },
       fontWeight: {
         extrablack: "950",

@@ -5,6 +5,8 @@
       "name": "pobrin",
       "dependencies": {
         "@clerk/clerk-expo": "^2.9.11",
+        "@expo-google-fonts/montserrat": "^0.3.0",
+        "@expo-google-fonts/poppins": "^0.3.0",
         "@expo/html-elements": "0.11.2",
         "@gluestack-ui/actionsheet": "^0.2.53",
         "@gluestack-ui/button": "^1.0.14",
@@ -399,6 +401,10 @@
     "@emotion/utils": ["@emotion/utils@1.4.2", "", {}, "sha512-3vLclRofFziIa3J2wDh9jjbkUz9qk5Vi3IZ/FSTKViB0k+ef0fPV7dYrUIugbgupYDx7v9ud/SjrtEP8Y4xLoA=="],
 
     "@emotion/weak-memoize": ["@emotion/weak-memoize@0.3.1", "", {}, "sha512-EsBwpc7hBUJWAsNPBmJy4hxWx12v6bshQsldrVmjxJoc3isbxhOrF2IcCpaXxfvq03NwkI7sbsOLXbYuqF/8Ww=="],
+
+    "@expo-google-fonts/montserrat": ["@expo-google-fonts/montserrat@0.3.0", "", {}, "sha512-Na/1b+J/v2rdZOZlw7x5F8codXYbvgREhzB+K0r3hkJMudEmqJKBBFAkHIRUvekJyUkZC4+owX8XPpU+dIhorA=="],
+
+    "@expo-google-fonts/poppins": ["@expo-google-fonts/poppins@0.3.0", "", {}, "sha512-52hH328xotSgRUsceRxUeR+3s2CvBDYS9zJQGP+NjBcHT8ZcLz2x0JAKzTGkHNTEM7+Ab7dow9TBDuJ/9qp9YA=="],
 
     "@expo/bunyan": ["@expo/bunyan@4.0.1", "", { "dependencies": { "uuid": "^8.0.0" } }, "sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg=="],
 

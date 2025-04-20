@@ -45,7 +45,17 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "node_modules/@expo-google-fonts/poppins/400Regular/Poppins_400Regular.ttf",
+            "node_modules/@expo-google-fonts/poppins/700Bold/Poppins_700Bold.ttf",
+            "node_modules/@expo-google-fonts/montserrat/400Regular/Montserrat_400Regular.ttf",
+            "node_modules/@expo-google-fonts/montserrat/700Bold/Montserrat_700Bold.ttf"
+          ]
+        }
+      ],
       "expo-secure-store",
       [
         "expo-build-properties",

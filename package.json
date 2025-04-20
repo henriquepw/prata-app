@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@clerk/clerk-expo": "^2.9.11",
+    "@expo-google-fonts/montserrat": "^0.3.0",
+    "@expo-google-fonts/poppins": "^0.3.0",
     "@expo/html-elements": "0.11.2",
     "@gluestack-ui/actionsheet": "^0.2.53",
     "@gluestack-ui/button": "^1.0.14",
