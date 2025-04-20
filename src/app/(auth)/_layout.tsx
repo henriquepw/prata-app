@@ -1,8 +1,8 @@
 import { useAuth } from "@clerk/clerk-expo"
 import { Redirect, Stack } from "expo-router"
+import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 import { useBalance } from "~/store/balance-store"
-import * as SplashScreen from "expo-splash-screen"
 
 const opts = { headerShown: false }
 

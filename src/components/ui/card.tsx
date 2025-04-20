@@ -1,20 +1,36 @@
 import type { VariantProps } from "@gluestack-ui/nativewind-utils"
 import { tva } from "@gluestack-ui/nativewind-utils/tva"
+import { BlurView } from "expo-blur"
 import React from "react"
 import { View, ViewProps } from "react-native"
 
 const cardStyle = tva({
-  base: "flex flex-col relative z-0 gap-4",
+  slots: {
+    root: "overflow-hidden",
+    content: "flex flex-col relative z-0 gap-4",
+  },
   variants: {
     size: {
-      sm: "p-3 rounded-md",
-      md: "p-4 rounded-xl",
-      lg: "p-6 rounded-2xl",
+      sm: {
+        root: "rounded-md",
+        content: "p-3",
+      },
+      md: {
+        root: "rounded-xl",
+        content: "p-4",
+      },
+      lg: {
+        root: "rounded-2xl",
+        content: "p-6",
+      },
     },
     variant: {
-      outline:
-        "bg-background-100/40 dark:bg-background-50/20 border border-outline-100",
-      ghost: "rounded-none",
+      outline: {
+        root: "bg-background-100/40 dark:bg-background-50/20 border border-outline-50",
+      },
+      ghost: {
+        root: "rounded-none",
+      },
     },
   },
 })
@@ -25,13 +41,18 @@ type Props = ViewProps &
   }
 
 const Card = React.forwardRef<React.ElementRef<typeof View>, Props>(
-  ({ className, size = "md", variant = "outline", ...props }, ref) => {
+  (
+    { className, children, size = "md", variant = "outline", ...props },
+    ref,
+  ) => {
+    const s = cardStyle({ size, variant, className })
     return (
-      <View
-        className={cardStyle({ size, variant, className })}
-        {...props}
-        ref={ref}
-      />
+      <View className={s.root()}>
+        <BlurView intensity={5} className="absolute h-full w-full" />
+        <View className={s.content()} {...props} ref={ref}>
+          {children}
+        </View>
+      </View>
     )
   },
 )

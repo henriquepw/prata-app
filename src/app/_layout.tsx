@@ -3,7 +3,9 @@ import "../../assets/global.css"
 import { ClerkProvider } from "@clerk/clerk-expo"
 import { tokenCache } from "@clerk/clerk-expo/token-cache"
 import { Slot } from "expo-router"
+import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
+import { Appearance, Platform } from "react-native"
 import {
   ReanimatedLogLevel,
   configureReanimatedLogger,
@@ -11,8 +13,6 @@ import {
 import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/theme-store"
-import { Appearance, Platform } from "react-native"
-import * as SplashScreen from "expo-splash-screen"
 
 SplashScreen.preventAutoHideAsync()
 SplashScreen.setOptions({
