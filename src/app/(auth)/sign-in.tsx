@@ -66,7 +66,7 @@ export default function SignInPage() {
   const isLoging = form.state.isSubmitting || balance.isPending
 
   return (
-    <Background asChild>
+    <Background>
       <SafeAreaView className="justify-center p-6">
         <StatusBar style="light" />
         <KeyboardAvoidingView>

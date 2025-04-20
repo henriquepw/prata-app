@@ -9,7 +9,7 @@ import { Heading } from "~/components/ui/heading"
 
 export default function RecurrentListPage() {
   return (
-    <Background asChild>
+    <Background>
       <SafeAreaView className="gap-6 p-4">
         <Box className="h-10 flex-row items-center justify-between gap-2">
           <Heading size="2xl">Recorrências</Heading>

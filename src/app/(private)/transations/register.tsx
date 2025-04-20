@@ -35,8 +35,8 @@ export default function RegisterTransationPage() {
   }
 
   return (
-    <Background asChild className="gap-6 p-4">
-      <SafeAreaView>
+    <Background>
+      <SafeAreaView className="gap-6 p-4">
         <View className="flex-row items-center gap-4 py-4">
           <TouchableOpacity className="w-6" onPress={navigate.goBack}>
             <Icon as={ChevronLeftIcon} size="xl" />

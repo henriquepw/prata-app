@@ -13,7 +13,7 @@ export default function RegisterRecurrentPage() {
   const navigation = useNavigation()
 
   return (
-    <Background asChild>
+    <Background>
       <SafeAreaView className="gap-6 p-4">
         <Box className="h-12 flex-row items-center justify-between gap-2">
           <Pressable

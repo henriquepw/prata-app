@@ -99,7 +99,7 @@ export default function SignUpPage() {
 
   if (pendingVerification) {
     return (
-      <Background asChild>
+      <Background>
         <SafeAreaView className="justify-center">
           <StatusBar style="light" />
           <KeyboardAvoidingView>
@@ -135,7 +135,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <Background asChild>
+    <Background>
       <SafeAreaView className="justify-center">
         <StatusBar style="light" />
         <KeyboardAvoidingView>

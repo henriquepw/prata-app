@@ -19,13 +19,17 @@ export default function TabLayout() {
       </Background>
       <TabList asChild>
         <TabView>
-          <TabTrigger asChild name="home" href="/(tabs)">
+          <TabTrigger asChild name="home" href="/(private)/(tabs)">
             <TabButton icon={HomeIcon} />
           </TabTrigger>
           <Link asChild href="/transations/register">
             <TabButton icon={PlusIcon} />
           </Link>
-          <TabTrigger asChild name="recurrent" href="/(tabs)/recurrents">
+          <TabTrigger
+            asChild
+            name="recurrent"
+            href="/(private)/(tabs)/recurrents"
+          >
             <TabButton icon={PinIcon} />
           </TabTrigger>
         </TabView>
