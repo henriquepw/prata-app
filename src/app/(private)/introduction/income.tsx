@@ -11,7 +11,7 @@ export default function IntroductionIncomeScreen() {
     <Background>
       <SafeAreaView className="flex-1 p-6">
         <Heading size="2xl" className="mb-6">
-          Entradas
+          Renda
         </Heading>
         <Text>
           Lorem ipsum dolor sit amet consectetur. Enim habitasse tempor tortor

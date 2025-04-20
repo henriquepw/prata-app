@@ -1,6 +1,6 @@
 import { ISelectItemProps } from "@gluestack-ui/select/lib/types"
+import { useStore } from "@tanstack/react-form"
 import { ChevronDownIcon } from "lucide-react-native"
-import { useState } from "react"
 import { SafeAreaView } from "react-native"
 import {
   SelectBackdrop,
@@ -14,22 +14,23 @@ import {
   Select as UISelect,
   SelectItem as UISelectItem,
 } from "~/components/ui/select"
-import { Field, FieldProps } from "./field"
+import { useToggle } from "~/hooks/use-toggle"
+import { useFieldContext } from "../contex"
+import { Field, FieldProps } from "../field"
 
-type Props = FieldProps & {
+interface Props extends FieldProps {
   children: React.ReactNode
   onChange?: (arg?: string) => void
+  value?: string
 }
 
-export function Select({ children, onChange, ...rest }: Props) {
-  const [isOpen, setOpen] = useState(false)
-  function toggleOpen() {
-    setOpen((o) => !o)
-  }
+export function Select({ children, value, onChange, ...rest }: Props) {
+  const [isOpen, toggleOpen] = useToggle()
 
   return (
     <Field {...rest}>
       <UISelect
+        selectedValue={value}
         closeOnOverlayClick
         onClose={toggleOpen}
         onValueChange={onChange}
@@ -62,9 +63,24 @@ export function Select({ children, onChange, ...rest }: Props) {
   )
 }
 
-type SelectItemProps = ISelectItemProps & {
+interface SelectItemProps extends ISelectItemProps {
   className?: string
 }
 export function SelectItem(props: SelectItemProps) {
   return <UISelectItem {...props} />
+}
+
+type FormSelectProps = Omit<Props, "onChange" | "value">
+export default function FormSelect(props: FormSelectProps) {
+  const field = useFieldContext<string>()
+  const errors = useStore(field.store, (state) => state.meta.errors)
+
+  return (
+    <Select
+      {...props}
+      errors={errors}
+      value={field.state.value}
+      onChange={(v) => field.handleChange(v || "")}
+    />
+  )
 }

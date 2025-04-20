@@ -1,5 +1,4 @@
 import { useSignIn } from "@clerk/clerk-expo"
-import { useForm } from "@tanstack/react-form"
 import { Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import { useRef } from "react"
@@ -8,12 +7,11 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { z } from "zod"
 import { Background } from "~/components/ui/background"
 import { Box } from "~/components/ui/box"
-import { Button, ButtonText } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
-import { Input, InputRef } from "~/components/ui/form/input"
+import { useAppForm } from "~/components/ui/form"
+import { InputRef } from "~/components/ui/form/fields/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
-import { useBalance } from "~/store/balance-store"
 
 const schema = z.object({
   identifier: z
@@ -28,7 +26,7 @@ export default function SignInPage() {
   const emailRef = useRef<InputRef>(null)
   const passwordRef = useRef<InputRef>(null)
 
-  const form = useForm({
+  const form = useAppForm({
     defaultValues: {
       identifier: "",
       password: "",
@@ -62,9 +60,6 @@ export default function SignInPage() {
     },
   })
 
-  const balance = useBalance()
-  const isLoging = form.state.isSubmitting || balance.isPending
-
   return (
     <Background>
       <SafeAreaView className="justify-center p-6">
@@ -72,29 +67,24 @@ export default function SignInPage() {
         <KeyboardAvoidingView>
           <Card>
             <Heading>Bem vindo!</Heading>
-            <form.Field name="identifier">
+            <form.AppField name="identifier">
               {(field) => (
-                <Input
+                <field.Input
                   isRequired
+                  label="E-mail"
                   autoCorrect={false}
                   autoComplete="email"
                   autoCapitalize="none"
-                  label="E-mail"
                   textContentType="emailAddress"
                   placeholder="exemplo@email.com"
                   returnKeyType="next"
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChangeText={field.handleChange}
                   onSubmitEditing={() => emailRef.current?.focus()}
-                  errors={field.state.meta.errors}
-                  isDirty={field.state.meta.isDirty}
                 />
               )}
-            </form.Field>
-            <form.Field name="password">
+            </form.AppField>
+            <form.AppField name="password">
               {(field) => (
-                <Input
+                <field.Input
                   ref={passwordRef}
                   isRequired
                   label="Senha"
@@ -102,20 +92,13 @@ export default function SignInPage() {
                   textContentType="password"
                   placeholder="Sua senha ULTRA segura (ou não)"
                   returnKeyType="done"
-                  value={field.state.value}
-                  onChangeText={field.handleChange}
                   onSubmitEditing={() => form.handleSubmit}
-                  onBlur={field.handleBlur}
-                  errors={field.state.meta.errors}
-                  isDirty={field.state.meta.isDirty}
                 />
               )}
-            </form.Field>
+            </form.AppField>
 
             <Box className="mt-4">
-              <Button onPress={form.handleSubmit}>
-                <ButtonText>{isLoging ? "Entrando..." : "Entrar"}</ButtonText>
-              </Button>
+              <form.SubmitButton>Entrar</form.SubmitButton>
               <Box className="mt-2 flex-row items-center justify-center gap-2">
                 <Text>Não possui uma conta?</Text>
                 <Link

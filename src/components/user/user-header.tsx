@@ -1,20 +1,18 @@
 import { useUser } from "@clerk/clerk-expo"
-import { useTheme } from "@react-navigation/native"
 import { Link } from "expo-router"
 import { MoonIcon, SunIcon } from "lucide-react-native"
 import { Image, Pressable } from "react-native"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon } from "~/components/ui/button"
 import { Heading } from "~/components/ui/heading"
-import { useToggleTheme } from "~/store/theme-store"
+import { useTheme, useToggleTheme } from "~/store/theme-store"
 
 export function UserHeader() {
-  const toggleTheme = useToggleTheme()
   const theme = useTheme()
+  const toggleTheme = useToggleTheme()
 
   const { isSignedIn, user } = useUser()
 
-  console.log({ user })
   if (!isSignedIn) {
     return null
   }

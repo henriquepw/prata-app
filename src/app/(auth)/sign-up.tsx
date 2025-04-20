@@ -1,5 +1,4 @@
 import { useSignUp } from "@clerk/clerk-expo"
-import { useForm } from "@tanstack/react-form"
 import { Link, useRouter } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import { useRef, useState } from "react"
@@ -8,13 +7,14 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { z } from "zod"
 import { Background } from "~/components/ui/background"
 import { Box } from "~/components/ui/box"
-import { Button, ButtonSpinner, ButtonText } from "~/components/ui/button"
+import { Button, ButtonText } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
-import { Input, InputRef } from "~/components/ui/form/input"
+import { useAppForm } from "~/components/ui/form"
+import { InputRef } from "~/components/ui/form/fields/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
 
-const schema = z
+const signUpSchema = z
   .object({
     name: z
       .string({ message: "O nome é obrigatório" })
@@ -35,6 +35,10 @@ const schema = z
     message: "A confirmação deve ser igual a senha",
   })
 
+const verifySchema = z.object({
+  code: z.string({ message: "O código de verificação é obrigatório" }).trim(),
+})
+
 export default function SignUpPage() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const router = useRouter()
@@ -46,7 +50,7 @@ export default function SignUpPage() {
 
   const [pendingVerification, setPendingVerification] = useState(false)
 
-  const form = useForm({
+  const signUpform = useAppForm({
     defaultValues: {
       name: "",
       email: "",
@@ -54,7 +58,7 @@ export default function SignUpPage() {
       confirmPassword: "",
     },
     validators: {
-      onChange: schema,
+      onChange: signUpSchema,
     },
     onSubmit: async ({ value }) => {
       if (!isLoaded) return
@@ -75,27 +79,34 @@ export default function SignUpPage() {
     },
   })
 
-  const [code, setCode] = useState("")
-  const verifyCode = async () => {
-    if (!isLoaded) return
+  const verifyForm = useAppForm({
+    defaultValues: {
+      code: "",
+    },
+    validators: {
+      onSubmit: verifySchema,
+    },
+    onSubmit: async ({ value }) => {
+      if (!isLoaded) return
 
-    try {
-      const signUpAttempt = await signUp.attemptEmailAddressVerification({
-        code,
-      })
+      try {
+        const signUpAttempt = await signUp.attemptEmailAddressVerification({
+          code: value.code,
+        })
 
-      if (signUpAttempt.status !== "complete") {
-        console.error(JSON.stringify(signUpAttempt, null, 2))
-        return
+        if (signUpAttempt.status !== "complete") {
+          console.error(JSON.stringify(signUpAttempt, null, 2))
+          return
+        }
+
+        await setActive({ session: signUpAttempt.createdSessionId })
+        router.replace("/introduction/start")
+      } catch (err) {
+        // See https://clerk.com/docs/custom-flows/error-handling
+        console.error(JSON.stringify(err, null, 2))
       }
-
-      await setActive({ session: signUpAttempt.createdSessionId })
-      router.replace("/introduction/start")
-    } catch (err) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      console.error(JSON.stringify(err, null, 2))
-    }
-  }
+    },
+  })
 
   if (pendingVerification) {
     return (
@@ -106,19 +117,20 @@ export default function SignUpPage() {
             <ScrollView contentContainerStyle={{ padding: 24, flexGrow: 1 }}>
               <Card className="my-auto">
                 <Heading>Verifique seu email</Heading>
-                <Input
-                  isRequired
-                  label="Código"
-                  textContentType="oneTimeCode"
-                  placeholder="Digite o código que enviamos para seu email"
-                  returnKeyType="done"
-                  onChangeText={(code) => setCode(code)}
-                  onSubmitEditing={verifyCode}
-                />
+                <verifyForm.AppField name="code">
+                  {(field) => (
+                    <field.Input
+                      isRequired
+                      label="Código"
+                      textContentType="oneTimeCode"
+                      placeholder="Digite o código que enviamos para seu email"
+                      returnKeyType="done"
+                      onSubmitEditing={verifyForm.handleSubmit}
+                    />
+                  )}
+                </verifyForm.AppField>
                 <Box className="gap-4">
-                  <Button onPress={verifyCode}>
-                    <ButtonText>Verificar</ButtonText>
-                  </Button>
+                  <verifyForm.SubmitButton>Verificar</verifyForm.SubmitButton>
                   <Button
                     variant="link"
                     onPress={() => setPendingVerification(false)}
@@ -142,9 +154,9 @@ export default function SignUpPage() {
           <ScrollView contentContainerStyle={{ padding: 24, flexGrow: 1 }}>
             <Card className="my-auto">
               <Heading>Cadastrar no Pobrin</Heading>
-              <form.Field name="name">
+              <signUpform.AppField name="name">
                 {(field) => (
-                  <Input
+                  <field.Input
                     ref={nameRef}
                     isRequired
                     label="Nome"
@@ -153,18 +165,13 @@ export default function SignUpPage() {
                     textContentType="givenName"
                     placeholder="Como gosta de ser chamado"
                     returnKeyType="next"
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChangeText={field.handleChange}
                     onSubmitEditing={() => emailRef.current?.focus()}
-                    errors={field.state.meta.errors}
-                    isDirty={field.state.meta.isDirty}
                   />
                 )}
-              </form.Field>
-              <form.Field name="email">
+              </signUpform.AppField>
+              <signUpform.AppField name="email">
                 {(field) => (
-                  <Input
+                  <field.Input
                     ref={emailRef}
                     isRequired
                     label="E-mail"
@@ -175,17 +182,12 @@ export default function SignUpPage() {
                     placeholder="exemplo@email.com"
                     returnKeyType="next"
                     onSubmitEditing={() => passwordRef.current?.focus()}
-                    value={field.state.value}
-                    onChangeText={field.handleChange}
-                    onBlur={field.handleBlur}
-                    errors={field.state.meta.errors}
-                    isDirty={field.state.meta.isDirty}
                   />
                 )}
-              </form.Field>
-              <form.Field name="password">
+              </signUpform.AppField>
+              <signUpform.AppField name="password">
                 {(field) => (
-                  <Input
+                  <field.Input
                     ref={passwordRef}
                     isRequired
                     label="Senha"
@@ -194,17 +196,12 @@ export default function SignUpPage() {
                     placeholder="Senha ULTRA segura (ou não)"
                     returnKeyType="next"
                     onSubmitEditing={() => confirmPasswordRef.current?.focus()}
-                    value={field.state.value}
-                    onChangeText={field.handleChange}
-                    onBlur={field.handleBlur}
-                    errors={field.state.meta.errors}
-                    isDirty={field.state.meta.isDirty}
                   />
                 )}
-              </form.Field>
-              <form.Field name="confirmPassword">
+              </signUpform.AppField>
+              <signUpform.AppField name="confirmPassword">
                 {(field) => (
-                  <Input
+                  <field.Input
                     ref={confirmPasswordRef}
                     isRequired
                     label="Confirmação da Senha"
@@ -213,29 +210,12 @@ export default function SignUpPage() {
                     textContentType="password"
                     placeholder="A mesma senha de cima"
                     returnKeyType="done"
-                    onSubmitEditing={form.handleSubmit}
-                    value={field.state.value}
-                    onChangeText={field.handleChange}
-                    onBlur={field.handleBlur}
-                    errors={field.state.meta.errors}
-                    isDirty={field.state.meta.isDirty}
+                    onSubmitEditing={signUpform.handleSubmit}
                   />
                 )}
-              </form.Field>
+              </signUpform.AppField>
               <Box className="mt-4">
-                <Button
-                  isDisabled={form.state.isSubmitting}
-                  onPress={form.handleSubmit}
-                >
-                  {form.state.isSubmitting ? (
-                    <>
-                      <ButtonSpinner className="text-typography-50" />
-                      <ButtonText>Cadastrando...</ButtonText>
-                    </>
-                  ) : (
-                    <ButtonText>Cadastrar</ButtonText>
-                  )}
-                </Button>
+                <signUpform.SubmitButton>Cadastrar</signUpform.SubmitButton>
                 <Box className="mt-2 flex-row items-center justify-center gap-2">
                   <Text>Já possui uma conta?</Text>
                   <Link

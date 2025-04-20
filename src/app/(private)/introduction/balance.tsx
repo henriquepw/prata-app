@@ -4,7 +4,7 @@ import { Pie, PolarChart } from "victory-native"
 import { Background } from "~/components/ui/background"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
-import { Select, SelectItem } from "~/components/ui/form/select"
+import { Select, SelectItem } from "~/components/ui/form/fields/select"
 import { Heading } from "~/components/ui/heading"
 
 const defaultBalance = [
@@ -27,7 +27,7 @@ const defaultBalance = [
 
 export default function CreateBalanceScreen() {
   return (
-    <Background asChild>
+    <Background>
       <SafeAreaView className="flex-1 p-4">
         <Box>
           <Heading size="xl">Configuração Inicial</Heading>

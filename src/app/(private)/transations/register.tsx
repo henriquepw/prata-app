@@ -5,9 +5,9 @@ import { Text, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Background } from "~/components/ui/background"
 import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
-import { DatePicker } from "~/components/ui/form/date-input"
-import { Input } from "~/components/ui/form/input"
-import { Select, SelectItem } from "~/components/ui/form/select"
+import { DateInput } from "~/components/ui/form/fields/date-input"
+import { Input } from "~/components/ui/form/fields/input"
+import { Select, SelectItem } from "~/components/ui/form/fields/select"
 import { Icon } from "~/components/ui/icon"
 import { TransationType, useTransationStore } from "~/store/transation-store"
 import { formatAmount } from "~/utils/format-amount"
@@ -50,7 +50,7 @@ export default function RegisterTransationPage() {
           <SelectItem label="Entrada" value="INCOME" />
           <SelectItem label="Saída" value="OUTCOMe" />
         </Select>
-        <DatePicker
+        <DateInput
           isRequired
           label="Data do Recebimento"
           value={receivedAt}

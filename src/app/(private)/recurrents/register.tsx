@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { Background } from "~/components/ui/background"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
-import { Input } from "~/components/ui/form/input"
+import { Input } from "~/components/ui/form/fields/input"
 import { Heading } from "~/components/ui/heading"
 import { Icon } from "~/components/ui/icon"
 

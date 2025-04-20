@@ -23,6 +23,7 @@ type Props = FieldProps & {
 }
 export function Field({ label, children, errors, ...rest }: Props) {
   const isInvalid = !!errors?.length
+  const msg = new Set(errors?.map((e) => e?.message))
 
   return (
     <FormControl size="md" isInvalid={isInvalid} {...rest}>
@@ -37,7 +38,7 @@ export function Field({ label, children, errors, ...rest }: Props) {
       <FormControlError>
         <FormControlErrorIcon as={AlertCircleIcon} size="sm" />
         <FormControlErrorText>
-          {errors?.map((e) => e?.message).join(", ")}
+          {[...msg.values()].join(", ")}
         </FormControlErrorText>
       </FormControlError>
     </FormControl>

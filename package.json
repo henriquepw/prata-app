@@ -9,7 +9,7 @@
     "ios": "expo run:ios",
     "prebuild": "npx expo prebuild --clean",
     "up": "npx npm-check-updates -ui && expo install --fix",
-    "lint": "biome check --write --unsafe ./src/"
+    "lint": "biome check --write --unsafe ./src/ && npx tsc -b --pretty"
   },
   "dependencies": {
     "@clerk/clerk-expo": "^2.9.11",

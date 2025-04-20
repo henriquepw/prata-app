@@ -1,6 +1,6 @@
 import DateTimePicker from "@react-native-community/datetimepicker"
+import { useStore } from "@tanstack/react-form"
 import { ChevronDownIcon } from "lucide-react-native"
-import { useState } from "react"
 import { SafeAreaView } from "react-native"
 import {
   SelectBackdrop,
@@ -13,18 +13,17 @@ import {
   SelectTrigger,
   Select as UISelect,
 } from "~/components/ui/select"
+import { useToggle } from "~/hooks/use-toggle"
 import { formatDate } from "~/utils/format-date"
-import { Field, FieldProps } from "./field"
+import { useFieldContext } from "../contex"
+import { Field, FieldProps } from "../field"
 
-type Props = FieldProps & {
+interface Props extends FieldProps {
   value: Date
   onChange: (value: Date) => void
 }
-export function DatePicker({ value, onChange, ...rest }: Props) {
-  const [open, setOpen] = useState(false)
-  function toggleOpen() {
-    setOpen((s) => !s)
-  }
+export function DateInput({ value, onChange, ...rest }: Props) {
+  const [open, toggleOpen] = useToggle()
 
   return (
     <Field {...rest}>
@@ -54,7 +53,7 @@ export function DatePicker({ value, onChange, ...rest }: Props) {
               display="inline"
               onChange={(_, newDate) => {
                 onChange(newDate || value)
-                setOpen(false)
+                toggleOpen()
               }}
             />
             <SafeAreaView className="mt-4" />
@@ -62,5 +61,20 @@ export function DatePicker({ value, onChange, ...rest }: Props) {
         </SelectPortal>
       </UISelect>
     </Field>
+  )
+}
+
+type FormDateInputProps = Omit<Props, "onChange" | "value">
+export default function FormDateInput(props: FormDateInputProps) {
+  const field = useFieldContext<Date>()
+  const errors = useStore(field.store, (state) => state.meta.errors)
+
+  return (
+    <DateInput
+      {...props}
+      errors={errors}
+      value={field.state.value}
+      onChange={field.handleChange}
+    />
   )
 }

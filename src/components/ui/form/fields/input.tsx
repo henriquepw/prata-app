@@ -1,3 +1,4 @@
+import { useStore } from "@tanstack/react-form"
 import { forwardRef } from "react"
 import { TextInput } from "react-native"
 import {
@@ -6,14 +7,14 @@ import {
   Input as UIInput,
 } from "~/components/ui/input"
 import { cn } from "~/utils/cn"
-import { Field, FieldProps } from "./field"
+import { useFieldContext } from "../contex"
+import { Field, FieldProps } from "../field"
 
-type Props = FieldProps &
-  IInputFieldProps & {
-    prefix?: React.ReactNode
-    sufix?: React.ReactNode
-    isDirty?: boolean
-  }
+interface Props extends FieldProps, IInputFieldProps {
+  prefix?: React.ReactNode
+  sufix?: React.ReactNode
+  isDirty?: boolean
+}
 
 export type InputRef = TextInput
 
@@ -23,17 +24,17 @@ export const Input = forwardRef<TextInput, Props>(
       prefix,
       sufix,
       label,
-      errors,
-      isDirty,
       isRequired,
       isReadOnly,
       isDisabled,
       className,
+      isDirty,
+      errors,
       ...rest
     },
     ref,
   ) => {
-    const active = isDirty && !errors?.length
+    const isActive = isDirty && !errors?.length
 
     return (
       <Field
@@ -46,7 +47,7 @@ export const Input = forwardRef<TextInput, Props>(
         <UIInput
           className={cn(
             "h-10 gap-2 rounded-lg px-2 text-neutral-500",
-            active && "border-primary-500",
+            isActive && "border-primary-500",
             className,
           )}
         >
@@ -58,3 +59,23 @@ export const Input = forwardRef<TextInput, Props>(
     )
   },
 )
+
+type FormInputProps = Omit<
+  Props,
+  "errors" | "value" | "onBlur" | "onChangeText"
+>
+export default forwardRef((props: FormInputProps, ref: any) => {
+  const field = useFieldContext<string>()
+  const errors = useStore(field.store, (state) => state.meta.errors)
+
+  return (
+    <Input
+      ref={ref}
+      {...props}
+      errors={errors}
+      value={field.state.value}
+      onBlur={field.handleBlur}
+      onChangeText={field.handleChange}
+    />
+  )
+})
