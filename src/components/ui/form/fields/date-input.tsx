@@ -15,7 +15,7 @@ import {
 } from "~/components/ui/select"
 import { useToggle } from "~/hooks/use-toggle"
 import { formatDate } from "~/utils/format-date"
-import { useFieldContext } from "../contex"
+import { useFieldContext } from "../context"
 import { Field, FieldProps } from "../field"
 
 interface Props extends FieldProps {
@@ -29,7 +29,7 @@ export function DateInput({ value, onChange, ...rest }: Props) {
     <Field {...rest}>
       <UISelect closeOnOverlayClick onClose={toggleOpen}>
         <SelectTrigger
-          size="md"
+          size="xl"
           variant="outline"
           className="gap-2 rounded-lg px-2 active:opacity-50"
           onPress={toggleOpen}

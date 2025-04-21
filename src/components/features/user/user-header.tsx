@@ -5,12 +5,12 @@ import { Image, Pressable } from "react-native"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon } from "~/components/ui/button"
 import { Heading } from "~/components/ui/heading"
+import { Text } from "~/components/ui/text"
 import { useTheme, useToggleTheme } from "~/store/theme-store"
 
 export function UserHeader() {
   const theme = useTheme()
   const toggleTheme = useToggleTheme()
-
   const { isSignedIn, user } = useUser()
 
   if (!isSignedIn) {
@@ -30,14 +30,15 @@ export function UserHeader() {
           >
             {user.fullName}
           </Heading>
-          <Heading
-            className="font-normal text-lg text-typography-500 leading-none"
+          <Text
+            className="text-lg text-typography-500 leading-none"
             numberOfLines={1}
           >
             {user.primaryEmailAddress?.emailAddress}
-          </Heading>
+          </Text>
         </Pressable>
       </Link>
+
       <Button
         variant="link"
         action="primary"

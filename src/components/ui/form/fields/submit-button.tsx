@@ -5,26 +5,37 @@ import {
   ButtonSpinner,
   ButtonText,
 } from "../../button"
-import { useFormContext } from "../contex"
+import { useFormContext } from "../context"
 
 interface Props extends ButtonProps {
   children: string
-  icon?: React.ElementType
+  isLoading?: boolean
+  leftIcon?: React.ElementType
+  rightIcon?: React.ElementType
 }
 
-export default function SubmitButton({ children, icon }: Props) {
+export default function SubmitButton({
+  children,
+  isLoading,
+  leftIcon,
+  rightIcon,
+}: Props) {
   const form = useFormContext()
 
   return (
     <form.Subscribe selector={(state) => state.isSubmitting}>
       {(isSubmitting) => (
-        <Button isDisabled={isSubmitting} onPress={form.handleSubmit}>
-          {isSubmitting ? (
-            <ButtonSpinner />
+        <Button
+          isDisabled={isLoading || isSubmitting}
+          onPress={form.handleSubmit}
+        >
+          {isLoading || isSubmitting ? (
+            <ButtonSpinner className="text-typography-0" />
           ) : (
             <>
-              {icon && <ButtonIcon as={icon} />}
+              {leftIcon && <ButtonIcon as={leftIcon} />}
               <ButtonText>{children}</ButtonText>
+              {rightIcon && <ButtonIcon as={rightIcon} />}
             </>
           )}
         </Button>

@@ -15,28 +15,36 @@ import {
   SelectItem as UISelectItem,
 } from "~/components/ui/select"
 import { useToggle } from "~/hooks/use-toggle"
-import { useFieldContext } from "../contex"
+import { useFieldContext } from "../context"
 import { Field, FieldProps } from "../field"
 
 interface Props extends FieldProps {
   children: React.ReactNode
+  initialLabel?: string
   onChange?: (arg?: string) => void
   value?: string
 }
 
-export function Select({ children, value, onChange, ...rest }: Props) {
+export function Select({
+  initialLabel,
+  children,
+  value,
+  onChange,
+  ...rest
+}: Props) {
   const [isOpen, toggleOpen] = useToggle()
 
   return (
     <Field {...rest}>
       <UISelect
         selectedValue={value}
+        initialLabel={initialLabel}
         closeOnOverlayClick
         onClose={toggleOpen}
         onValueChange={onChange}
       >
         <SelectTrigger
-          size="md"
+          size="xl"
           variant="outline"
           className="gap-2 rounded-lg px-2 active:opacity-50"
           onPress={toggleOpen}

@@ -3,17 +3,19 @@ import { forwardRef } from "react"
 import { TextInput } from "react-native"
 import {
   IInputFieldProps,
+  IInputProps,
   InputField,
   Input as UIInput,
 } from "~/components/ui/input"
 import { cn } from "~/utils/cn"
-import { useFieldContext } from "../contex"
+import { useFieldContext } from "../context"
 import { Field, FieldProps } from "../field"
 
 interface Props extends FieldProps, IInputFieldProps {
   prefix?: React.ReactNode
   sufix?: React.ReactNode
   isDirty?: boolean
+  conteinerProps?: IInputProps
 }
 
 export type InputRef = TextInput
@@ -30,6 +32,7 @@ export const Input = forwardRef<TextInput, Props>(
       className,
       isDirty,
       errors,
+      conteinerProps = {},
       ...rest
     },
     ref,
@@ -45,14 +48,22 @@ export const Input = forwardRef<TextInput, Props>(
         errors={errors}
       >
         <UIInput
+          size="xl"
+          {...conteinerProps}
+          variant={rest.variant}
           className={cn(
-            "h-10 gap-2 rounded-lg px-2 text-neutral-500",
+            "gap-2 px-2 text-neutral-500",
             isActive && "border-primary-500",
-            className,
+            conteinerProps.className,
           )}
         >
           {prefix}
-          <InputField ref={ref as any} className="px-0 text-lg" {...rest} />
+          <InputField
+            size="xl"
+            ref={ref as any}
+            className={cn("px-0", className)}
+            {...rest}
+          />
           {sufix}
         </UIInput>
       </Field>
