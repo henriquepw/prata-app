@@ -1,10 +1,10 @@
 import { useAuth } from "@clerk/clerk-expo"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { api } from "~/api"
+import { useApi } from "~/api"
 
 const keys = {
-  list: (userId?: string | null) => [userId, "balance"] as const,
-}
+  list: ["balance"],
+} as const
 
 interface Piece {
   id: string
@@ -18,43 +18,37 @@ interface Balance {
 
 export function useBalance() {
   const auth = useAuth()
+  const api = useApi()
 
   return useQuery({
     enabled: auth.isSignedIn,
-    queryKey: keys.list(auth.userId),
+    queryKey: keys.list,
     queryFn: async () => {
-      return api
-        .get("/user/balance", {
-          headers: { authorization: `Bearer ${await auth.getToken()}` },
-        })
-        .json<Balance>()
+      return api.get("/user/balance").json<Balance>()
     },
   })
 }
 
 export function useUpdateBalance() {
-  const auth = useAuth()
+  const api = useApi()
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: async (balance: Balance) => {
       return await api
-        .post("/user/balance", {
-          headers: { authorization: `Bearer ${await auth.getToken()}` },
-          json: balance.pieces,
-        })
+        .post("/user/balance", { json: balance.pieces })
         .json<Balance>()
     },
     onMutate: (balance) => {
-      const old = queryClient.getQueryData(keys.list(auth.userId))
-      queryClient.setQueryData(keys.list(auth.userId), balance)
+      const old = queryClient.getQueryData(keys.list)
+      queryClient.setQueryData(keys.list, balance)
       return old as Balance
     },
     onSuccess: (balance) => {
-      queryClient.setQueryData(keys.list(auth.userId), balance)
+      queryClient.setQueryData(keys.list, balance)
     },
     onError: (_, __, old) => {
-      queryClient.setQueryData(keys.list(auth.userId), old)
+      queryClient.setQueryData(keys.list, old)
     },
   })
 }
