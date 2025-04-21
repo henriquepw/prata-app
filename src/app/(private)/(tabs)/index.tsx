@@ -1,8 +1,8 @@
 import { SafeAreaView, View } from "react-native"
-import { BalanceCard } from "~/components/balance/balance-card"
-import { BalanceView } from "~/components/balance/balance-view"
-import { TransationDetail } from "~/components/transations/transation-detail"
-import { UserHeader } from "~/components/user/user-header"
+import { BalanceCard } from "~/components/features/balance/balance-card"
+import { BalanceView } from "~/components/features/balance/balance-view"
+import { TransationDetail } from "~/components/features/transations/transation-detail"
+import { UserHeader } from "~/components/features/user/user-header"
 
 export default function HomePage() {
   return (

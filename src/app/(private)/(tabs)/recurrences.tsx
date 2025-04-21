@@ -13,7 +13,7 @@ export default function RecurrentListPage() {
       <SafeAreaView className="gap-6 p-4">
         <Box className="h-10 flex-row items-center justify-between gap-2">
           <Heading size="2xl">Recorrências</Heading>
-          <Link asChild href="/recurrents/register">
+          <Link asChild href="/recurrences/register">
             <Button size="sm" className="size-10">
               <ButtonIcon as={PlusIcon} />
             </Button>

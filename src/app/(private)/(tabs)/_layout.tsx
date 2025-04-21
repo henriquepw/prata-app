@@ -28,7 +28,7 @@ export default function TabLayout() {
           <TabTrigger
             asChild
             name="recurrent"
-            href="/(private)/(tabs)/recurrents"
+            href="/(private)/(tabs)/recurrences"
           >
             <TabButton icon={PinIcon} />
           </TabTrigger>

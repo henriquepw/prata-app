@@ -1,5 +1,6 @@
 import { Link } from "expo-router"
 import { ChevronRightIcon } from "lucide-react-native"
+import { View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Background } from "~/components/ui/background"
 import { Box } from "~/components/ui/box"
@@ -32,6 +33,7 @@ export default function IntroductionStartScreen() {
         <Heading size="2xl" className="mb-6">
           Bem vindo
         </Heading>
+        <View className="mb-2 h-1 w-10 rounded-full bg-primary-500" />
         <Text>
           Lorem ipsum dolor sit amet consectetur. Enim habitasse tempor tortor
           pellentesque in ornare sed sapien. Nam commodo consectetur egestas
@@ -54,7 +56,7 @@ export default function IntroductionStartScreen() {
 
         <Link asChild href="/introduction/income">
           <Button className="mt-auto ml-auto">
-            <ButtonText>Próximo</ButtonText>
+            <ButtonText>Avançar</ButtonText>
             <ButtonIcon as={ChevronRightIcon} />
           </Button>
         </Link>

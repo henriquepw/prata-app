@@ -10,6 +10,7 @@ export default function AuthLayout() {
   const { isLoaded, isSignedIn } = useAuth()
   const balance = useBalance()
 
+  console.log({ isLoaded, isSignedIn })
   useEffect(() => {
     if (isLoaded) {
       SplashScreen.hide()

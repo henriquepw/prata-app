@@ -130,7 +130,9 @@ export default function SignUpPage() {
                   )}
                 </verifyForm.AppField>
                 <Box className="gap-4">
-                  <verifyForm.SubmitButton>Verificar</verifyForm.SubmitButton>
+                  <verifyForm.AppForm>
+                    <verifyForm.SubmitButton>Verificar</verifyForm.SubmitButton>
+                  </verifyForm.AppForm>
                   <Button
                     variant="link"
                     onPress={() => setPendingVerification(false)}
@@ -215,7 +217,9 @@ export default function SignUpPage() {
                 )}
               </signUpform.AppField>
               <Box className="mt-4">
-                <signUpform.SubmitButton>Cadastrar</signUpform.SubmitButton>
+                <signUpform.AppForm>
+                  <signUpform.SubmitButton>Cadastrar</signUpform.SubmitButton>
+                </signUpform.AppForm>
                 <Box className="mt-2 flex-row items-center justify-center gap-2">
                   <Text>Já possui uma conta?</Text>
                   <Link

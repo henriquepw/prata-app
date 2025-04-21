@@ -98,7 +98,9 @@ export default function SignInPage() {
             </form.AppField>
 
             <Box className="mt-4">
-              <form.SubmitButton>Entrar</form.SubmitButton>
+              <form.AppForm>
+                <form.SubmitButton>Entrar</form.SubmitButton>
+              </form.AppForm>
               <Box className="mt-2 flex-row items-center justify-center gap-2">
                 <Text>Não possui uma conta?</Text>
                 <Link
