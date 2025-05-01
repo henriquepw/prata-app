@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "Pobrin",
-    "slug": "pobrin",
+    "name": "Prata",
+    "slug": "prata",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "pobrin",
+    "scheme": "prata",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "userInterfaceStyle": "automatic",
-      "bundleIdentifier": "pw.henrique.pobrin",
+      "bundleIdentifier": "pw.henrique.prata",
       "associatedDomains": [
         "applinks:alert-shad-2.clerk.accounts.dev",
         "webcredentilas:alert-shad-2.clerk.accounts.dev"
@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "pw.henrique.pobrin"
+      "package": "pw.henrique.prata",
+      "edgeToEdgeEnabled": true
     },
     "web": {
       "bundler": "metro",
