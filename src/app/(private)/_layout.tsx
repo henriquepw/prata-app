@@ -20,7 +20,7 @@ export default function PrivateLayout() {
         options={{ presentation: "modal" }}
       />
       <Stack.Screen
-        name="recurrents/register"
+        name="recurrences/register"
         options={{ presentation: "modal" }}
       />
     </Stack>
