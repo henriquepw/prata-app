@@ -1,7 +1,7 @@
-import { useAuth } from "@clerk/clerk-expo"
 import ky from "ky"
 import { useEffect } from "react"
 import { create } from "zustand"
+import { useAuth } from "./store/auth-store"
 
 const _api = ky.create({
   prefixUrl: process.env.EXPO_PUBLIC_API_URL,
@@ -28,6 +28,9 @@ export function useSetupApi() {
           },
         }),
       )
+      return
     }
+
+    useApi.setState(_api)
   }, [auth.isSignedIn, auth.getToken])
 }

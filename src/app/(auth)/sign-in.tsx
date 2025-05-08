@@ -1,4 +1,3 @@
-import { useSignIn } from "@clerk/clerk-expo"
 import { Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import { useRef } from "react"
@@ -12,6 +11,7 @@ import { useAppForm } from "~/components/ui/form"
 import { InputRef } from "~/components/ui/form/fields/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
+import { useSignIn } from "~/store/auth-store"
 
 const schema = z.object({
   identifier: z
@@ -21,8 +21,7 @@ const schema = z.object({
 })
 
 export default function SignInPage() {
-  const { signIn, setActive, isLoaded } = useSignIn()
-
+  const signIn = useSignIn()
   const emailRef = useRef<InputRef>(null)
   const passwordRef = useRef<InputRef>(null)
 
@@ -36,24 +35,17 @@ export default function SignInPage() {
       onSubmit: schema,
     },
     onSubmit: async ({ value, formApi }) => {
-      if (!isLoaded) return
-
       try {
-        const signInAttempt = await signIn.create(value)
-
-        console.log({ signInAttempt })
-        if (signInAttempt?.status !== "complete") {
-          formApi.setErrorMap({
-            onSubmit: () => ({
-              password: "Email e/ou senha inválido",
-            }),
-          })
-          console.error(JSON.stringify(signInAttempt, null, 2))
-          return
-        }
-
-        await setActive({ session: signInAttempt.createdSessionId })
+        await signIn.mutateAsync({
+          email: value.identifier,
+          password: value.password,
+        })
       } catch (err) {
+        formApi.setErrorMap({
+          onSubmit: () => ({
+            password: "Email e/ou senha inválido",
+          }),
+        })
         // See https://clerk.com/docs/custom-flows/error-handling
         console.error(JSON.stringify(err, null, 2))
       }

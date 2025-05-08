@@ -12,7 +12,6 @@
     "lint": "biome check --write --unsafe ./src/ && npx tsc -b --pretty"
   },
   "dependencies": {
-    "@clerk/clerk-expo": "^2.9.11",
     "@expo-google-fonts/montserrat": "^0.3.0",
     "@expo-google-fonts/poppins": "^0.3.0",
     "@expo/html-elements": "0.11.2",

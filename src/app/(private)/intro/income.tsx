@@ -36,7 +36,7 @@ export default function IntroductionIncomeScreen() {
         startAt: new Date(),
         amount: +value.amount,
       })
-      router.push("/introduction/balance")
+      router.push("/intro/balance")
     },
   })
 
@@ -80,7 +80,7 @@ export default function IntroductionIncomeScreen() {
         </Box>
 
         <Box className="mt-auto flex-row items-center justify-between gap-2">
-          <Link asChild href="/introduction/balance">
+          <Link asChild href="/intro/balance">
             <Button variant="outline">
               <ButtonText>Pular</ButtonText>
             </Button>

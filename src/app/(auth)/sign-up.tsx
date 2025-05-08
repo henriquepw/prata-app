@@ -1,18 +1,17 @@
-import { useSignUp } from "@clerk/clerk-expo"
-import { Link, useRouter } from "expo-router"
+import { Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import { KeyboardAvoidingView, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { z } from "zod"
 import { Background } from "~/components/ui/background"
 import { Box } from "~/components/ui/box"
-import { Button, ButtonText } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { useAppForm } from "~/components/ui/form"
 import { InputRef } from "~/components/ui/form/fields/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
+import { useSignUp } from "~/store/auth-store"
 
 const signUpSchema = z
   .object({
@@ -35,20 +34,13 @@ const signUpSchema = z
     message: "A confirmação deve ser igual a senha",
   })
 
-const verifySchema = z.object({
-  code: z.string({ message: "O código de verificação é obrigatório" }).trim(),
-})
-
 export default function SignUpPage() {
-  const { isLoaded, signUp, setActive } = useSignUp()
-  const router = useRouter()
+  const signUp = useSignUp()
 
   const nameRef = useRef<InputRef>(null)
   const emailRef = useRef<InputRef>(null)
   const passwordRef = useRef<InputRef>(null)
   const confirmPasswordRef = useRef<InputRef>(null)
-
-  const [pendingVerification, setPendingVerification] = useState(false)
 
   const signUpform = useAppForm({
     defaultValues: {
@@ -61,92 +53,17 @@ export default function SignUpPage() {
       onChange: signUpSchema,
     },
     onSubmit: async ({ value }) => {
-      if (!isLoaded) return
-
       try {
-        await signUp.create({
-          emailAddress: value.email,
+        await signUp.mutateAsync({
+          email: value.email,
           password: value.password,
-          username: value.name,
+          // username: value.name,
         })
-
-        await signUp.prepareEmailAddressVerification({ strategy: "email_code" })
-        setPendingVerification(true)
       } catch (err) {
-        // See https://clerk.com/docs/custom-flows/error-handling
         console.error(JSON.stringify(err, null, 2))
       }
     },
   })
-
-  const verifyForm = useAppForm({
-    defaultValues: {
-      code: "",
-    },
-    validators: {
-      onSubmit: verifySchema,
-    },
-    onSubmit: async ({ value }) => {
-      if (!isLoaded) return
-
-      try {
-        const signUpAttempt = await signUp.attemptEmailAddressVerification({
-          code: value.code,
-        })
-
-        if (signUpAttempt.status !== "complete") {
-          console.error(JSON.stringify(signUpAttempt, null, 2))
-          return
-        }
-
-        await setActive({ session: signUpAttempt.createdSessionId })
-        router.replace("/introduction/start")
-      } catch (err) {
-        // See https://clerk.com/docs/custom-flows/error-handling
-        console.error(JSON.stringify(err, null, 2))
-      }
-    },
-  })
-
-  if (pendingVerification) {
-    return (
-      <Background>
-        <SafeAreaView className="justify-center">
-          <StatusBar style="light" />
-          <KeyboardAvoidingView>
-            <ScrollView contentContainerStyle={{ padding: 24, flexGrow: 1 }}>
-              <Card className="my-auto">
-                <Heading>Verifique seu email</Heading>
-                <verifyForm.AppField name="code">
-                  {(field) => (
-                    <field.Input
-                      isRequired
-                      label="Código"
-                      textContentType="oneTimeCode"
-                      placeholder="Digite o código que enviamos para seu email"
-                      returnKeyType="done"
-                      onSubmitEditing={verifyForm.handleSubmit}
-                    />
-                  )}
-                </verifyForm.AppField>
-                <Box className="gap-4">
-                  <verifyForm.AppForm>
-                    <verifyForm.SubmitButton>Verificar</verifyForm.SubmitButton>
-                  </verifyForm.AppForm>
-                  <Button
-                    variant="link"
-                    onPress={() => setPendingVerification(false)}
-                  >
-                    <ButtonText>Voltar</ButtonText>
-                  </Button>
-                </Box>
-              </Card>
-            </ScrollView>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
-      </Background>
-    )
-  }
 
   return (
     <Background>

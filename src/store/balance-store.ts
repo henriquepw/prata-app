@@ -1,6 +1,6 @@
-import { useAuth } from "@clerk/clerk-expo"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useApi } from "~/api"
+import { useAuth } from "./auth-store"
 
 const keys = {
   list: ["balance"],

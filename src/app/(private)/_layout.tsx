@@ -1,11 +1,11 @@
-import { useAuth } from "@clerk/clerk-expo"
 import { Redirect, Stack } from "expo-router"
 import { useSetupApi } from "~/api"
+import { useIsSignedIn } from "~/store/auth-store"
 
 const opts = { headerShown: false }
 
 export default function PrivateLayout() {
-  const { isSignedIn } = useAuth()
+  const isSignedIn = useIsSignedIn()
   useSetupApi()
 
   if (!isSignedIn) {
