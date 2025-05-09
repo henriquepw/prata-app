@@ -10,12 +10,16 @@ import {
 import { cn } from "~/utils/cn"
 import { useFieldContext } from "../context"
 import { Field, FieldProps } from "../field"
+import { formatAmount, getOnlyDigits } from "~/utils/format-amount"
+
+type InputMask = "MONEY"
 
 interface Props extends FieldProps, IInputFieldProps {
   prefix?: React.ReactNode
   sufix?: React.ReactNode
   isDirty?: boolean
   conteinerProps?: IInputProps
+  mask?: InputMask
 }
 
 export type InputRef = TextInput
@@ -33,11 +37,26 @@ export const Input = forwardRef<TextInput, Props>(
       isDirty,
       errors,
       conteinerProps = {},
+      mask,
+      onChangeText,
       ...rest
     },
     ref,
   ) => {
     const isActive = isDirty && !errors?.length
+
+    const updateText = (str: string) => {
+      let value = str
+      if (!mask) return
+
+      switch (mask) {
+        case "MONEY": {
+          value = formatAmount(+getOnlyDigits(str), false)
+        }
+      }
+
+      onChangeText?.(value)
+    }
 
     return (
       <Field
@@ -62,6 +81,7 @@ export const Input = forwardRef<TextInput, Props>(
             size="xl"
             ref={ref as any}
             className={cn("px-0", className)}
+            onChangeText={updateText}
             {...rest}
           />
           {sufix}
