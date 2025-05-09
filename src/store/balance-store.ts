@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { useIsSignedIn } from "./auth"
 import { api } from "~/api"
+import { useIsSignedIn } from "./auth-store"
 
 const keys = {
   list: ["balance"],

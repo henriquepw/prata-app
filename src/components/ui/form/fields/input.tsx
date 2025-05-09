@@ -8,9 +8,9 @@ import {
   Input as UIInput,
 } from "~/components/ui/input"
 import { cn } from "~/utils/cn"
+import { formatAmount, getOnlyDigits } from "~/utils/format-amount"
 import { useFieldContext } from "../context"
 import { Field, FieldProps } from "../field"
-import { formatAmount, getOnlyDigits } from "~/utils/format-amount"
 
 type InputMask = "MONEY"
 

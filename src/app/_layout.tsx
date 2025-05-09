@@ -9,11 +9,10 @@ import {
   configureReanimatedLogger,
 } from "react-native-reanimated"
 import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
+import { useIsSignedIn } from "~/store/auth-store"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/theme-store"
-import { useIsSignedIn } from "~/store/auth"
 
-// SplashScreen.preventAutoHideAsync()
 SplashScreen.setOptions({
   duration: 1000,
   fade: true,

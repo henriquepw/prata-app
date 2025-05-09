@@ -4,5 +4,4 @@ export function formatDate(date: string): string {
 
 export function formatISO(date: Date): string {
   return date.toISOString()
-  // return `${date.toISOString().slice(0, -5)}Z`
 }

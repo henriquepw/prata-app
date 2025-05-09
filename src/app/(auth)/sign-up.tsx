@@ -11,7 +11,7 @@ import { useAppForm } from "~/components/ui/form"
 import { InputRef } from "~/components/ui/form/fields/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
-import { useSignUp } from "~/store/auth/sign-up"
+import { useSignUp } from "~/store/auth-store"
 
 const signUpSchema = z
   .object({

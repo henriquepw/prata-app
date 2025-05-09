@@ -1,25 +1,8 @@
-import ky from "ky"
-import { useAuth } from "~/store/auth"
+import { isBefore } from "date-fns"
+import { useAuth } from "~/store/auth-store"
+import { publicApi } from "./public"
 
-export const baseApi = ky.create({
-  prefixUrl: process.env.EXPO_PUBLIC_API_URL,
-  credentials: "include",
-  mode: "cors",
-  cache: "no-store",
-  hooks: {
-    beforeRequest: [
-      (r) => {
-        console.log(r.url)
-      },
-    ],
-  },
-})
-
-export const api = ky.create({
-  prefixUrl: process.env.EXPO_PUBLIC_API_URL,
-  credentials: "include",
-  mode: "cors",
-  cache: "no-store",
+export const api = publicApi.extend({
   hooks: {
     beforeRequest: [
       (r) => {
@@ -31,11 +14,22 @@ export const api = ky.create({
           return
         }
 
+        if (isBefore(new Date(), auth.data.refreshExpiresAt)) {
+          return new Response(null, { status: 401 })
+        }
+
         try {
           const token = await auth.getToken()
           request.headers.set("authorization", `Bearer ${token}`)
-        } catch (err) {
-          console.error(err)
+        } catch {
+          return new Response(null, { status: 401 })
+        }
+      },
+    ],
+    afterResponse: [
+      (_, __, response) => {
+        if (response.status === 401) {
+          useAuth.getState().logout()
         }
       },
     ],
