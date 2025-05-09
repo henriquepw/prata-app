@@ -11,7 +11,7 @@ import { useAppForm } from "~/components/ui/form"
 import { InputRef } from "~/components/ui/form/fields/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
-import { useSignIn } from "~/store/auth-store"
+import { useSignIn } from "~/store/auth/sign-in"
 
 const schema = z.object({
   identifier: z
@@ -34,20 +34,14 @@ export default function SignInPage() {
       onChange: schema,
       onSubmit: schema,
     },
-    onSubmit: async ({ value, formApi }) => {
+    onSubmit: async ({ value }) => {
       try {
         await signIn.mutateAsync({
           email: value.identifier,
           password: value.password,
         })
       } catch (err) {
-        formApi.setErrorMap({
-          onSubmit: () => ({
-            password: "Email e/ou senha inválido",
-          }),
-        })
-        // See https://clerk.com/docs/custom-flows/error-handling
-        console.error(JSON.stringify(err, null, 2))
+        console.error(err)
       }
     },
   })

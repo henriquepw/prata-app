@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useApi } from "~/api"
+import { api } from "~/api"
+import { formatISO } from "~/utils/format-date"
 
 const keys = {
   list: ["recurrences"],
@@ -40,13 +41,23 @@ export interface RecurrenteCreatePayload {
 }
 
 export function useCreateRecurrence() {
-  const api = useApi()
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: async (payload: RecurrenteCreatePayload) => {
-      return await api
-        .post("/user/recurrences", { json: payload })
+      console.log({
+        ...payload,
+        startAt: formatISO(payload.startAt),
+        endAt: payload.endAt ? formatISO(payload.endAt) : undefined,
+      })
+      return api
+        .post("user/recurrences", {
+          json: {
+            ...payload,
+            startAt: formatISO(payload.startAt),
+            endAt: payload.endAt ? formatISO(payload.endAt) : undefined,
+          },
+        })
         .json<Recurrence>()
     },
     onSettled: () => {

@@ -11,7 +11,7 @@ import { useAppForm } from "~/components/ui/form"
 import { InputRef } from "~/components/ui/form/fields/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
-import { useSignUp } from "~/store/auth-store"
+import { useSignUp } from "~/store/auth/sign-up"
 
 const signUpSchema = z
   .object({
@@ -55,12 +55,12 @@ export default function SignUpPage() {
     onSubmit: async ({ value }) => {
       try {
         await signUp.mutateAsync({
+          username: value.name,
           email: value.email,
           password: value.password,
-          // username: value.name,
         })
       } catch (err) {
-        console.error(JSON.stringify(err, null, 2))
+        console.error(err)
       }
     },
   })
