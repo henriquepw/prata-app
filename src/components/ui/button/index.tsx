@@ -284,7 +284,10 @@ export interface ButtonProps
   className?: string
 }
 
-const Button = React.forwardRef<React.ElementRef<typeof UIButton>, ButtonProps>(
+const Button = React.forwardRef<
+  React.ComponentRef<typeof UIButton>,
+  ButtonProps
+>(
   (
     { className, variant = "solid", size = "md", action = "primary", ...props },
     ref,
@@ -304,7 +307,7 @@ type IButtonTextProps = React.ComponentPropsWithoutRef<typeof UIButton.Text> &
   VariantProps<typeof buttonTextStyle> & { className?: string }
 
 const ButtonText = React.forwardRef<
-  React.ElementRef<typeof UIButton.Text>,
+  React.ComponentRef<typeof UIButton.Text>,
   IButtonTextProps
 >(({ className, variant, size, action, ...props }, ref) => {
   const {
@@ -343,7 +346,7 @@ type IButtonIcon = React.ComponentPropsWithoutRef<typeof UIButton.Icon> &
   }
 
 const ButtonIcon = React.forwardRef<
-  React.ElementRef<typeof UIButton.Icon>,
+  React.ComponentRef<typeof UIButton.Icon>,
   IButtonIcon
 >(({ className, size, ...props }, ref) => {
   const {
@@ -395,7 +398,7 @@ type IButtonGroupProps = React.ComponentPropsWithoutRef<typeof UIButton.Group> &
   VariantProps<typeof buttonGroupStyle>
 
 const ButtonGroup = React.forwardRef<
-  React.ElementRef<typeof UIButton.Group>,
+  React.ComponentRef<typeof UIButton.Group>,
   IButtonGroupProps
 >(
   (

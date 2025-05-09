@@ -10,7 +10,7 @@ export const UIIcon = createIcon({
   Root: PrimitiveIcon,
 }) as React.ForwardRefExoticComponent<
   React.ComponentPropsWithoutRef<typeof PrimitiveIcon> &
-    React.RefAttributes<React.ElementRef<typeof Svg>>
+    React.RefAttributes<React.ComponentRef<typeof Svg>>
 >
 
 const iconStyle = tva({
@@ -44,7 +44,7 @@ type IIConProps = IPrimitiveIcon &
   VariantProps<typeof iconStyle> &
   React.ComponentPropsWithoutRef<typeof UIIcon>
 
-const Icon = React.forwardRef<React.ElementRef<typeof Svg>, IIConProps>(
+const Icon = React.forwardRef<React.ComponentRef<typeof Svg>, IIConProps>(
   ({ size = "md", className, ...props }, ref) => {
     if (typeof size === "number") {
       return (
@@ -89,10 +89,10 @@ const createIconUI = ({ ...props }: ParameterTypes) => {
     ...props,
   }) as React.ForwardRefExoticComponent<
     React.ComponentPropsWithoutRef<typeof PrimitiveIcon> &
-      React.RefAttributes<React.ElementRef<typeof Svg>>
+      React.RefAttributes<React.ComponentRef<typeof Svg>>
   >
 
-  return React.forwardRef<React.ElementRef<typeof Svg>>(
+  return React.forwardRef<React.ComponentRef<typeof Svg>>(
     (
       {
         className,

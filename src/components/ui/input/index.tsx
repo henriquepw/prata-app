@@ -103,7 +103,7 @@ const inputFieldStyle = tva({
 
 export type IInputProps = React.ComponentProps<typeof UIInput> &
   VariantProps<typeof inputStyle> & { className?: string }
-const Input = React.forwardRef<React.ElementRef<typeof UIInput>, IInputProps>(
+const Input = React.forwardRef<React.ComponentRef<typeof UIInput>, IInputProps>(
   ({ className, variant = "outline", size = "md", ...props }, ref) => {
     return (
       <UIInput
@@ -124,7 +124,7 @@ type IInputIconProps = React.ComponentProps<typeof UIInput.Icon> &
   }
 
 const InputIcon = React.forwardRef<
-  React.ElementRef<typeof UIInput.Icon>,
+  React.ComponentRef<typeof UIInput.Icon>,
   IInputIconProps
 >(({ className, size, ...props }, ref) => {
   const { size: parentSize } = useStyleContext(SCOPE)
@@ -171,7 +171,7 @@ type IInputSlotProps = React.ComponentProps<typeof UIInput.Slot> &
   VariantProps<typeof inputSlotStyle> & { className?: string }
 
 const InputSlot = React.forwardRef<
-  React.ElementRef<typeof UIInput.Slot>,
+  React.ComponentRef<typeof UIInput.Slot>,
   IInputSlotProps
 >(({ className, ...props }, ref) => {
   return (
@@ -189,7 +189,7 @@ export type IInputFieldProps = React.ComponentProps<typeof UIInput.Input> &
   VariantProps<typeof inputFieldStyle> & { className?: string }
 
 const InputField = React.forwardRef<
-  React.ElementRef<typeof UIInput.Input>,
+  React.ComponentRef<typeof UIInput.Input>,
   IInputFieldProps
 >(({ className, ...props }, ref) => {
   const { variant: parentVariant, size: parentSize } = useStyleContext(SCOPE)

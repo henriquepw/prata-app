@@ -17,7 +17,7 @@ cssInterop(H5, { className: "style" })
 cssInterop(H6, { className: "style" })
 
 const MappedHeading = memo(
-  forwardRef<React.ElementRef<typeof H1>, IHeadingProps>(
+  forwardRef<React.ComponentRef<typeof H1>, IHeadingProps>(
     (
       {
         size,
@@ -176,7 +176,7 @@ const MappedHeading = memo(
 )
 
 const Heading = memo(
-  forwardRef<React.ElementRef<typeof H1>, IHeadingProps>(
+  forwardRef<React.ComponentRef<typeof H1>, IHeadingProps>(
     ({ className, size = "lg", as: AsComp, ...props }, ref) => {
       const {
         isTruncated,

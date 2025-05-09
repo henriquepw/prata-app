@@ -24,7 +24,7 @@ const iconStyle = tva({
 })
 
 export const Icon = React.forwardRef<
-  React.ElementRef<typeof UIIcon>,
+  React.ComponentRef<typeof UIIcon>,
   React.ComponentPropsWithoutRef<typeof UIIcon> &
     VariantProps<typeof iconStyle> & {
       height?: number | string
@@ -34,7 +34,7 @@ export const Icon = React.forwardRef<
   if (typeof size === "number") {
     return (
       <UIIcon
-        ref={ref}
+        ref={ref as any}
         {...props}
         className={iconStyle({ class: className })}
         size={size}
@@ -48,7 +48,7 @@ export const Icon = React.forwardRef<
   ) {
     return (
       <UIIcon
-        ref={ref}
+        ref={ref as any}
         {...props}
         className={iconStyle({ class: className })}
       />
@@ -57,7 +57,7 @@ export const Icon = React.forwardRef<
 
   return (
     <UIIcon
-      ref={ref}
+      ref={ref as any}
       {...props}
       className={iconStyle({ size, class: className })}
     />
@@ -75,7 +75,7 @@ const accessClassName = (style: any) => {
 const createIconUI = ({ ...props }: ParameterTypes) => {
   const NewUIIcon = createIcon({ Root: Svg, ...props })
   return React.forwardRef<
-    React.ElementRef<typeof UIIcon>,
+    React.ComponentRef<typeof UIIcon>,
     React.ComponentPropsWithoutRef<typeof UIIcon> &
       VariantProps<typeof iconStyle> & {
         height?: number | string
@@ -88,7 +88,11 @@ const createIconUI = ({ ...props }: ParameterTypes) => {
         : className
     }, [className, inComingprops?.style])
     return (
-      <NewUIIcon ref={ref} {...inComingprops} className={calculateClassName} />
+      <NewUIIcon
+        ref={ref as any}
+        {...inComingprops}
+        className={calculateClassName}
+      />
     )
   })
 }

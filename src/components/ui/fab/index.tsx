@@ -115,7 +115,7 @@ const fabIconStyle = tva({
 type IFabProps = Omit<React.ComponentPropsWithoutRef<typeof UIFab>, "context"> &
   VariantProps<typeof fabStyle>
 
-const Fab = React.forwardRef<React.ElementRef<typeof UIFab>, IFabProps>(
+const Fab = React.forwardRef<React.ComponentRef<typeof UIFab>, IFabProps>(
   ({ size = "md", placement = "bottom right", className, ...props }, ref) => {
     return (
       <UIFab
@@ -132,7 +132,7 @@ type IFabLabelProps = React.ComponentPropsWithoutRef<typeof UIFab.Label> &
   VariantProps<typeof fabLabelStyle>
 
 const FabLabel = React.forwardRef<
-  React.ElementRef<typeof UIFab.Label>,
+  React.ComponentRef<typeof UIFab.Label>,
   IFabLabelProps
 >(
   (
@@ -175,7 +175,7 @@ type IFabIconProps = React.ComponentPropsWithoutRef<typeof UIFab.Icon> &
   }
 
 const FabIcon = React.forwardRef<
-  React.ElementRef<typeof UIFab.Icon>,
+  React.ComponentRef<typeof UIFab.Icon>,
   IFabIconProps
 >(({ size, className, ...props }, ref) => {
   const { size: parentSize } = useStyleContext(SCOPE)

@@ -40,7 +40,7 @@ type Props = ViewProps &
     className?: string
   }
 
-const Card = React.forwardRef<React.ElementRef<typeof View>, Props>(
+const Card = React.forwardRef<React.ComponentRef<typeof View>, Props>(
   (
     { className, children, size = "md", variant = "outline", ...props },
     ref,
