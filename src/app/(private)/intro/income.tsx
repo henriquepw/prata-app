@@ -11,32 +11,42 @@ import { SelectItem } from "~/components/ui/form/fields/select"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
 import { Frequence, useCreateRecurrence } from "~/store/recurrence-store"
+import { formatAmount, getOnlyDigits } from "~/utils/format-amount"
 
 const schema = z.object({
   amount: z.string(),
   frequence: z.nativeEnum(Frequence),
 })
 
+const defaultValues = {
+  amount: formatAmount(0, false),
+  frequence: Frequence.MONTHLY,
+}
+
 export default function IntroductionIncomeScreen() {
   const router = useRouter()
-  const createTransation = useCreateRecurrence()
+  const createReccurrence = useCreateRecurrence()
   const form = useAppForm({
-    defaultValues: {
-      amount: "",
-      frequence: Frequence.MONTHLY,
-    },
+    defaultValues,
     validators: {
-      onChange: schema,
+      onSubmit: schema,
+    },
+    onSubmitInvalid: (props) => {
+      console.error(props)
     },
     onSubmit: async ({ value }) => {
-      await createTransation.mutateAsync({
-        type: "INCOME",
-        frequence: value.frequence,
-        description: "Renda",
-        startAt: new Date(),
-        amount: +value.amount,
-      })
-      router.push("/intro/balance")
+      try {
+        await createReccurrence.mutateAsync({
+          type: "INCOME",
+          frequence: value.frequence,
+          description: "Renda",
+          startAt: new Date(),
+          amount: +getOnlyDigits(value.amount),
+        })
+        router.push("/intro/balance")
+      } catch (e) {
+        console.error(e)
+      }
     },
   })
 
@@ -71,6 +81,7 @@ export default function IntroductionIncomeScreen() {
               <field.Input
                 label="Renda"
                 placeholder="0,00"
+                mask="MONEY"
                 prefix={
                   <Text className="font-bold text-primary-500 text-xl">R$</Text>
                 }
@@ -86,7 +97,7 @@ export default function IntroductionIncomeScreen() {
             </Button>
           </Link>
           <form.AppForm>
-            <form.SubmitButton rightIcon={ChevronRightIcon} isLoading>
+            <form.SubmitButton rightIcon={ChevronRightIcon}>
               Avançar
             </form.SubmitButton>
           </form.AppForm>

@@ -1,28 +1,35 @@
-import { Redirect, Stack } from "expo-router"
-import { useSetupApi } from "~/api"
-import { useIsSignedIn } from "~/store/auth-store"
+import { Stack } from "expo-router"
+import { Skeleton } from "~/components/ui/skeleton"
+import { useBalance } from "~/store/balance-store"
 
 const opts = { headerShown: false }
 
 export default function PrivateLayout() {
-  const isSignedIn = useIsSignedIn()
-  useSetupApi()
+  const balance = useBalance()
 
-  if (!isSignedIn) {
-    return <Redirect href="/sign-in" />
+  if (balance.isPending) {
+    return <Skeleton />
   }
+
+  const showIntro = !balance.data?.pieces.length
 
   return (
     <Stack screenOptions={opts}>
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen
-        name="transations/register"
-        options={{ presentation: "modal" }}
-      />
-      <Stack.Screen
-        name="recurrences/register"
-        options={{ presentation: "modal" }}
-      />
+      <Stack.Protected guard={showIntro}>
+        <Stack.Screen name="intro/start" />
+      </Stack.Protected>
+
+      <Stack.Protected guard={!showIntro}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="transations/register"
+          options={{ presentation: "modal" }}
+        />
+        <Stack.Screen
+          name="recurrences/register"
+          options={{ presentation: "modal" }}
+        />
+      </Stack.Protected>
     </Stack>
   )
 }

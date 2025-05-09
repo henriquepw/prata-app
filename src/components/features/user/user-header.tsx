@@ -1,4 +1,3 @@
-import { useUser } from "@clerk/clerk-expo"
 import { Link } from "expo-router"
 import { MoonIcon, SunIcon } from "lucide-react-native"
 import { Image, Pressable } from "react-native"
@@ -11,7 +10,8 @@ import { useTheme, useToggleTheme } from "~/store/theme-store"
 export function UserHeader() {
   const theme = useTheme()
   const toggleTheme = useToggleTheme()
-  const { isSignedIn, user } = useUser()
+  const isSignedIn = false
+  const user = {} as any // TODO:
 
   if (!isSignedIn) {
     return null

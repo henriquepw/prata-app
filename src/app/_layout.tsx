@@ -1,6 +1,6 @@
 import "../../assets/global.css"
 
-import { Slot } from "expo-router"
+import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 import { Appearance, Platform } from "react-native"
@@ -11,6 +11,7 @@ import {
 import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/theme-store"
+import { useIsSignedIn } from "~/store/auth"
 
 // SplashScreen.preventAutoHideAsync()
 SplashScreen.setOptions({
@@ -23,6 +24,23 @@ configureReanimatedLogger({
   strict: false,
 })
 
+function Main() {
+  const isSignedIn = useIsSignedIn()
+  console.log({ isSignedIn })
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={isSignedIn}>
+        <Stack.Screen name="(private)" />
+      </Stack.Protected>
+
+      <Stack.Protected guard={!isSignedIn}>
+        <Stack.Screen name="(auth)" />
+      </Stack.Protected>
+    </Stack>
+  )
+}
+
 export default function RootLayout() {
   const theme = useTheme()
   useEffect(() => {
@@ -34,7 +52,7 @@ export default function RootLayout() {
   return (
     <GluestackUIProvider mode={theme}>
       <StoreProvider>
-        <Slot />
+        <Main />
       </StoreProvider>
     </GluestackUIProvider>
   )
