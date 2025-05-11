@@ -1,6 +1,6 @@
-import { Skia, Canvas, Path, useFont, Text } from "@shopify/react-native-skia"
-import { Box } from "../box"
+import { Canvas, Path, Skia } from "@shopify/react-native-skia"
 import { useMemo } from "react"
+import { Box } from "../box"
 
 type PieSlice = {
   label: string
@@ -13,14 +13,10 @@ type Props = {
   radius: number
   strokeWidth: number
   label?: string
+  children?: React.ReactNode
 }
 
-export function PieChart({ label, data, radius, strokeWidth }: Props) {
-  const font = useFont(
-    require("node_modules/@expo-google-fonts/montserrat/700Bold/Montserrat_700Bold.ttf"),
-    24,
-  )
-
+export function PieChart({ children, data, radius, strokeWidth }: Props) {
   const size = radius * 2
   const innerRadius = radius - strokeWidth
   const paths = useMemo(() => {
@@ -50,20 +46,10 @@ export function PieChart({ label, data, radius, strokeWidth }: Props) {
     return paths
   }, [radius, innerRadius, strokeWidth, data])
 
-  const textDim = font?.measureText(label || "")
-
   return (
     <Box className="items-center justify-center">
       <Canvas style={{ width: size, height: size }}>
-        {!!font && !!label && (
-          <Text
-            font={font}
-            text={label}
-            x={size / 2 - (textDim?.width || 0) / 2}
-            y={size / 2 + (textDim?.height || 0) / 2.5}
-            color="white"
-          />
-        )}
+        {children}
         {paths}
       </Canvas>
     </Box>

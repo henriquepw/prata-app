@@ -16,7 +16,7 @@ const SCOPE = "BUTTON"
 const Root = withStyleContext(Pressable, SCOPE)
 
 const UIButton = createButton({
-  Root: Root,
+  Root,
   Text,
   Group: View,
   Spinner: ActivityIndicator,

@@ -15,7 +15,7 @@ export function IntroHeader({ title, subtitle, className }: Props) {
         {title}
       </Heading>
       <Box className="mb-2 h-1 w-10 rounded-full bg-primary-500" />
-      <Text>{subtitle}</Text>
+      <Text size="lg">{subtitle}</Text>
     </Box>
   )
 }
