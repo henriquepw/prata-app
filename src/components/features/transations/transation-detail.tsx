@@ -12,7 +12,7 @@ import {
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon } from "~/components/ui/button"
 import { Heading } from "~/components/ui/heading"
-import { useTransationStore } from "~/store/transation-store"
+import { useTransationStore } from "~/store/slices/transation"
 import { formatAmount } from "~/utils/format-amount"
 import { formatDate } from "~/utils/format-date"
 

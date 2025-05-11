@@ -9,7 +9,7 @@ import { DateInput } from "~/components/ui/form/fields/date-input"
 import { Input } from "~/components/ui/form/fields/input"
 import { Select, SelectItem } from "~/components/ui/form/fields/select"
 import { Icon } from "~/components/ui/icon"
-import { TransationType, useTransationStore } from "~/store/transation-store"
+import { TransationType, useTransationStore } from "~/store/slices/transation"
 import { formatAmount } from "~/utils/format-amount"
 
 export default function RegisterTransationPage() {

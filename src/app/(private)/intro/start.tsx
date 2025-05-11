@@ -1,7 +1,7 @@
 import { Link } from "expo-router"
 import { ChevronRightIcon } from "lucide-react-native"
-import { View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { IntroHeader } from "~/components/features/intro/intro-header"
 import { Background } from "~/components/ui/background"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
@@ -30,16 +30,10 @@ export default function IntroductionStartScreen() {
   return (
     <Background>
       <SafeAreaView className="flex-1 p-6">
-        <Heading size="2xl" className="mb-6">
-          Bem vindo
-        </Heading>
-        <View className="mb-2 h-1 w-10 rounded-full bg-primary-500" />
-        <Text>
-          Lorem ipsum dolor sit amet consectetur. Enim habitasse tempor tortor
-          pellentesque in ornare sed sapien. Nam commodo consectetur egestas
-          lacus massa eget. Tristique hac non in elementum. Elit pharetra nibh
-          aliquet ut nulla in.
-        </Text>
+        <IntroHeader
+          title="Bem vindo"
+          subtitle="Lorem ipsum dolor sit amet consectetur. Enim habitasse tempor tortor pellentesque in ornare sed sapien. Nam commodo consectetur egestas lacus massa eget. Tristique hac non in elementum. Elit pharetra nibh aliquet ut nulla in."
+        />
 
         <Point title="Básico">
           Lorem ipsum dolor sit amet consectetur. Enim habitasse tempor tortor

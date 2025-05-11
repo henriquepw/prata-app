@@ -5,7 +5,7 @@ import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon } from "~/components/ui/button"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
-import { useTheme, useToggleTheme } from "~/store/theme-store"
+import { useTheme, useToggleTheme } from "~/store/slices/theme"
 
 export function UserHeader() {
   const theme = useTheme()

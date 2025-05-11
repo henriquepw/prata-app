@@ -9,7 +9,7 @@ import { Pressable } from "react-native"
 import { Box } from "~/components/ui/box"
 import { Icon } from "~/components/ui/icon"
 import { Text } from "~/components/ui/text"
-import { useTransationStore } from "~/store/transation-store"
+import { useTransationStore } from "~/store/slices/transation"
 import { formatAmount } from "~/utils/format-amount"
 
 export function BalanceCard() {

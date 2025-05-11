@@ -1,5 +1,6 @@
 import { useColorScheme } from "nativewind"
-import { createPersistStore } from "./storage/persist"
+import { createPersistStore } from "../storage/persist"
+import { useCallback } from "react"
 
 type Theme = "dark" | "light"
 
@@ -17,9 +18,9 @@ export function useToggleTheme() {
   const theme = useTheme()
   const { setColorScheme } = useColorScheme()
 
-  return () => {
+  return useCallback(() => {
     const newTheme = theme === "dark" ? "light" : "dark"
     useThemeStore.setState({ theme: newTheme })
     setColorScheme(newTheme)
-  }
+  }, [theme, setColorScheme])
 }

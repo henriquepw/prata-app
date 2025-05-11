@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { api } from "~/api"
-import { useIsSignedIn } from "./auth-store"
+import { useIsSignedIn } from "./auth"
 
 const keys = {
   list: ["balance"],
@@ -14,6 +14,7 @@ interface Piece {
 
 interface Balance {
   pieces: Piece[]
+  local: boolean
 }
 
 export function useBalance() {
@@ -22,8 +23,9 @@ export function useBalance() {
   return useQuery({
     enabled: isSignedIn,
     queryKey: keys.list,
-    queryFn: () => api.get("user/balance").json<Balance>(),
-    throwOnError: true,
+    queryFn: ({ signal }) => {
+      return api.get("me/balance", { signal }).json<Balance>()
+    },
   })
 }
 
@@ -32,9 +34,7 @@ export function useUpdateBalance() {
 
   return useMutation({
     mutationFn: async (balance: Balance) => {
-      return await api
-        .post("user/balance", { json: balance.pieces })
-        .json<Balance>()
+      return api.put("me/balance", { json: balance.pieces }).json<Balance>()
     },
     onMutate: (balance) => {
       const old = queryClient.getQueryData(keys.list)

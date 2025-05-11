@@ -1,6 +1,6 @@
 import { BlurView } from "expo-blur"
 import { Ref, forwardRef } from "react"
-import { useTheme } from "~/store/theme-store"
+import { useTheme } from "~/store/slices/theme"
 
 type Props = {
   children: React.ReactNode

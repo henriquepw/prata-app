@@ -1,5 +1,5 @@
 import { newId } from "~/utils/id"
-import { createPersistStore } from "./storage/persist"
+import { createPersistStore } from "../storage/persist"
 
 export type TransationType = "INCOME" | "OUTCOME"
 

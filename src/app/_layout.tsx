@@ -1,4 +1,5 @@
 import "../../assets/global.css"
+import "abortcontroller-polyfill/dist/polyfill-patch-fetch"
 
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
@@ -9,9 +10,9 @@ import {
   configureReanimatedLogger,
 } from "react-native-reanimated"
 import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
-import { useIsSignedIn } from "~/store/auth-store"
+import { useIsSignedIn } from "~/store/slices/auth"
 import { StoreProvider } from "../store"
-import { useTheme } from "../store/theme-store"
+import { useTheme } from "../store/slices/theme"
 
 SplashScreen.setOptions({
   duration: 1000,

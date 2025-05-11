@@ -1,6 +1,6 @@
 import { Stack } from "expo-router"
 import { Skeleton } from "~/components/ui/skeleton"
-import { useBalance } from "~/store/balance-store"
+import { useBalance } from "~/store/slices/balance"
 
 const opts = { headerShown: false }
 
@@ -16,7 +16,7 @@ export default function PrivateLayout() {
   return (
     <Stack screenOptions={opts}>
       <Stack.Protected guard={showIntro}>
-        <Stack.Screen name="intro/start" />
+        <Stack.Screen name="intro/balance" />
       </Stack.Protected>
 
       <Stack.Protected guard={!showIntro}>

@@ -5,7 +5,7 @@ import { HomeIcon, PinIcon, PlusIcon } from "lucide-react-native"
 import { Background } from "~/components/ui/background"
 import { TabButton } from "~/components/ui/tab/tab-button"
 import { TabView } from "~/components/ui/tab/tab-view"
-import { useTheme } from "~/store/theme-store"
+import { useTheme } from "~/store/slices/theme"
 
 export default function TabLayout() {
   const theme = useTheme()

@@ -17,6 +17,7 @@ const queryClient = new QueryClient({
       retry: 2,
       gcTime: 1000 * 60 * 60 * 24, // 24 hour
       staleTime: 1000 * 60 * 5, // 5 min
+      throwOnError: process.env.NODE_ENV === "development",
     },
     mutations: {
       networkMode: "offlineFirst",

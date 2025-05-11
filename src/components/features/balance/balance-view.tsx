@@ -1,6 +1,6 @@
 import { Text } from "react-native"
 import { Skeleton } from "~/components/ui/skeleton"
-import { useBalance } from "~/store/balance-store"
+import { useBalance } from "~/store/slices/balance"
 
 export function BalanceView() {
   const balance = useBalance()

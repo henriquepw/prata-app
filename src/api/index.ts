@@ -1,5 +1,5 @@
 import { isBefore } from "date-fns"
-import { useAuth } from "~/store/auth-store"
+import { useAuth } from "~/store/slices/auth"
 import { publicApi } from "./public"
 
 export const api = publicApi.extend({

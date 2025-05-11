@@ -11,7 +11,7 @@ import { useAppForm } from "~/components/ui/form"
 import { InputRef } from "~/components/ui/form/fields/input"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
-import { useSignIn } from "~/store/auth-store"
+import { useSignIn } from "~/store/slices/auth"
 
 const schema = z.object({
   identifier: z
