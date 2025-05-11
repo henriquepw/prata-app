@@ -12,7 +12,7 @@ import { formatAmount, getOnlyDigits } from "~/utils/format-amount"
 import { useFieldContext } from "../context"
 import { Field, FieldProps } from "../field"
 
-type InputMask = "MONEY"
+type InputMask = "MONEY" | "NUM"
 
 interface Props extends FieldProps, IInputFieldProps {
   prefix?: React.ReactNode
@@ -47,11 +47,13 @@ export const Input = forwardRef<TextInput, Props>(
 
     const updateText = (str: string) => {
       let value = str
-      if (!mask) return
-
       switch (mask) {
         case "MONEY": {
           value = formatAmount(+getOnlyDigits(str), false)
+          break
+        }
+        case "NUM": {
+          value = getOnlyDigits(str)
         }
       }
 
@@ -104,7 +106,7 @@ export default forwardRef((props: FormInputProps, ref: any) => {
       ref={ref}
       {...props}
       errors={errors}
-      value={field.state.value}
+      value={String(field.state.value)}
       onBlur={field.handleBlur}
       onChangeText={field.handleChange}
     />
