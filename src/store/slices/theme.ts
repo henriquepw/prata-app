@@ -1,6 +1,6 @@
 import { useColorScheme } from "nativewind"
-import { createPersistStore } from "../storage/persist"
 import { useCallback } from "react"
+import { createPersistStore } from "../storage/persist"
 
 type Theme = "dark" | "light"
 

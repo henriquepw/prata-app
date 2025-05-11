@@ -1,12 +1,14 @@
-import { ChevronRightIcon } from "lucide-react-native"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react-native"
+import { PixelRatio, useWindowDimensions } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Pie, PolarChart } from "victory-native"
+import { IntroHeader } from "~/components/features/intro/intro-header"
 import { Background } from "~/components/ui/background"
 import { Box } from "~/components/ui/box"
-import { Text } from "~/components/ui/text"
 import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
+import { PieChart } from "~/components/ui/chart/pie"
 import { useAppForm } from "~/components/ui/form"
-import { IntroHeader } from "~/components/features/intro/intro-header"
+import { Text } from "~/components/ui/text"
+import { formatAmount } from "~/utils/format-amount"
 
 type Piece = {
   label: string
@@ -15,12 +17,13 @@ type Piece = {
 }
 
 const defaultBalance: Piece[] = [
-  { label: "Básico", percent: 50, color: "#f00" },
-  { label: "Poupança", percent: 20, color: "#00f" },
-  { label: "Livre", percent: 30, color: "#0f0" },
+  { label: "Básico", percent: 50, color: "hsl(173, 80.4%, 80%)" },
+  { label: "Poupança", percent: 20, color: "hsl(173, 80.4%, 40%)" },
+  { label: "Livre", percent: 30, color: "hsl(173, 80.4%, 25%)" },
 ]
 
 export default function CreateBalanceScreen() {
+  const { width } = useWindowDimensions()
   const form = useAppForm({
     defaultValues: {
       balance: defaultBalance,
@@ -29,7 +32,7 @@ export default function CreateBalanceScreen() {
 
   return (
     <Background>
-      <SafeAreaView className="flex-1 p-4">
+      <SafeAreaView className="flex-1 p-6">
         <IntroHeader
           title="Balanço"
           subtitle="Lorem ipsum dolor sit amet consectetur."
@@ -38,20 +41,16 @@ export default function CreateBalanceScreen() {
 
         <form.Subscribe selector={({ values }) => values.balance}>
           {(balance) => (
-            <Box className="h-80">
-              <PolarChart
-                data={balance}
-                labelKey="label"
-                valueKey="percent"
-                colorKey="color"
-              >
-                <Pie.Chart innerRadius={90} />
-              </PolarChart>
-            </Box>
+            <PieChart
+              data={balance}
+              radius={PixelRatio.roundToNearestPixel(width * 0.36)}
+              strokeWidth={40}
+              label={formatAmount(100000)}
+            />
           )}
         </form.Subscribe>
 
-        <Box className="mt-10 gap-6">
+        <Box className="mt-10 gap-10">
           {form.state.values.balance.map((piece, i) => (
             <Box
               key={piece.label}
@@ -63,21 +62,34 @@ export default function CreateBalanceScreen() {
               <Text size="3xl" className="flex-1">
                 {piece.label}
               </Text>
-              <Box className="min-w-24">
-                <form.AppField name={`balance[${i}].percent`}>
-                  {(field) => (
+              <form.AppField name={`balance[${i}].percent`}>
+                {(field) => (
+                  <Box className="flex-row items-center gap-4">
+                    <Button
+                      className="w-10 rounded-full p-0"
+                      onPress={() => field.setValue((s) => s - 5)}
+                    >
+                      <ButtonIcon as={ChevronLeftIcon} />
+                    </Button>
                     <field.Input
                       mask="NUM"
                       textAlign="center"
                       keyboardType="number-pad"
+                      conteinerProps={{ className: "min-w-20" }}
                       className="text-2xl"
                       sufix={
                         <Text className="text-primary-500 text-xl">%</Text>
                       }
                     />
-                  )}
-                </form.AppField>
-              </Box>
+                    <Button
+                      className="w-10 rounded-full p-0"
+                      onPress={() => field.setValue((s) => s + 5)}
+                    >
+                      <ButtonIcon as={ChevronRightIcon} />
+                    </Button>
+                  </Box>
+                )}
+              </form.AppField>
             </Box>
           ))}
         </Box>

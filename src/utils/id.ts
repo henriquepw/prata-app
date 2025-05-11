@@ -1,5 +1,5 @@
-import { createId } from "@paralleldrive/cuid2"
+import { ulid } from "ulid"
 
 export function newId(): string {
-  return createId()
+  return ulid()
 }

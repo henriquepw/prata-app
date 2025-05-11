@@ -26,7 +26,6 @@ configureReanimatedLogger({
 
 function Main() {
   const isSignedIn = useIsSignedIn()
-  console.log({ isSignedIn })
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
