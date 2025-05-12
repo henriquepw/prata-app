@@ -1,4 +1,10 @@
-import { ChevronRightIcon, MinusIcon, PlusIcon } from "lucide-react-native"
+import { useRouter } from "expo-router"
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MinusIcon,
+  PlusIcon,
+} from "lucide-react-native"
 import { PixelRatio, ScrollView, useWindowDimensions } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { z } from "zod"
@@ -35,6 +41,7 @@ const schema = z.object({
 })
 
 export default function CreateBalanceScreen() {
+  const router = useRouter()
   const { width } = useWindowDimensions()
 
   const form = useAppForm({
@@ -136,10 +143,17 @@ export default function CreateBalanceScreen() {
             ))}
           </Box>
 
-          <Button className="mt-auto mb-4 ml-auto" size="lg">
-            <ButtonText>Avançar</ButtonText>
-            <ButtonIcon as={ChevronRightIcon} />
-          </Button>
+          <Box className="mt-auto mb-4 flex-row items-center justify-between gap-4">
+            <Button size="lg" variant="outline" onPress={router.back}>
+              <ButtonIcon as={ChevronLeftIcon} />
+              <ButtonText>Voltar</ButtonText>
+            </Button>
+
+            <Button size="lg">
+              <ButtonText>Avançar</ButtonText>
+              <ButtonIcon as={ChevronRightIcon} />
+            </Button>
+          </Box>
         </ScrollView>
       </SafeAreaView>
     </Background>
