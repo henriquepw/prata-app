@@ -16,7 +16,10 @@ import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
 import { PieChart } from "~/components/ui/chart/pie"
 import { useAppForm } from "~/components/ui/form"
 import { Text } from "~/components/ui/text"
-import { formatAmount } from "~/utils/format-amount"
+import { useUpdateBalance } from "~/store/slices/balance"
+import { getIncome } from "~/store/slices/intro"
+import { useCreateRecurrence } from "~/store/slices/recurrence"
+import { formatAmount, getOnlyDigits } from "~/utils/format-amount"
 
 type Piece = {
   label: string
@@ -42,7 +45,12 @@ const schema = z.object({
 
 export default function CreateBalanceScreen() {
   const router = useRouter()
+
   const { width } = useWindowDimensions()
+  const radius = PixelRatio.roundToNearestPixel(width * 0.36)
+
+  const createRecurrence = useCreateRecurrence()
+  const updateBalance = useUpdateBalance()
 
   const form = useAppForm({
     defaultValues: {
@@ -50,6 +58,27 @@ export default function CreateBalanceScreen() {
     },
     validators: {
       onChange: schema,
+    },
+    onSubmit: async ({ value }) => {
+      const mutations: Promise<any>[] = []
+
+      const income = getIncome()
+      if (income) {
+        mutations.push(
+          createRecurrence.mutateAsync({
+            amount: +getOnlyDigits(income.amount),
+            description: "Renda",
+            frequence: income.frequence,
+            startAt: new Date(),
+            type: "INCOME",
+          }),
+        )
+      }
+
+      mutations.push(updateBalance.mutateAsync(value.balance))
+
+      await Promise.all(mutations)
+      router.replace("/(private)/(tabs)")
     },
   })
 
@@ -73,7 +102,6 @@ export default function CreateBalanceScreen() {
     form.setFieldValue(`balance[${next}].percent`, (s) => s - 5)
   }
 
-  const radius = PixelRatio.roundToNearestPixel(width * 0.36)
   return (
     <Background>
       <SafeAreaView className="flex-1 p-6">
@@ -148,11 +176,9 @@ export default function CreateBalanceScreen() {
               <ButtonIcon as={ChevronLeftIcon} />
               <ButtonText>Voltar</ButtonText>
             </Button>
-
-            <Button size="lg">
-              <ButtonText>Avançar</ButtonText>
-              <ButtonIcon as={ChevronRightIcon} />
-            </Button>
+            <form.SubmitButton leftIcon={ChevronRightIcon}>
+              Avançar
+            </form.SubmitButton>
           </Box>
         </ScrollView>
       </SafeAreaView>

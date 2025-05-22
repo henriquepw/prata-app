@@ -9,8 +9,9 @@ import { Button, ButtonText } from "~/components/ui/button"
 import { useAppForm } from "~/components/ui/form"
 import { SelectItem } from "~/components/ui/form/fields/select"
 import { Text } from "~/components/ui/text"
-import { Frequence, useCreateRecurrence } from "~/store/slices/recurrence"
-import { formatAmount, getOnlyDigits } from "~/utils/format-amount"
+import { useIncome, useSetIncome } from "~/store/slices/intro"
+import { Frequence } from "~/store/slices/recurrence"
+import { formatAmount } from "~/utils/format-amount"
 
 const schema = z.object({
   amount: z.string(),
@@ -24,28 +25,18 @@ const defaultValues = {
 
 export default function IntroductionIncomeScreen() {
   const router = useRouter()
-  const createReccurrence = useCreateRecurrence()
+
+  const income = useIncome()
+  const setIncome = useSetIncome()
+
   const form = useAppForm({
-    defaultValues,
+    defaultValues: income || defaultValues,
     validators: {
       onSubmit: schema,
     },
-    onSubmitInvalid: (props) => {
-      console.error(props)
-    },
-    onSubmit: async ({ value }) => {
-      try {
-        await createReccurrence.mutateAsync({
-          type: "INCOME",
-          frequence: value.frequence,
-          description: "Renda",
-          startAt: new Date(),
-          amount: +getOnlyDigits(value.amount),
-        })
-        router.push("/intro/balance")
-      } catch (e) {
-        console.error(e)
-      }
+    onSubmit: ({ value }) => {
+      setIncome(value)
+      router.push("/intro/balance")
     },
   })
 

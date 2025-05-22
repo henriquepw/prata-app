@@ -6,16 +6,22 @@ const keys = {
   list: ["balance"],
 } as const
 
-interface Piece {
+export type Piece = {
   id: string
   label: string
-  percent: string
+  percent: number
 }
 
-interface Balance {
+type Balance = {
   pieces: Piece[]
   local: boolean
 }
+
+type UpdateBalance = Array<{
+  id?: string
+  label: string
+  percent: number
+}>
 
 export function useBalance() {
   const isSignedIn = useIsSignedIn()
@@ -33,8 +39,8 @@ export function useUpdateBalance() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (balance: Balance) => {
-      return api.put("me/balance", { json: balance.pieces }).json<Balance>()
+    mutationFn: async (balance: UpdateBalance) => {
+      return api.put("me/balance", { json: balance }).json<Balance>()
     },
     onMutate: (balance) => {
       const old = queryClient.getQueryData(keys.list)
