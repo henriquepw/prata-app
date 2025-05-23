@@ -135,7 +135,9 @@ export default function SignUpPage() {
               </signUpform.AppField>
               <Box className="mt-4">
                 <signUpform.AppForm>
-                  <signUpform.SubmitButton>Cadastrar</signUpform.SubmitButton>
+                  <signUpform.AppForm>
+                    <signUpform.SubmitButton>Cadastrar</signUpform.SubmitButton>
+                  </signUpform.AppForm>
                 </signUpform.AppForm>
                 <Box className="mt-2 flex-row items-center justify-center gap-2">
                   <Text>Já possui uma conta?</Text>

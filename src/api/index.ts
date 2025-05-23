@@ -5,8 +5,13 @@ import { publicApi } from "./public"
 export const api = publicApi.extend({
   hooks: {
     beforeRequest: [
-      (r) => {
-        console.log(r.url)
+      async (r) => {
+        console.info("REQUEST: ", r.method, " ", r.url)
+        try {
+          console.info("BODY: ", await r.clone().json())
+        } catch {
+          console.info("BODY: - ")
+        }
       },
       async (request) => {
         const auth = useAuth.getState()
@@ -27,7 +32,12 @@ export const api = publicApi.extend({
       },
     ],
     afterResponse: [
-      (_, __, response) => {
+      async (_, __, response) => {
+        console.info({
+          url: response.url,
+          status: response.status,
+          body: await response.clone().json(),
+        })
         if (response.status === 401) {
           useAuth.getState().logout()
         }

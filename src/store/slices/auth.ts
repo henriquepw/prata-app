@@ -3,7 +3,7 @@ import { isBefore } from "date-fns"
 import { publicApi } from "~/api/public"
 import { createSecureStore } from "../storage/persist"
 
-export interface Access {
+export type Access = {
   userId: string
   accessToken: string
   accessExpiresAt: string
@@ -11,7 +11,7 @@ export interface Access {
   refreshExpiresAt: string
 }
 
-interface Renew {
+type Renew = {
   accessToken: string
   expiresAt: string
 }
@@ -67,9 +67,11 @@ export const useAuth = createSecureStore<AuthStore>("auth", (set, get) => ({
   },
 }))
 
+export const useLogout = () => useAuth((s) => s.logout)
+
 export const useIsSignedIn = () => useAuth((s) => s.isSignedIn)
 
-interface SignUpReq {
+type SignUpReq = {
   email: string
   password: string
   username: string
@@ -88,7 +90,7 @@ export function useSignUp() {
   return mutation
 }
 
-interface SignInReq {
+type SignInReq = {
   email: string
   password: string
 }

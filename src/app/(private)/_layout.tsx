@@ -11,12 +11,13 @@ export default function PrivateLayout() {
     return <Skeleton />
   }
 
-  const showIntro = !balance.data?.pieces.length
+  console.log("balance", balance.data)
+  const showIntro = !balance.data?.pieces?.length
 
   return (
     <Stack screenOptions={opts}>
       <Stack.Protected guard={showIntro}>
-        <Stack.Screen name="intro/balance" />
+        <Stack.Screen name="intro/start" />
       </Stack.Protected>
 
       <Stack.Protected guard={!showIntro}>

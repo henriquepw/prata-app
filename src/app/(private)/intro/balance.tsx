@@ -61,6 +61,8 @@ export default function CreateBalanceScreen() {
     },
     onSubmit: async ({ value }) => {
       const mutations: Promise<any>[] = []
+      console.log("a")
+      mutations.push(updateBalance.mutateAsync(value.balance))
 
       const income = getIncome()
       if (income) {
@@ -74,8 +76,6 @@ export default function CreateBalanceScreen() {
           }),
         )
       }
-
-      mutations.push(updateBalance.mutateAsync(value.balance))
 
       await Promise.all(mutations)
       router.replace("/(private)/(tabs)")
@@ -176,9 +176,11 @@ export default function CreateBalanceScreen() {
               <ButtonIcon as={ChevronLeftIcon} />
               <ButtonText>Voltar</ButtonText>
             </Button>
-            <form.SubmitButton leftIcon={ChevronRightIcon}>
-              Avançar
-            </form.SubmitButton>
+            <form.AppForm>
+              <form.SubmitButton leftIcon={ChevronRightIcon}>
+                Avançar
+              </form.SubmitButton>
+            </form.AppForm>
           </Box>
         </ScrollView>
       </SafeAreaView>

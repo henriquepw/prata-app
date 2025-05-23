@@ -1,6 +1,12 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import {
+  queryOptions,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query"
 import { api } from "~/api"
 import { useIsSignedIn } from "./auth"
+import { newId } from "~/utils/id"
 
 const keys = {
   list: ["balance"],
@@ -9,6 +15,7 @@ const keys = {
 export type Piece = {
   id: string
   label: string
+  color: string
   percent: number
 }
 
@@ -17,41 +24,48 @@ type Balance = {
   local: boolean
 }
 
-type UpdateBalance = Array<{
-  id?: string
-  label: string
-  percent: number
-}>
+const balanceQueryOpts = queryOptions({
+  queryKey: keys.list,
+  queryFn: ({ signal }) => {
+    return api.get("me/balance", { signal }).json<Balance>()
+  },
+})
 
 export function useBalance() {
   const isSignedIn = useIsSignedIn()
-
-  return useQuery({
-    enabled: isSignedIn,
-    queryKey: keys.list,
-    queryFn: ({ signal }) => {
-      return api.get("me/balance", { signal }).json<Balance>()
-    },
-  })
+  return useQuery({ enabled: isSignedIn, ...balanceQueryOpts })
 }
+
+type BalanceUpdateDTO = Array<{
+  id?: string
+  label: string
+  color: string
+  percent: number
+}>
 
 export function useUpdateBalance() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (balance: UpdateBalance) => {
-      return api.put("me/balance", { json: balance }).json<Balance>()
+    mutationFn: async (pieces: BalanceUpdateDTO) => {
+      return api.put("me/balance", { json: { pieces } }).json<Balance>()
     },
     onMutate: (balance) => {
-      const old = queryClient.getQueryData(keys.list)
-      queryClient.setQueryData(keys.list, balance)
-      return old as Balance
+      const old = queryClient.getQueryData<Balance>(keys.list)
+      queryClient.setQueryData<Balance>(keys.list, {
+        pieces: balance.map((p) => ({ ...p, id: p.id || newId() })),
+        local: true,
+      })
+      return old
     },
     onSuccess: (balance) => {
-      queryClient.setQueryData(keys.list, balance)
+      queryClient.setQueryData<Balance>(keys.list, {
+        ...balance,
+        local: false,
+      })
     },
     onError: (_, __, old) => {
-      queryClient.setQueryData(keys.list, old)
+      queryClient.setQueryData<Balance>(keys.list, old)
     },
   })
 }

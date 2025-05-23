@@ -1,16 +1,19 @@
 import { Link } from "expo-router"
-import { MoonIcon, SunIcon } from "lucide-react-native"
+import { LogOutIcon, MoonIcon, SunIcon } from "lucide-react-native"
 import { Image, Pressable } from "react-native"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon } from "~/components/ui/button"
 import { Heading } from "~/components/ui/heading"
 import { Text } from "~/components/ui/text"
+import { useIsSignedIn, useLogout } from "~/store/slices/auth"
 import { useTheme, useToggleTheme } from "~/store/slices/theme"
 
 export function UserHeader() {
   const theme = useTheme()
   const toggleTheme = useToggleTheme()
-  const isSignedIn = false
+  const isSignedIn = useIsSignedIn()
+  const logout = useLogout()
+
   const user = {} as any // TODO:
 
   if (!isSignedIn) {
@@ -46,6 +49,14 @@ export function UserHeader() {
         className="w-10"
       >
         <ButtonIcon as={theme === "dark" ? MoonIcon : SunIcon} />
+      </Button>
+      <Button
+        variant="link"
+        action="negative"
+        onPress={logout}
+        className="w-10"
+      >
+        <ButtonIcon as={LogOutIcon} />
       </Button>
     </Box>
   )

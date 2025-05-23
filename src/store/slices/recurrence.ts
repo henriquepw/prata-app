@@ -14,7 +14,7 @@ export enum Frequence {
   YEARLY = "YEARLY",
 }
 
-export interface Recurrence {
+export type Recurrence = {
   id: string
   userId: string
   description: string
@@ -30,7 +30,7 @@ export interface Recurrence {
   local?: boolean
 }
 
-export interface RecurrenteCreatePayload {
+export type RecurrenteCreateDTO = {
   amount: number
   type: "INCOME" | "OUTCOME"
   description: string
@@ -44,14 +44,14 @@ export function useCreateRecurrence() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (payload: RecurrenteCreatePayload) => {
+    mutationFn: async (payload: RecurrenteCreateDTO) => {
       console.log({
         ...payload,
         startAt: formatISO(payload.startAt),
         endAt: payload.endAt ? formatISO(payload.endAt) : undefined,
       })
       return api
-        .post("user/recurrences", {
+        .post("me/recurrences", {
           json: {
             ...payload,
             startAt: formatISO(payload.startAt),
