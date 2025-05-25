@@ -5,8 +5,8 @@ import {
   useQueryClient,
 } from "@tanstack/react-query"
 import { api } from "~/api"
-import { useIsSignedIn } from "./auth"
 import { newId } from "~/utils/id"
+import { useIsSignedIn } from "./auth"
 
 const keys = {
   list: ["balance"],

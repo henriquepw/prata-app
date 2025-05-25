@@ -9,11 +9,11 @@ import { Pressable } from "react-native"
 import { Box } from "~/components/ui/box"
 import { Icon } from "~/components/ui/icon"
 import { Text } from "~/components/ui/text"
-import { useTransationStore } from "~/store/slices/transation"
+import { useTransactions } from "~/store/slices/transation"
 import { formatAmount } from "~/utils/format-amount"
 
 export function BalanceCard() {
-  const transations = useTransationStore((s) => s.transations)
+  const transations = useTransactions()
   const [visible, setVisibility] = useState(true)
 
   const totals = useMemo(() => {
@@ -27,7 +27,7 @@ export function BalanceCard() {
 
     let income = 0
     let outcome = 0
-    for (const t of transations) {
+    for (const t of transations.data?.items || []) {
       if (t.type === "INCOME") {
         income += t.amount
       } else {

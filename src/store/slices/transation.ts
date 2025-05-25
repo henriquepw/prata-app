@@ -1,74 +1,76 @@
-import { newId } from "~/utils/id"
-import { createPersistStore } from "../storage/persist"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { Page, api } from "~/api"
+import { formatISO } from "~/utils/format-date"
+import { useIsSignedIn } from "./auth"
 
-export type TransationType = "INCOME" | "OUTCOME"
+export enum TransactionType {
+  INCOME = "INCOME",
+  OUTCOME = "OUTCOME",
+}
 
-export type Transation = {
+export type Transaction = {
   id: string
+  userId: string
+  balanceId?: string
+  type: TransactionType
   description: string
   amount: number
-  dueAt: string
-  type: TransationType
-  tags: string[]
+  receivedAt: string
   createdAt: string
   updatedAt: string
-  deletedAt?: string
-  accountId?: string
-  local?: boolean
 }
 
-type AddTransation = {
+type TransactionFilters = {
+  type: TransactionType
+}
+
+const keys = {
+  all: ["transactions"],
+  list: (filters?: TransactionFilters) => [...keys.all, filters],
+  detail: (id: string) => [...keys.all, id],
+} as const
+
+export function useTransactions(filters?: TransactionFilters) {
+  const isSignedIn = useIsSignedIn()
+
+  return useQuery({
+    enabled: !!isSignedIn,
+    queryKey: keys.list(filters),
+    queryFn: ({ signal }) => {
+      return api
+        .get<Page<Transaction>>("me/transactions", {
+          searchParams: filters,
+          signal,
+        })
+        .json()
+    },
+  })
+}
+
+export type TransactionCreateDTO = {
+  balanceId?: string
+  type: TransactionType
   description: string
   amount: number
-  type: TransationType
-  dueAt: Date
+  receivedAt: Date
 }
 
-type TransationStore = {
-  transations: Transation[]
-  selected: Transation | null
+export function useCreateTransaction() {
+  const queryClient = useQueryClient()
 
-  // Actions
-  cleanSelect: () => void
-  removeTransation: (id: string) => void
-  addTransation: (payload: AddTransation) => void
-  selectTransation: (i: Transation) => void
-}
-
-export const useTransationStore = createPersistStore<TransationStore>(
-  "transations",
-  (set) => ({
-    transations: [],
-    selected: null,
-
-    cleanSelect: () => {
-      set({ selected: null })
-    },
-    selectTransation: (i: Transation) => {
-      set({ selected: i })
-    },
-    removeTransation: (id: string) => {
-      set((state) => ({
-        transations: state.transations.filter((i) => i.id !== id),
-      }))
-    },
-    addTransation: (payload: AddTransation) => {
-      set((state) => ({
-        transations: [
-          ...state.transations,
-          {
-            id: newId(),
-            description: payload.description,
-            type: payload.type,
-            amount: payload.amount,
-            dueAt: payload.dueAt.toISOString(),
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-            tags: [],
-            local: true,
+  return useMutation({
+    mutationFn: async (payload: TransactionCreateDTO) => {
+      return api
+        .post("me/transactions", {
+          json: {
+            ...payload,
+            receivedAt: formatISO(payload.receivedAt),
           },
-        ],
-      }))
+        })
+        .json<Transaction>()
     },
-  }),
-)
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: keys.all })
+    },
+  })
+}

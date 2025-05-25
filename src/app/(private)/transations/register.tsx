@@ -1,77 +1,108 @@
-import { useNavigation } from "expo-router"
+import { useNavigation, useRouter } from "expo-router"
 import { ChevronLeftIcon, PlusIcon } from "lucide-react-native"
-import { useState } from "react"
 import { Text, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { z } from "zod"
 import { Background } from "~/components/ui/background"
-import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
-import { DateInput } from "~/components/ui/form/fields/date-input"
-import { Input } from "~/components/ui/form/fields/input"
-import { Select, SelectItem } from "~/components/ui/form/fields/select"
+import { useAppForm } from "~/components/ui/form"
+import { SelectItem } from "~/components/ui/form/fields/select"
 import { Icon } from "~/components/ui/icon"
-import { TransationType, useTransationStore } from "~/store/slices/transation"
-import { formatAmount } from "~/utils/format-amount"
+import {
+  TransactionType,
+  useCreateTransaction,
+} from "~/store/slices/transation"
+import { getOnlyDigits } from "~/utils/format-amount"
+
+const schema = z.object({
+  amount: z.string(),
+  balanceId: z.string(),
+  type: z.nativeEnum(TransactionType),
+  description: z.string(),
+  receivedAt: z.date(),
+})
 
 export default function RegisterTransationPage() {
-  const navigate = useNavigation()
-  const [amount, setAmount] = useState("0,00")
-  const [receivedAt, setReceivedAt] = useState(new Date())
-  const [transationType, setTransationType] = useState<string>()
-  const addTransation = useTransationStore((s) => s.addTransation)
+  const router = useRouter()
+  const createTransaction = useCreateTransaction()
 
-  function updateCurrency(input: string) {
-    const nums = Number(input.replace(/[^0-9]/g, ""))
-    setAmount(formatAmount(nums, false))
-  }
-
-  function createTransation() {
-    addTransation({
-      description: "", // TODO:
-      amount: Number(amount.replace(/[^0-9]/g, "")),
-      type: transationType as TransationType,
-      dueAt: receivedAt,
-    })
-    navigate.goBack()
-  }
+  const form = useAppForm({
+    defaultValues: {
+      amount: "",
+      balanceId: "",
+      description: "",
+      type: TransactionType.OUTCOME,
+      receivedAt: new Date(),
+    },
+    validators: {
+      onSubmit: schema,
+    },
+    onSubmit: async ({ value }) => {
+      await createTransaction.mutateAsync({
+        balanceId: value.balanceId,
+        type: value.type as TransactionType,
+        amount: Number(getOnlyDigits(value.amount)),
+        description: value.description,
+        receivedAt: value.receivedAt,
+      })
+      console.log("aaaaaaaaa")
+      router.back()
+    },
+  })
 
   return (
     <Background>
       <SafeAreaView className="gap-6 p-4">
         <View className="flex-row items-center gap-4 py-4">
-          <TouchableOpacity className="w-6" onPress={navigate.goBack}>
+          <TouchableOpacity className="w-6" onPress={router.back}>
             <Icon as={ChevronLeftIcon} size="xl" />
           </TouchableOpacity>
           <Text className="font-bold text-2xl text-typography-900">
-            Nova Entrada
+            Novo Registro
           </Text>
         </View>
 
-        <Select isRequired label="Tipo" onChange={setTransationType}>
-          <SelectItem label="Entrada" value="INCOME" />
-          <SelectItem label="Saída" value="OUTCOMe" />
-        </Select>
-        <DateInput
-          isRequired
-          label="Data do Recebimento"
-          value={receivedAt}
-          onChange={setReceivedAt}
-        />
-        <Input
-          isRequired
-          label="Quanto foi?"
-          keyboardType="numeric"
-          placeholder="0,00"
-          value={amount}
-          onChangeText={updateCurrency}
-          prefix={
-            <Text className="font-medium text-lg text-typography-900">R$</Text>
-          }
-        />
+        {/* TODO: balance select */}
+        {/* TODO: change trx type input style */}
 
-        <Button className="mt-4 ml-auto" onPress={createTransation}>
-          <ButtonIcon as={PlusIcon} />
-          <ButtonText>Registrar</ButtonText>
-        </Button>
+        <form.AppField name="type">
+          {(field) => (
+            <field.Select isRequired label="Tipo">
+              <SelectItem label="Entrada" value="INCOME" />
+              <SelectItem label="Saída" value="OUTCOME" />
+            </field.Select>
+          )}
+        </form.AppField>
+
+        <form.AppField name="receivedAt">
+          {(field) => (
+            <field.DateInput isRequired label="Data do Recebimento" />
+          )}
+        </form.AppField>
+
+        <form.AppField name="amount">
+          {(field) => (
+            <field.Input
+              isRequired
+              label="Quanto foi?"
+              keyboardType="numeric"
+              placeholder="0,00"
+              mask="MONEY"
+              prefix={
+                <Text className="font-medium text-lg text-typography-900">
+                  R$
+                </Text>
+              }
+            />
+          )}
+        </form.AppField>
+
+        <form.AppField name="description">
+          {(field) => <field.Input label="Descrição" />}
+        </form.AppField>
+
+        <form.AppForm>
+          <form.SubmitButton leftIcon={PlusIcon}>Registrar</form.SubmitButton>
+        </form.AppForm>
       </SafeAreaView>
     </Background>
   )

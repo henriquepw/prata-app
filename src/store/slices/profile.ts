@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { useUserId } from "./auth"
 import { api } from "~/api"
+import { useUserId } from "./auth"
 
 const keys = {
   profile: (id: string) => ["profile", id],

@@ -2,6 +2,11 @@ import { isBefore } from "date-fns"
 import { useAuth } from "~/store/slices/auth"
 import { publicApi } from "./public"
 
+export type Page<T> = {
+  next?: string
+  items: T[]
+}
+
 export const api = publicApi.extend({
   hooks: {
     beforeRequest: [
