@@ -71,6 +71,8 @@ export const useLogout = () => useAuth((s) => s.logout)
 
 export const useIsSignedIn = () => useAuth((s) => s.isSignedIn)
 
+export const useUserId = () => useAuth((s) => s.data?.userId)
+
 type SignUpReq = {
   email: string
   password: string
