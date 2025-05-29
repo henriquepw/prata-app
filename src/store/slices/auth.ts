@@ -30,7 +30,6 @@ type AuthStore =
       logout: () => void
     }
 
-// TODO: use expo segure store
 export const useAuth = createSecureStore<AuthStore>("auth", (set, get) => ({
   isSignedIn: false,
   data: null,
