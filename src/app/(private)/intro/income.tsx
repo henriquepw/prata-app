@@ -8,7 +8,7 @@ import { Box } from "~/components/ui/box"
 import { Button, ButtonText } from "~/components/ui/button"
 import { useAppForm } from "~/components/ui/form"
 import { SelectItem } from "~/components/ui/form/fields/select"
-import { Text } from "~/components/ui/text"
+import { MoneyPrefix } from "~/components/ui/form/prefix"
 import { useIncome, useSetIncome } from "~/store/slices/intro"
 import { Frequence } from "~/store/slices/recurrence"
 import { formatAmount } from "~/utils/format-amount"
@@ -66,9 +66,7 @@ export default function IntroductionIncomeScreen() {
                 label="Renda"
                 placeholder="0,00"
                 mask="MONEY"
-                prefix={
-                  <Text className="font-bold text-primary-500 text-xl">R$</Text>
-                }
+                prefix={<MoneyPrefix />}
               />
             )}
           </form.AppField>

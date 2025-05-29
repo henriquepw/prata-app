@@ -1,4 +1,4 @@
-import { useNavigation, useRouter } from "expo-router"
+import { useRouter } from "expo-router"
 import { ChevronLeftIcon, PlusIcon } from "lucide-react-native"
 import { Text, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"

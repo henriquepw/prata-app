@@ -1,43 +1,67 @@
-import { useNavigation } from "expo-router"
-import { ChevronLeftIcon, SaveIcon } from "lucide-react-native"
-import { Pressable } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { Background } from "~/components/ui/background"
+import { SaveIcon } from "lucide-react-native"
+import { z } from "zod"
 import { Box } from "~/components/ui/box"
-import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
-import { Input } from "~/components/ui/form/fields/input"
-import { Heading } from "~/components/ui/heading"
-import { Icon } from "~/components/ui/icon"
+import { useAppForm } from "~/components/ui/form"
+import { ScreenHeader, ScreenRoot } from "~/components/ui/layouts/screen"
+import { Frequence } from "~/store/slices/recurrence"
+import { TransactionType } from "~/store/slices/transation"
+
+const validator = z.object({
+  balanceId: z.string(),
+  amount: z.string(),
+  description: z.string(),
+  frequence: z.nativeEnum(Frequence),
+  type: z.nativeEnum(TransactionType),
+  endAt: z.date().optional(),
+})
+
+const defaultValues: z.input<typeof validator> = {
+  amount: "",
+  balanceId: "",
+  description: "",
+  endAt: undefined,
+  frequence: Frequence.MONTHLY,
+  type: TransactionType.OUTCOME,
+}
 
 export default function RegisterRecurrentPage() {
-  const navigation = useNavigation()
+  const form = useAppForm({
+    defaultValues,
+    validators: {
+      onSubmit: validator,
+    },
+    onSubmit: async ({ value }) => {
+      console.info(value)
+    },
+  })
 
   return (
-    <Background>
-      <SafeAreaView className="gap-6 p-4">
-        <Box className="h-12 flex-row items-center justify-between gap-2">
-          <Pressable
-            className="size-10 items-start justify-center active:opacity-50"
-            onPress={navigation.goBack}
-          >
-            <Icon as={ChevronLeftIcon} size="xl" />
-          </Pressable>
-          <Heading size="2xl" className="flex-1">
-            Nova Recorrência
-          </Heading>
-        </Box>
-        <Box className="gap-4">
-          <Input isRequired label="Descrição" />
-          <Input isRequired label="Descrição" />
-          <Input isRequired label="Descrição" />
-          <Input isRequired label="Descrição" />
+    <ScreenRoot>
+      <ScreenHeader title="Nova Recorrência" />
 
-          <Button className="ml-auto">
-            <ButtonIcon as={SaveIcon} />
-            <ButtonText>Registrar</ButtonText>
-          </Button>
-        </Box>
-      </SafeAreaView>
-    </Background>
+      <Box className="flex-grow gap-4">
+        <form.AppField name="type">
+          {(field) => <field.Input isRequired label="Tipo" />}
+        </form.AppField>
+
+        <form.AppField name="amount">
+          {(field) => <field.Input isRequired label="Valor" />}
+        </form.AppField>
+
+        <form.AppField name="description">
+          {(field) => <field.Input label="Descrição" />}
+        </form.AppField>
+
+        <form.AppField name="endAt">
+          {(field) => <field.DateInput label="Data Final" />}
+        </form.AppField>
+      </Box>
+
+      <form.AppForm>
+        <form.SubmitButton leftIcon={SaveIcon} className="ml-auto">
+          Registrar
+        </form.SubmitButton>
+      </form.AppForm>
+    </ScreenRoot>
   )
 }

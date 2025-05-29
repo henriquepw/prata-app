@@ -22,7 +22,7 @@ export default function TabLayout() {
           <TabTrigger asChild name="home" href="/(private)/(tabs)">
             <TabButton icon={HomeIcon} />
           </TabTrigger>
-          <Link asChild href="/transations/register">
+          <Link asChild href="/transations/new-outcome">
             <TabButton icon={PlusIcon} />
           </Link>
           <TabTrigger
