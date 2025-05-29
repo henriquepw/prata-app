@@ -12,6 +12,7 @@ interface Props extends ButtonProps {
   isLoading?: boolean
   leftIcon?: React.ElementType
   rightIcon?: React.ElementType
+  className?: string
 }
 
 export default function SubmitButton({
@@ -19,6 +20,7 @@ export default function SubmitButton({
   isLoading,
   leftIcon,
   rightIcon,
+  className,
 }: Props) {
   const form = useFormContext()
 
@@ -28,6 +30,7 @@ export default function SubmitButton({
         <Button
           isDisabled={isLoading || isSubmitting}
           onPress={form.handleSubmit}
+          className={className}
         >
           {isLoading || isSubmitting ? (
             <ButtonSpinner className="text-typography-0" />

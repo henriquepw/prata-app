@@ -29,7 +29,7 @@ export function DateInput({ value, onChange, ...rest }: Props) {
     <Field {...rest}>
       <UISelect closeOnOverlayClick onClose={toggleOpen}>
         <SelectTrigger
-          size="xl"
+          size="md"
           variant="outline"
           className="gap-2 rounded-lg px-2 active:opacity-50"
           onPress={toggleOpen}

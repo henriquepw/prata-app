@@ -69,7 +69,7 @@ export const Input = forwardRef<TextInput, Props>(
         errors={errors}
       >
         <UIInput
-          size="xl"
+          size="md"
           {...conteinerProps}
           variant={rest.variant}
           className={cn(
@@ -80,7 +80,6 @@ export const Input = forwardRef<TextInput, Props>(
         >
           {prefix}
           <InputField
-            size="xl"
             ref={ref as any}
             className={cn("px-0", className)}
             onChangeText={updateText}
