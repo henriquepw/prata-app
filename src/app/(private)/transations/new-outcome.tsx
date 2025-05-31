@@ -1,7 +1,12 @@
 import { PlusIcon, SaveIcon, XCircleIcon } from "lucide-react-native"
 import { ScrollView } from "react-native"
+import Animated, {
+  FadeInDown,
+  LinearTransition,
+  FadeOutRight,
+} from "react-native-reanimated"
 import { z } from "zod"
-import { SelectBalance } from "~/components/features/balance/select-balance"
+import { BalanceSelect } from "~/components/features/balance/balance-select"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
 import { useAppForm } from "~/components/ui/form"
@@ -61,7 +66,7 @@ export default function RegisterOutcomePage() {
 
           <form.Field name="balanceId">
             {(field) => (
-              <SelectBalance
+              <BalanceSelect
                 errors={field.state.meta.errors}
                 value={field.state.value}
                 onChange={(v) => field.handleChange(v || "")}
@@ -75,47 +80,51 @@ export default function RegisterOutcomePage() {
               {(field) => (
                 <>
                   {field.state.value.map((v, i) => (
-                    <Box
+                    <Animated.View
                       key={v.localId}
-                      className="flex-row items-center gap-3"
+                      exiting={FadeOutRight}
+                      entering={FadeInDown}
+                      layout={LinearTransition.duration(500)}
                     >
-                      <Box className="ml-2 w-4 justify-end">
-                        <Text
-                          className="self-end font-bold text-lg"
-                          numberOfLines={1}
+                      <Box className="flex-row items-center gap-3">
+                        <Box className="ml-2 w-4 justify-end">
+                          <Text
+                            className="self-end font-bold text-lg"
+                            numberOfLines={1}
+                          >
+                            {i + 1}.
+                          </Text>
+                        </Box>
+                        <Box className="w-1/4">
+                          <form.AppField name={`items[${i}].amount`}>
+                            {(field) => (
+                              <field.Input
+                                placeholder="0,00"
+                                mask="MONEY"
+                                prefix={
+                                  <MoneyPrefix className="font-normal text-lg" />
+                                }
+                              />
+                            )}
+                          </form.AppField>
+                        </Box>
+                        <Box className="flex-1">
+                          <form.AppField name={`items[${i}].description`}>
+                            {(field) => (
+                              <field.Input placeholder="Descrição..." />
+                            )}
+                          </form.AppField>
+                        </Box>
+                        <Button
+                          action="negative"
+                          variant="link"
+                          className="p-0"
+                          onPress={() => field.removeValue(i)}
                         >
-                          {i + 1}.
-                        </Text>
+                          <ButtonIcon as={XCircleIcon} />
+                        </Button>
                       </Box>
-                      <Box className="w-1/4">
-                        <form.AppField name={`items[${i}].amount`}>
-                          {(field) => (
-                            <field.Input
-                              placeholder="0,00"
-                              mask="MONEY"
-                              prefix={
-                                <MoneyPrefix className="font-normal text-lg" />
-                              }
-                            />
-                          )}
-                        </form.AppField>
-                      </Box>
-                      <Box className="flex-1">
-                        <form.AppField name={`items[${i}].description`}>
-                          {(field) => (
-                            <field.Input placeholder="Descrição..." />
-                          )}
-                        </form.AppField>
-                      </Box>
-                      <Button
-                        action="negative"
-                        variant="link"
-                        className="p-0"
-                        onPress={() => field.removeValue(i)}
-                      >
-                        <ButtonIcon as={XCircleIcon} />
-                      </Button>
-                    </Box>
+                    </Animated.View>
                   ))}
                   <Button
                     size="xs"

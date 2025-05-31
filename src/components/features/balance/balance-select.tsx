@@ -7,7 +7,7 @@ import {
 import { Skeleton } from "~/components/ui/skeleton"
 import { useBalance } from "~/store/slices/balance"
 
-export function SelectBalance(props: Omit<SelectProps, "children">) {
+export function BalanceSelect(props: Omit<SelectProps, "children">) {
   const balance = useBalance()
   if (balance.isPending) {
     return (
