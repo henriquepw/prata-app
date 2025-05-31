@@ -105,7 +105,7 @@ export default forwardRef((props: FormInputProps, ref: any) => {
       ref={ref}
       {...props}
       errors={errors}
-      value={String(field.state.value)}
+      value={String(field.state.value || "")}
       onBlur={field.handleBlur}
       onChangeText={field.handleChange}
     />
