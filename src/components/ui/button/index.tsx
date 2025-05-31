@@ -10,6 +10,11 @@ import {
 import { cssInterop } from "nativewind"
 import React from "react"
 import { ActivityIndicator, Pressable, Text, View } from "react-native"
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated"
 
 const SCOPE = "BUTTON"
 
@@ -284,6 +289,9 @@ export interface ButtonProps
   className?: string
 }
 
+const AnimatedBtn = Animated.createAnimatedComponent(UIButton)
+const DEFAULT_RADIUS = 7
+
 const Button = React.forwardRef<
   React.ComponentRef<typeof UIButton>,
   ButtonProps
@@ -292,12 +300,32 @@ const Button = React.forwardRef<
     { className, variant = "solid", size = "md", action = "primary", ...props },
     ref,
   ) => {
+    const radius = useSharedValue(DEFAULT_RADIUS)
+    const scale = useSharedValue(1)
+    const animetedStyle = useAnimatedStyle(() => ({
+      borderRadius: radius.value,
+      transform: [{ scale: scale.value }],
+    }))
+
+    const onPressIn = () => {
+      scale.value = withTiming(0.96, { duration: 100 })
+      radius.value = withTiming(30, { duration: 200 })
+    }
+
+    const onPressOut = () => {
+      scale.value = withTiming(1, { duration: 200 })
+      radius.value = withTiming(DEFAULT_RADIUS, { duration: 200 })
+    }
+
     return (
-      <UIButton
+      <AnimatedBtn
         ref={ref}
-        {...props}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
         className={buttonStyle({ variant, size, action, class: className })}
+        style={animetedStyle}
         context={{ variant, size, action }}
+        {...props}
       />
     )
   },
