@@ -8,7 +8,7 @@ const Select = lazy(() => import("./fields/select"))
 
 const SubmitButton = lazy(() => import("./fields/submit-button"))
 
-export const { useAppForm } = createFormHook({
+export const { useAppForm, withForm } = createFormHook({
   fieldComponents: {
     DateInput,
     Input,

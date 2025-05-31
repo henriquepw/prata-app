@@ -8,6 +8,13 @@ import { useNavigation } from "expo-router"
 import { Box } from "../box"
 import { Heading } from "../heading"
 
+const edges = {
+  bottom: "off",
+  top: "additive",
+  left: "additive",
+  right: "additive",
+} as const
+
 type RootProps = {
   children: React.ReactNode
   className?: string
@@ -15,7 +22,10 @@ type RootProps = {
 export function ScreenRoot({ children, className }: RootProps) {
   return (
     <Background>
-      <SafeAreaView className={cn("flex-1 gap-4 px-4", className)}>
+      <SafeAreaView
+        edges={edges}
+        className={cn("flex-1 gap-4 px-4", className)}
+      >
         {children}
       </SafeAreaView>
     </Background>
@@ -39,6 +49,7 @@ export function ScreenHeader({ title, children }: HeaderProps) {
           <Icon as={ChevronLeftIcon} size="xl" />
         </Pressable>
       )}
+
       <Heading size="xl" className="flex-1">
         {title}
       </Heading>

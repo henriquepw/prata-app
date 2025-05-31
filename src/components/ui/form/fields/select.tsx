@@ -18,7 +18,7 @@ import { useToggle } from "~/hooks/use-toggle"
 import { useFieldContext } from "../context"
 import { Field, FieldProps } from "../field"
 
-interface Props extends FieldProps {
+export interface SelectProps extends FieldProps {
   children: React.ReactNode
   initialLabel?: string
   onChange?: (arg?: string) => void
@@ -31,7 +31,7 @@ export function Select({
   value,
   onChange,
   ...rest
-}: Props) {
+}: SelectProps) {
   const [isOpen, toggleOpen] = useToggle()
 
   return (
@@ -44,7 +44,7 @@ export function Select({
         onValueChange={onChange}
       >
         <SelectTrigger
-          size="xl"
+          size="md"
           variant="outline"
           className="gap-2 rounded-lg px-2 active:opacity-50"
           onPress={toggleOpen}
@@ -78,7 +78,7 @@ export function SelectItem(props: SelectItemProps) {
   return <UISelectItem {...props} />
 }
 
-type FormSelectProps = Omit<Props, "onChange" | "value">
+type FormSelectProps = Omit<SelectProps, "onChange" | "value">
 export default function FormSelect(props: FormSelectProps) {
   const field = useFieldContext<string>()
   const errors = useStore(field.store, (state) => state.meta.errors)
