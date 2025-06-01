@@ -1,19 +1,14 @@
-import { PlusIcon, SaveIcon, XCircleIcon } from "lucide-react-native"
+import { PlusIcon, SaveIcon } from "lucide-react-native"
+import { useState } from "react"
 import { ScrollView } from "react-native"
-import Animated, {
-  FadeInDown,
-  LinearTransition,
-  FadeOutRight,
-} from "react-native-reanimated"
 import { z } from "zod"
 import { BalanceSelect } from "~/components/features/balance/balance-select"
+import { OutcomeInput } from "~/components/features/transations/outcome-input"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
 import { useAppForm } from "~/components/ui/form"
-import { MoneyPrefix } from "~/components/ui/form/prefix"
 import { Heading } from "~/components/ui/heading"
 import { ScreenHeader, ScreenRoot } from "~/components/ui/layouts/screen"
-import { Text } from "~/components/ui/text"
 import { newId } from "~/utils/id"
 
 const validator = z.object({
@@ -28,26 +23,29 @@ const validator = z.object({
   ),
 })
 
+const emptyItem = () => ({
+  localId: newId(),
+  amount: "",
+  description: "",
+})
+
 const defaultValues: z.input<typeof validator> = {
   balanceId: "",
   receivedAt: new Date(),
-  items: [
-    {
-      localId: newId(),
-      amount: "0,00",
-      description: "",
-    },
-  ],
+  items: [emptyItem()],
 }
 
 export default function RegisterOutcomePage() {
+  const [focusedIndex, setFocusedIndex] = useState(0)
   const form = useAppForm({
     defaultValues,
     validators: {
       onSubmit: validator,
     },
     onSubmit: async ({ value }) => {
-      console.info(value)
+      console.info(
+        value.items.filter((v) => v.amount !== "0,00" && v.amount !== ""),
+      )
     },
   })
 
@@ -80,62 +78,30 @@ export default function RegisterOutcomePage() {
               {(field) => (
                 <>
                   {field.state.value.map((v, i) => (
-                    <Animated.View
-                      key={v.localId}
-                      exiting={FadeOutRight}
-                      entering={FadeInDown}
-                      layout={LinearTransition.duration(500)}
-                    >
-                      <Box className="flex-row items-center gap-3">
-                        <Box className="ml-2 w-4 justify-end">
-                          <Text
-                            className="self-end font-bold text-lg"
-                            numberOfLines={1}
-                          >
-                            {i + 1}.
-                          </Text>
-                        </Box>
-                        <Box className="w-1/4">
-                          <form.AppField name={`items[${i}].amount`}>
-                            {(field) => (
-                              <field.Input
-                                placeholder="0,00"
-                                mask="MONEY"
-                                prefix={
-                                  <MoneyPrefix className="font-normal text-lg" />
-                                }
-                              />
-                            )}
-                          </form.AppField>
-                        </Box>
-                        <Box className="flex-1">
-                          <form.AppField name={`items[${i}].description`}>
-                            {(field) => (
-                              <field.Input placeholder="Descrição..." />
-                            )}
-                          </form.AppField>
-                        </Box>
-                        <Button
-                          action="negative"
-                          variant="link"
-                          className="p-0"
-                          onPress={() => field.removeValue(i)}
-                        >
-                          <ButtonIcon as={XCircleIcon} />
-                        </Button>
-                      </Box>
-                    </Animated.View>
+                    <form.Field key={v.localId} name={`items[${i}]`}>
+                      {(sub) => (
+                        <OutcomeInput
+                          index={i}
+                          isFocused={i === focusedIndex}
+                          value={sub.state.value}
+                          onChange={sub.handleChange}
+                          onRemove={() => field.removeValue(i)}
+                          onBlur={sub.handleBlur}
+                          onFocus={() => setFocusedIndex(i)}
+                          onEnd={() => {
+                            setFocusedIndex(i + 1)
+                            if (field.state.value.length === i + 1) {
+                              field.pushValue(emptyItem())
+                            }
+                          }}
+                        />
+                      )}
+                    </form.Field>
                   ))}
                   <Button
                     size="xs"
                     className="mt-2 ml-auto"
-                    onPress={() =>
-                      field.pushValue({
-                        localId: newId(),
-                        amount: "0,00",
-                        description: "",
-                      })
-                    }
+                    onPress={() => field.pushValue(emptyItem())}
                   >
                     <ButtonIcon as={PlusIcon} />
                     <ButtonText>Adicionar</ButtonText>
