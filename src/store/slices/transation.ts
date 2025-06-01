@@ -59,13 +59,13 @@ export function useCreateTransaction() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (payload: TransactionCreateDTO) => {
+    mutationFn: async (payload: TransactionCreateDTO[]) => {
       return api
         .post("me/transactions", {
-          json: {
-            ...payload,
-            receivedAt: formatISO(payload.receivedAt),
-          },
+          json: payload.map((p) => ({
+            ...p,
+            receivedAt: formatISO(p.receivedAt),
+          })),
         })
         .json<Transaction>()
     },
