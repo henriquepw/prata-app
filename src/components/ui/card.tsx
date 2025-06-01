@@ -1,8 +1,8 @@
 import type { VariantProps } from "@gluestack-ui/nativewind-utils"
 import { tva } from "@gluestack-ui/nativewind-utils/tva"
-import { BlurView } from "expo-blur"
 import React from "react"
 import { View, ViewProps } from "react-native"
+import { Glass } from "./glass"
 
 const cardStyle = tva({
   slots: {
@@ -47,12 +47,11 @@ const Card = React.forwardRef<React.ComponentRef<typeof View>, Props>(
   ) => {
     const s = cardStyle({ size, variant, className })
     return (
-      <View className={s.root()}>
-        <BlurView intensity={5} className="absolute h-full w-full" />
+      <Glass className={s.root()}>
         <View className={s.content()} {...props} ref={ref}>
           {children}
         </View>
-      </View>
+      </Glass>
     )
   },
 )
