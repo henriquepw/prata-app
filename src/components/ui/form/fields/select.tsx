@@ -17,6 +17,7 @@ import {
 import { useToggle } from "~/hooks/use-toggle"
 import { useFieldContext } from "../context"
 import { Field, FieldProps } from "../field"
+import { Glass } from "../../glass"
 
 export interface SelectProps extends FieldProps {
   children: React.ReactNode
@@ -43,18 +44,20 @@ export function Select({
         onClose={toggleOpen}
         onValueChange={onChange}
       >
-        <SelectTrigger
-          size="md"
-          variant="outline"
-          className="gap-2 rounded-lg px-2 active:opacity-50"
-          onPress={toggleOpen}
-        >
-          <SelectInput
-            placeholder="Selecione uma opção"
-            className="flex-1 px-0"
-          />
-          <SelectIcon as={ChevronDownIcon} />
-        </SelectTrigger>
+        <Glass>
+          <SelectTrigger
+            size="md"
+            variant="outline"
+            className="gap-2 rounded-lg px-2 active:opacity-50"
+            onPress={toggleOpen}
+          >
+            <SelectInput
+              placeholder="Selecione uma opção"
+              className="flex-1 px-0"
+            />
+            <SelectIcon as={ChevronDownIcon} />
+          </SelectTrigger>
+        </Glass>
 
         <SelectPortal useRNModal isOpen={isOpen} onClose={toggleOpen}>
           <SelectBackdrop />

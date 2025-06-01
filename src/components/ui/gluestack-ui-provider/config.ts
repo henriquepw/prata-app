@@ -1,35 +1,64 @@
 "use client"
 import { vars } from "nativewind"
 
+const _BLUE = [
+  "240 253 250",
+  "204 251 241",
+  "153 246 228",
+  "94 234 212",
+  "45 212 191",
+  "20 184 166",
+  "13 148 136",
+  "15 118 110",
+  "17 94 89",
+  "19 78 74",
+  "4 47 46",
+]
+
+const _ORANGE = [
+  "255 215 159",
+  "255 198 119",
+  "255 182 80",
+  "255 165 40",
+  "255 147 0",
+  "225 134 7",
+  "195 119 12",
+  "168 105 17",
+  "142 91 19",
+  "117 77 21",
+]
+
+const PRIMARY = _BLUE
+
 function getAccentColor(theme: "light" | "dark", color: string) {
   if (theme === "light") {
     return {
-      [`--color-${color}-50`]: "240 253 250",
-      [`--color-${color}-100`]: "204 251 241",
-      [`--color-${color}-200`]: "153 246 228",
-      [`--color-${color}-300`]: "94 234 212",
-      [`--color-${color}-400`]: "45 212 191",
-      [`--color-${color}-500`]: "20 184 166",
-      [`--color-${color}-600`]: "13 148 136",
-      [`--color-${color}-700`]: "15 118 110",
-      [`--color-${color}-800`]: "17 94 89",
-      [`--color-${color}-900`]: "19 78 74",
-      [`--color-${color}-950`]: "4 47 46",
+      [`--color-${color}-50`]: PRIMARY[0],
+      [`--color-${color}-100`]: PRIMARY[1],
+      [`--color-${color}-200`]: PRIMARY[2],
+      [`--color-${color}-300`]: PRIMARY[3],
+      [`--color-${color}-400`]: PRIMARY[4],
+      [`--color-${color}-500`]: PRIMARY[5],
+      [`--color-${color}-600`]: PRIMARY[6],
+      [`--color-${color}-700`]: PRIMARY[7],
+      [`--color-${color}-800`]: PRIMARY[8],
+      [`--color-${color}-900`]: PRIMARY[9],
+      [`--color-${color}-950`]: PRIMARY[10],
     } as const
   }
 
   return {
-    [`--color-${color}-50`]: "4 47 46",
-    [`--color-${color}-100`]: "19 78 74",
-    [`--color-${color}-200`]: "17 94 89",
-    [`--color-${color}-300`]: "15 118 110",
-    [`--color-${color}-400`]: "13 148 136",
-    [`--color-${color}-500`]: "20 184 166",
-    [`--color-${color}-600`]: "45 212 191",
-    [`--color-${color}-700`]: "94 234 212",
-    [`--color-${color}-800`]: "153 246 228",
-    [`--color-${color}-900`]: "204 251 241",
-    [`--color-${color}-950`]: "240 253 250",
+    [`--color-${color}-50`]: PRIMARY[10],
+    [`--color-${color}-100`]: PRIMARY[9],
+    [`--color-${color}-200`]: PRIMARY[8],
+    [`--color-${color}-300`]: PRIMARY[7],
+    [`--color-${color}-400`]: PRIMARY[6],
+    [`--color-${color}-500`]: PRIMARY[5],
+    [`--color-${color}-600`]: PRIMARY[4],
+    [`--color-${color}-700`]: PRIMARY[3],
+    [`--color-${color}-800`]: PRIMARY[2],
+    [`--color-${color}-900`]: PRIMARY[1],
+    [`--color-${color}-950`]: PRIMARY[0],
   } as const
 }
 

@@ -25,6 +25,7 @@ import {
   ActionsheetSectionList,
   ActionsheetVirtualizedList,
 } from "./select-actionsheet"
+import { Glass } from "../glass"
 
 const SelectTriggerWrapper = React.forwardRef<
   React.ComponentRef<typeof Pressable>,
@@ -52,7 +53,7 @@ const selectStyle = tva({
 })
 
 const selectTriggerStyle = tva({
-  base: "border border-background-300 rounded flex-row items-center overflow-hidden data-[hover=true]:border-outline-400 data-[focus=true]:border-primary-700 data-[disabled=true]:opacity-40 data-[disabled=true]:data-[hover=true]:border-background-300",
+  base: "border border-outline-100 rounded flex-row items-center overflow-hidden data-[hover=true]:border-outline-400 data-[focus=true]:border-primary-700 data-[disabled=true]:opacity-40 data-[disabled=true]:data-[hover=true]:border-background-300",
   variants: {
     size: {
       xl: "h-12",
@@ -159,16 +160,18 @@ const SelectTrigger = React.forwardRef<
   ref,
 ) {
   return (
-    <UISelect.Trigger
-      className={selectTriggerStyle({
-        class: className,
-        size,
-        variant,
-      })}
-      ref={ref}
-      context={{ size, variant }}
-      {...props}
-    />
+    <Glass>
+      <UISelect.Trigger
+        className={selectTriggerStyle({
+          class: className,
+          size,
+          variant,
+        })}
+        ref={ref}
+        context={{ size, variant }}
+        {...props}
+      />
+    </Glass>
   )
 })
 

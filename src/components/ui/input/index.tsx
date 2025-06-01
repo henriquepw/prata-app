@@ -10,6 +10,7 @@ import {
 import { cssInterop } from "nativewind"
 import React from "react"
 import { Pressable, TextInput, View } from "react-native"
+import { Glass } from "../glass"
 
 const SCOPE = "INPUT"
 
@@ -34,7 +35,12 @@ cssInterop(PrimitiveIcon, {
 })
 
 const inputStyle = tva({
-  base: "border-background-300 flex-row overflow-hidden content-center data-[hover=true]:border-outline-400 data-[focus=true]:border-primary-700 data-[focus=true]:hover:border-primary-700 data-[disabled=true]:opacity-40 data-[disabled=true]:hover:border-background-300 items-center",
+  base: [
+    "border-outline-100 flex-row overflow-hidden content-center items-center",
+    "data-[hover=true]:border-outline-400",
+    "data-[focus=true]:border-primary-700 data-[focus=true]:hover:border-primary-700",
+    "data-[disabled=true]:opacity-40 data-[disabled=true]:hover:border-background-300",
+  ],
 
   variants: {
     size: {
@@ -106,12 +112,14 @@ export type IInputProps = React.ComponentProps<typeof UIInput> &
 const Input = React.forwardRef<React.ComponentRef<typeof UIInput>, IInputProps>(
   ({ className, variant = "outline", size = "md", ...props }, ref) => {
     return (
-      <UIInput
-        ref={ref}
-        {...props}
-        className={inputStyle({ variant, size, class: className })}
-        context={{ variant, size }}
-      />
+      <Glass>
+        <UIInput
+          ref={ref}
+          {...props}
+          className={inputStyle({ variant, size, class: className })}
+          context={{ variant, size }}
+        />
+      </Glass>
     )
   },
 )
