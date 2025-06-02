@@ -1,3 +1,4 @@
+import { useNavigation } from "expo-router"
 import { PlusIcon, SaveIcon } from "lucide-react-native"
 import { useState } from "react"
 import { ScrollView } from "react-native"
@@ -9,11 +10,16 @@ import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
 import { useAppForm } from "~/components/ui/form"
 import { Heading } from "~/components/ui/heading"
 import { ScreenHeader, ScreenRoot } from "~/components/ui/layouts/screen"
+import {
+  TransactionType,
+  useCreateTransaction,
+} from "~/store/slices/transation"
+import { getOnlyDigits } from "~/utils/format-amount"
 import { newId } from "~/utils/id"
 
 const validator = z.object({
   balanceId: z.string(),
-  receivedAt: z.date().optional(),
+  receivedAt: z.date(),
   items: z.array(
     z.object({
       localId: z.string(),
@@ -36,6 +42,9 @@ const defaultValues: z.input<typeof validator> = {
 }
 
 export default function RegisterOutcomePage() {
+  const navigation = useNavigation()
+  const createTransaction = useCreateTransaction()
+
   const [focusedIndex, setFocusedIndex] = useState(0)
   const form = useAppForm({
     defaultValues,
@@ -43,9 +52,17 @@ export default function RegisterOutcomePage() {
       onSubmit: validator,
     },
     onSubmit: async ({ value }) => {
-      console.info(
-        value.items.filter((v) => v.amount !== "0,00" && v.amount !== ""),
+      await createTransaction.mutateAsync(
+        value.items.map((i) => ({
+          balanceId: value.balanceId,
+          receivedAt: value.receivedAt,
+          type: TransactionType.OUTCOME,
+          amount: Number(getOnlyDigits(i.amount)),
+          description: i.description,
+        })),
       )
+
+      navigation.goBack()
     },
   })
 
