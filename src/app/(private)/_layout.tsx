@@ -23,12 +23,16 @@ export default function PrivateLayout() {
       <Stack.Protected guard={!showIntro}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen
-          name="transations/register"
-          options={{ presentation: "modal" }}
+          name="transations/new-outcome"
+          options={{ presentation: "transparentModal" }}
+        />
+        <Stack.Screen
+          name="transations/new-income"
+          options={{ presentation: "transparentModal" }}
         />
         <Stack.Screen
           name="recurrences/register"
-          options={{ presentation: "modal" }}
+          options={{ presentation: "transparentModal" }}
         />
       </Stack.Protected>
     </Stack>

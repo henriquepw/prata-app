@@ -19,7 +19,6 @@ export default function HomePage() {
           <TransactionList />
         </Card>
       </SafeAreaView>
-      {/* <TransationDetail /> */}
     </View>
   )
 }

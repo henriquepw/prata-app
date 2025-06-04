@@ -23,7 +23,7 @@ export const TabButton = forwardRef(
           size="xl"
           className={
             isFocused
-              ? "text-typography-white"
+              ? "text-typography-0"
               : "text-typography-800 dark:text-typography-900"
           }
         />

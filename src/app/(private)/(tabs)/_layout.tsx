@@ -1,7 +1,7 @@
-import { Link } from "expo-router"
 import { TabList, TabSlot, TabTrigger, Tabs } from "expo-router/ui"
 import { StatusBar } from "expo-status-bar"
-import { HomeIcon, PinIcon, PlusIcon } from "lucide-react-native"
+import { HomeIcon, PinIcon } from "lucide-react-native"
+import { NewTransationFab } from "~/components/features/transations/new-transation-fab"
 import { Background } from "~/components/ui/background"
 import { TabButton } from "~/components/ui/tab/tab-button"
 import { TabView } from "~/components/ui/tab/tab-view"
@@ -22,9 +22,6 @@ export default function TabLayout() {
           <TabTrigger asChild name="home" href="/(private)/(tabs)">
             <TabButton icon={HomeIcon} />
           </TabTrigger>
-          <Link asChild href="/transations/new-outcome">
-            <TabButton icon={PlusIcon} />
-          </Link>
           <TabTrigger
             asChild
             name="recurrence"
@@ -34,6 +31,8 @@ export default function TabLayout() {
           </TabTrigger>
         </TabView>
       </TabList>
+
+      <NewTransationFab />
     </Tabs>
   )
 }
