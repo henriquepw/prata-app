@@ -1,109 +1,141 @@
-import { useRouter } from "expo-router"
-import { ChevronLeftIcon, PlusIcon } from "lucide-react-native"
-import { Text, TouchableOpacity, View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { useNavigation } from "expo-router"
+import { PlusIcon, SaveIcon } from "lucide-react-native"
+import { useState } from "react"
+import { ScrollView } from "react-native"
 import { z } from "zod"
-import { Background } from "~/components/ui/background"
+import { BalanceSelect } from "~/components/features/balance/balance-select"
+import { OutcomeInput } from "~/components/features/transations/outcome-input"
+import { Box } from "~/components/ui/box"
+import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
 import { useAppForm } from "~/components/ui/form"
-import { SelectItem } from "~/components/ui/form/fields/select"
-import { Icon } from "~/components/ui/icon"
+import { Heading } from "~/components/ui/heading"
+import { ScreenHeader, ScreenRoot } from "~/components/ui/layouts/screen"
 import {
   TransactionType,
   useCreateTransaction,
 } from "~/store/slices/transation"
 import { getOnlyDigits } from "~/utils/format-amount"
+import { newId } from "~/utils/id"
 
-const schema = z.object({
-  amount: z.string(),
+const validator = z.object({
   balanceId: z.string(),
-  type: z.nativeEnum(TransactionType),
-  description: z.string(),
   receivedAt: z.date(),
+  items: z.array(
+    z.object({
+      localId: z.string(),
+      amount: z.string(),
+      description: z.string(),
+    }),
+  ),
 })
 
-export default function RegisterTransationPage() {
-  const router = useRouter()
+const emptyItem = () => ({
+  localId: newId(),
+  amount: "",
+  description: "",
+})
+
+const defaultValues: z.input<typeof validator> = {
+  balanceId: "",
+  receivedAt: new Date(),
+  items: [emptyItem()],
+}
+
+export default function RegisterIncomePage() {
+  const navigation = useNavigation()
   const createTransaction = useCreateTransaction()
 
+  const [focusedIndex, setFocusedIndex] = useState(0)
   const form = useAppForm({
-    defaultValues: {
-      amount: "",
-      balanceId: "",
-      description: "",
-      type: TransactionType.OUTCOME,
-      receivedAt: new Date(),
-    },
+    defaultValues,
     validators: {
-      onSubmit: schema,
+      onSubmit: validator,
     },
     onSubmit: async ({ value }) => {
-      await createTransaction.mutateAsync({
-        balanceId: value.balanceId,
-        type: value.type as TransactionType,
-        amount: Number(getOnlyDigits(value.amount)),
-        description: value.description,
-        receivedAt: value.receivedAt,
-      })
-      console.log("aaaaaaaaa")
-      router.back()
+      await createTransaction.mutateAsync(
+        value.items.map((i) => ({
+          balanceId: value.balanceId,
+          receivedAt: value.receivedAt,
+          type: TransactionType.INCOME,
+          amount: Number(getOnlyDigits(i.amount)),
+          description: i.description,
+        })),
+      )
+
+      navigation.goBack()
     },
   })
 
   return (
-    <Background>
-      <SafeAreaView className="gap-6 p-4">
-        <View className="flex-row items-center gap-4 py-4">
-          <TouchableOpacity className="w-6" onPress={router.back}>
-            <Icon as={ChevronLeftIcon} size="xl" />
-          </TouchableOpacity>
-          <Text className="font-bold text-2xl text-typography-900">
-            Novo Registro
-          </Text>
-        </View>
+    <ScreenRoot>
+      <ScreenHeader title="Registrar Entradas" />
 
-        {/* TODO: balance select */}
-        {/* TODO: change trx type input style */}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+        <Box className="flex-grow gap-4">
+          <form.AppField name="receivedAt">
+            {(field) => <field.DateInput label="Data" />}
+          </form.AppField>
 
-        <form.AppField name="type">
-          {(field) => (
-            <field.Select isRequired label="Tipo">
-              <SelectItem label="Entrada" value="INCOME" />
-              <SelectItem label="Saída" value="OUTCOME" />
-            </field.Select>
-          )}
-        </form.AppField>
+          <form.Field name="balanceId">
+            {(field) => (
+              <BalanceSelect
+                errors={field.state.meta.errors}
+                value={field.state.value}
+                onChange={(v) => field.handleChange(v || "")}
+              />
+            )}
+          </form.Field>
 
-        <form.AppField name="receivedAt">
-          {(field) => (
-            <field.DateInput isRequired label="Data do Recebimento" />
-          )}
-        </form.AppField>
-
-        <form.AppField name="amount">
-          {(field) => (
-            <field.Input
-              isRequired
-              label="Quanto foi?"
-              keyboardType="numeric"
-              placeholder="0,00"
-              mask="MONEY"
-              prefix={
-                <Text className="font-medium text-lg text-typography-900">
-                  R$
-                </Text>
-              }
-            />
-          )}
-        </form.AppField>
-
-        <form.AppField name="description">
-          {(field) => <field.Input label="Descrição" />}
-        </form.AppField>
+          <Box className="gap-3">
+            <Heading className="font-medium">Entradas</Heading>
+            <form.Field name="items" mode="array">
+              {(field) => (
+                <>
+                  {field.state.value.map((v, i) => (
+                    <form.Field key={v.localId} name={`items[${i}]`}>
+                      {(sub) => (
+                        <OutcomeInput
+                          index={i}
+                          isFocused={i === focusedIndex}
+                          value={sub.state.value}
+                          onChange={sub.handleChange}
+                          onRemove={() => field.removeValue(i)}
+                          onBlur={sub.handleBlur}
+                          onFocus={() => setFocusedIndex(i)}
+                          onEnd={() => {
+                            setFocusedIndex(i + 1)
+                            if (field.state.value.length === i + 1) {
+                              field.pushValue(emptyItem())
+                            }
+                          }}
+                        />
+                      )}
+                    </form.Field>
+                  ))}
+                  <Button
+                    size="xs"
+                    className="mt-2 ml-auto"
+                    onPress={() => field.pushValue(emptyItem())}
+                  >
+                    <ButtonIcon as={PlusIcon} />
+                    <ButtonText>Adicionar</ButtonText>
+                  </Button>
+                </>
+              )}
+            </form.Field>
+          </Box>
+        </Box>
 
         <form.AppForm>
-          <form.SubmitButton leftIcon={PlusIcon}>Registrar</form.SubmitButton>
+          <form.SubmitButton leftIcon={SaveIcon} className="mt-6 ml-auto">
+            Registrar
+          </form.SubmitButton>
         </form.AppForm>
-      </SafeAreaView>
-    </Background>
+        <Box className="h-10" />
+      </ScrollView>
+    </ScreenRoot>
   )
 }
