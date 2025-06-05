@@ -17,43 +17,42 @@ import { Text } from "~/components/ui/text"
 import { useToggle } from "~/hooks/use-toggle"
 import { cn } from "~/utils/cn"
 
-const BTN_OPEN_SCALE = 0.75
+const BTN_OPEN_SCALE = 0.7
 
 type Props = {
   label: string
   icon: React.ElementType
   href: Href
+  enteringDelay: number
+  exitingDelay: number
 }
-function FabItem({ href, icon, label }: Props) {
+function FabItem({ enteringDelay, exitingDelay, href, icon, label }: Props) {
   return (
-    <Animated.View
-    // entering={FadeInDown.springify()}
-    // exiting={FadeOutDown.springify()}
-    >
-      <Link asChild href={href}>
-        <TouchableOpacity className="flex-row items-center">
-          <Box className="overflow-hidden pr-2 pl-6">
-            <Animated.View
-              entering={SlideInRight.delay(150).springify().damping(15)}
-              exiting={SlideOutRight.springify().mass(5)}
-            >
-              <Text size="xl">{label}</Text>
-            </Animated.View>
-          </Box>
+    <Link asChild href={href}>
+      <TouchableOpacity className="flex-row items-center">
+        <Box className="overflow-hidden pr-2 pl-6">
           <Animated.View
-            className="size-10 items-center justify-center rounded-full bg-primary-500"
-            entering={ZoomIn.springify()}
-            exiting={ZoomOut.springify()}
+            entering={SlideInRight.delay(enteringDelay + 150)
+              .springify()
+              .damping(15)}
+            exiting={SlideOutRight.delay(exitingDelay).springify().mass(5)}
           >
-            <Icon as={icon} className="text-typography-0" />
+            <Text size="xl">{label}</Text>
           </Animated.View>
-        </TouchableOpacity>
-      </Link>
-    </Animated.View>
+        </Box>
+        <Animated.View
+          className="size-10 items-center justify-center rounded-full bg-primary-500"
+          entering={ZoomIn.delay(enteringDelay).springify()}
+          exiting={ZoomOut.delay(exitingDelay).springify()}
+        >
+          <Icon as={icon} className="text-typography-0" />
+        </Animated.View>
+      </TouchableOpacity>
+    </Link>
   )
 }
 
-export function NewTransationFab() {
+export function TransationFab() {
   const { bottom, right } = useSafeAreaInsets()
   const [open, setTogger] = useToggle()
 
@@ -88,11 +87,15 @@ export function NewTransationFab() {
       {open && (
         <Box className="mb-4 flex items-end gap-4">
           <FabItem
+            enteringDelay={80}
+            exitingDelay={0}
             icon={ArrowUpIcon}
             label="Entrada"
             href="/(private)/transations/new-income"
           />
           <FabItem
+            enteringDelay={0}
+            exitingDelay={80}
             icon={ArrowDownIcon}
             label="Saída"
             href="/(private)/transations/new-outcome"
@@ -103,7 +106,7 @@ export function NewTransationFab() {
       <Animated.View style={btnStyle}>
         <Pressable
           className={cn(
-            "size-10 items-center justify-center rounded-full",
+            "size-11 items-center justify-center rounded-full",
             open
               ? "border-2 border-primary-500 bg-background-0"
               : "bg-primary-500",
