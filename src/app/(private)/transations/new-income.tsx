@@ -3,7 +3,6 @@ import { PlusIcon, SaveIcon } from "lucide-react-native"
 import { useState } from "react"
 import { ScrollView } from "react-native"
 import { z } from "zod"
-import { BalanceSelect } from "~/components/features/balance/balance-select"
 import { OutcomeInput } from "~/components/features/transations/outcome-input"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
@@ -18,7 +17,6 @@ import { getOnlyDigits } from "~/utils/format-amount"
 import { newId } from "~/utils/id"
 
 const validator = z.object({
-  balanceId: z.string(),
   receivedAt: z.date(),
   items: z.array(
     z.object({
@@ -36,7 +34,6 @@ const emptyItem = () => ({
 })
 
 const defaultValues: z.input<typeof validator> = {
-  balanceId: "",
   receivedAt: new Date(),
   items: [emptyItem()],
 }
@@ -54,7 +51,7 @@ export default function RegisterIncomePage() {
     onSubmit: async ({ value }) => {
       await createTransaction.mutateAsync(
         value.items.map((i) => ({
-          balanceId: value.balanceId,
+          balanceId: undefined,
           receivedAt: value.receivedAt,
           type: TransactionType.INCOME,
           amount: Number(getOnlyDigits(i.amount)),
@@ -78,16 +75,6 @@ export default function RegisterIncomePage() {
           <form.AppField name="receivedAt">
             {(field) => <field.DateInput label="Data" />}
           </form.AppField>
-
-          <form.Field name="balanceId">
-            {(field) => (
-              <BalanceSelect
-                errors={field.state.meta.errors}
-                value={field.state.value}
-                onChange={(v) => field.handleChange(v || "")}
-              />
-            )}
-          </form.Field>
 
           <Box className="gap-3">
             <Heading className="font-medium">Entradas</Heading>

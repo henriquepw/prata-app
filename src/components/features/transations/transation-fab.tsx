@@ -2,6 +2,8 @@ import { Href, Link } from "expo-router"
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon } from "lucide-react-native"
 import { Pressable, TouchableOpacity } from "react-native"
 import Animated, {
+  FadeIn,
+  FadeOut,
   SlideInRight,
   SlideOutRight,
   useAnimatedStyle,
@@ -12,6 +14,7 @@ import Animated, {
 } from "react-native-reanimated"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Box } from "~/components/ui/box"
+import { Glass } from "~/components/ui/glass"
 import { Icon } from "~/components/ui/icon"
 import { Text } from "~/components/ui/text"
 import { useToggle } from "~/hooks/use-toggle"
@@ -25,11 +28,19 @@ type Props = {
   href: Href
   enteringDelay: number
   exitingDelay: number
+  onPress: () => void
 }
-function FabItem({ enteringDelay, exitingDelay, href, icon, label }: Props) {
+function FabItem({
+  enteringDelay,
+  exitingDelay,
+  href,
+  icon,
+  label,
+  onPress,
+}: Props) {
   return (
-    <Link asChild href={href}>
-      <TouchableOpacity className="flex-row items-center">
+    <Link asChild href={href} onPress={onPress}>
+      <TouchableOpacity className="flex-row items-center" onBlur={onPress}>
         <Box className="overflow-hidden pr-2 pl-6">
           <Animated.View
             entering={SlideInRight.delay(enteringDelay + 150)
@@ -80,48 +91,62 @@ export function TransationFab() {
   }
 
   return (
-    <Box
-      className="absolute right-6 bottom-2 flex items-end"
-      style={{ paddingBottom: bottom, paddingRight: right }}
-    >
+    <>
       {open && (
-        <Box className="mb-4 flex items-end gap-4">
-          <FabItem
-            enteringDelay={80}
-            exitingDelay={0}
-            icon={ArrowUpIcon}
-            label="Entrada"
-            href="/(private)/transations/new-income"
-          />
-          <FabItem
-            enteringDelay={0}
-            exitingDelay={80}
-            icon={ArrowDownIcon}
-            label="Saída"
-            href="/(private)/transations/new-outcome"
-          />
-        </Box>
-      )}
-
-      <Animated.View style={btnStyle}>
-        <Pressable
-          className={cn(
-            "size-11 items-center justify-center rounded-full",
-            open
-              ? "border-2 border-primary-500 bg-background-0"
-              : "bg-primary-500",
-          )}
-          onPressIn={onPressIn}
-          onPressOut={onPressOut}
+        <Animated.View
+          className="absolute inset-0 top-0 flex-1 bg-transparent"
+          onTouchStart={onPressOut}
+          entering={FadeIn}
+          exiting={FadeOut}
         >
-          <Animated.View style={iconStyle}>
-            <Icon
-              as={PlusIcon}
-              className={open ? "text-primary-500" : "text-typography-0"}
+          <Glass className="flex-1" intensity={20} />
+        </Animated.View>
+      )}
+      <Box
+        className="absolute right-6 bottom-2 flex items-end"
+        style={{ paddingBottom: bottom, paddingRight: right }}
+      >
+        {open && (
+          <Box className="mr-1 mb-4 flex items-end gap-4">
+            <FabItem
+              enteringDelay={80}
+              exitingDelay={0}
+              icon={ArrowUpIcon}
+              label="Entrada"
+              href="/(private)/transations/new-income"
+              onPress={onPressOut}
             />
-          </Animated.View>
-        </Pressable>
-      </Animated.View>
-    </Box>
+            <FabItem
+              enteringDelay={0}
+              exitingDelay={80}
+              icon={ArrowDownIcon}
+              label="Saída"
+              href="/(private)/transations/new-outcome"
+              onPress={onPressOut}
+            />
+          </Box>
+        )}
+
+        <Animated.View style={btnStyle}>
+          <Pressable
+            className={cn(
+              "size-11 items-center justify-center rounded-full",
+              open
+                ? "border-2 border-primary-500 bg-background-0"
+                : "bg-primary-500",
+            )}
+            onPressIn={onPressIn}
+            onPressOut={onPressOut}
+          >
+            <Animated.View style={iconStyle}>
+              <Icon
+                as={PlusIcon}
+                className={open ? "text-primary-500" : "text-typography-0"}
+              />
+            </Animated.View>
+          </Pressable>
+        </Animated.View>
+      </Box>
+    </>
   )
 }
