@@ -11,6 +11,9 @@ const cardStyle = tva({
   },
   variants: {
     size: {
+      xs: {
+        content: "p-0",
+      },
       sm: {
         root: "rounded-md",
         content: "p-3",
@@ -45,9 +48,9 @@ const Card = React.forwardRef<React.ComponentRef<typeof View>, Props>(
     { className, children, size = "md", variant = "outline", ...props },
     ref,
   ) => {
-    const s = cardStyle({ size, variant, className })
+    const s = cardStyle({ size, variant })
     return (
-      <Glass className={s.root()}>
+      <Glass className={s.root({ className })}>
         <View className={s.content()} {...props} ref={ref}>
           {children}
         </View>

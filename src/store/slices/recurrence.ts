@@ -1,9 +1,15 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { api } from "~/api"
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query"
+import { useMemo } from "react"
+import { api, Page } from "~/api"
 import { formatISO } from "~/utils/format-date"
 
 const keys = {
-  list: ["recurrences"],
+  all: ["recurrences"],
+  list: () => [...keys.all],
 } as const
 
 export enum Frequence {
@@ -61,7 +67,34 @@ export function useCreateRecurrence() {
         .json<Recurrence>()
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: keys.list })
+      queryClient.invalidateQueries({ queryKey: keys.all })
     },
   })
+}
+
+export function useReccurences() {
+  const query = useInfiniteQuery({
+    queryKey: keys.list(),
+    initialPageParam: null,
+    getNextPageParam: (lastPage: Page<Recurrence>) => lastPage.next,
+    queryFn: async ({ signal, pageParam }) => {
+      const searchParams = new URLSearchParams()
+      searchParams.set("cursor", pageParam || "")
+      searchParams.set("limit", "20")
+
+      return api
+        .get<Page<Recurrence>>("me/recurrences", {
+          searchParams,
+          signal,
+        })
+        .json()
+    },
+  })
+
+  const items = useMemo(
+    () => query.data?.pages.flatMap((p) => p.items),
+    [query.data?.pages],
+  )
+
+  return [items, query] as const
 }
