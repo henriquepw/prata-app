@@ -48,7 +48,7 @@ export function DateInput({ value, onChange, ...rest }: Props) {
               <SelectDragIndicator />
             </SelectDragIndicatorWrapper>
             <DateTimePicker
-              value={value}
+              value={value || new Date()}
               display="inline"
               onChange={(_, newDate) => {
                 onChange(newDate || value)
