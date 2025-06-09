@@ -1,4 +1,4 @@
-import { Link } from "expo-router"
+import { useRouter } from "expo-router"
 import { PlusIcon } from "lucide-react-native"
 import { ListRenderItemInfo } from "react-native"
 import Animated, {
@@ -18,8 +18,8 @@ import { cn } from "~/utils/cn"
 import { formatAmount } from "~/utils/format-amount"
 
 type CellProps = {
-  children: React.ReactNode
   className?: string
+  children: React.ReactNode
 }
 function Cell({ children, className }: CellProps) {
   return <Box className={cn("flex-1 items-start", className)}>{children}</Box>
@@ -72,16 +72,19 @@ function Row({ item, index }: ListRenderItemInfo<Recurrence>) {
 
 export default function RecurrentListPage() {
   const [items, query] = useReccurences()
+  const router = useRouter()
 
   return (
     <ScreenRoot>
       <Box className="mb-4 h-10 flex-row items-center justify-between gap-2">
         <Heading size="2xl">Recorrências</Heading>
-        <Link asChild href="/recurrences/register">
-          <Button size="sm" className="size-10">
-            <ButtonIcon as={PlusIcon} />
-          </Button>
-        </Link>
+        <Button
+          size="sm"
+          className="size-10"
+          onPress={() => router.navigate("/recurrences/register")}
+        >
+          <ButtonIcon as={PlusIcon} />
+        </Button>
       </Box>
 
       <Animated.FlatList

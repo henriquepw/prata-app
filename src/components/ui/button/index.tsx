@@ -9,7 +9,13 @@ import {
 } from "@gluestack-ui/nativewind-utils/withStyleContext"
 import { cssInterop } from "nativewind"
 import React from "react"
-import { ActivityIndicator, Pressable, Text, View } from "react-native"
+import {
+  ActivityIndicator,
+  GestureResponderEvent,
+  Pressable,
+  Text,
+  View,
+} from "react-native"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -267,9 +273,6 @@ const buttonGroupStyle = tva({
       md: "gap-3",
       lg: "gap-4",
       xl: "gap-5",
-      "2xl": "gap-6",
-      "3xl": "gap-7",
-      "4xl": "gap-8",
     },
     isAttached: {
       true: "gap-0",
@@ -297,7 +300,15 @@ const Button = React.forwardRef<
   ButtonProps
 >(
   (
-    { className, variant = "solid", size = "md", action = "primary", ...props },
+    {
+      className,
+      variant = "solid",
+      size = "md",
+      action = "primary",
+      onPressIn,
+      onPressOut,
+      ...props
+    },
     ref,
   ) => {
     const radius = useSharedValue(DEFAULT_RADIUS)
@@ -307,21 +318,23 @@ const Button = React.forwardRef<
       transform: [{ scale: scale.value }],
     }))
 
-    const onPressIn = () => {
-      scale.value = withTiming(0.96, { duration: 100 })
+    const handlePressIn = (event: GestureResponderEvent) => {
+      scale.value = withTiming(size === "sm" ? 0.85 : 0.95, { duration: 100 })
       radius.value = withTiming(30, { duration: 200 })
+      onPressIn?.(event)
     }
 
-    const onPressOut = () => {
+    const handlePressOut = (event: GestureResponderEvent) => {
       scale.value = withTiming(1, { duration: 200 })
       radius.value = withTiming(DEFAULT_RADIUS, { duration: 200 })
+      onPressOut?.(event)
     }
 
     return (
       <AnimatedBtn
         ref={ref}
-        onPressIn={onPressIn}
-        onPressOut={onPressOut}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
         className={buttonStyle({ variant, size, action, class: className })}
         style={animetedStyle}
         context={{ variant, size, action }}

@@ -19,14 +19,14 @@ export default function TabLayout() {
       <TabList asChild>
         <TabView>
           <TabTrigger asChild name="home" href="/(private)/(tabs)">
-            <TabButton index={0} icon={HomeIcon} />
+            <TabButton index={0} icon={HomeIcon} label="Geral" />
           </TabTrigger>
           <TabTrigger
             asChild
-            name="recurrence"
+            name="automation"
             href="/(private)/(tabs)/recurrences"
           >
-            <TabButton index={1} icon={PinIcon} />
+            <TabButton index={1} icon={PinIcon} label="Automação" />
           </TabTrigger>
         </TabView>
       </TabList>
@@ -35,3 +35,7 @@ export default function TabLayout() {
     </Tabs>
   )
 }
+
+// Fixos
+// Automação
+// Recorrências
