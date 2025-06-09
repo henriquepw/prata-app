@@ -36,7 +36,6 @@ export function DateInput({ value, onChange, ...rest }: Props) {
         >
           <SelectInput
             value={value && formatDate(value.toISOString())}
-            placeholder="Selecione uma opção"
             className="flex-1 px-0"
           />
           <SelectIcon as={ChevronDownIcon} />
