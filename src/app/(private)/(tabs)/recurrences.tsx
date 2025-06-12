@@ -1,5 +1,3 @@
-import { useRouter } from "expo-router"
-import { PlusIcon } from "lucide-react-native"
 import { ListRenderItemInfo } from "react-native"
 import Animated, {
   FadeInDown,
@@ -8,14 +6,16 @@ import Animated, {
 } from "react-native-reanimated"
 import { FrequenceBadge } from "~/components/features/recurrences/frequance-badge"
 import { Box } from "~/components/ui/box"
-import { Button, ButtonIcon } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { Heading } from "~/components/ui/heading"
 import { ScreenRoot } from "~/components/ui/layouts/screen"
+import { Selector, SelectorItem } from "~/components/ui/selector"
 import { Text } from "~/components/ui/text"
 import { Recurrence, useReccurences } from "~/store/slices/recurrence"
+import { TransactionType } from "~/store/slices/transation"
 import { cn } from "~/utils/cn"
 import { formatAmount } from "~/utils/format-amount"
+import { formatDate } from "~/utils/format-date"
 
 type CellProps = {
   className?: string
@@ -41,10 +41,10 @@ function Header() {
   return (
     <Box className="mb-2 flex-row gap-4">
       <Cell>
-        <Text className="font-medium">DESCRIÇÃO</Text>
+        <Text className="font-medium text-typography-500">DESCRIÇÃO</Text>
       </Cell>
       <Cell className="items-end">
-        <Text className="font-medium">VALOR</Text>
+        <Text className="font-medium text-typography-500">VALOR</Text>
       </Cell>
     </Box>
   )
@@ -63,8 +63,13 @@ function Row({ item, index }: ListRenderItemInfo<Recurrence>) {
           {item.description}
         </Text>
       </Cell>
-      <Box>
-        <Text size="lg">{formatAmount(item.amount)}</Text>
+      <Box className="items-end">
+        <Text size="sm" className="text-typography-500">
+          {formatDate(item.startAt)}
+        </Text>
+        <Text size="lg" className="font-medium">
+          {formatAmount(item.amount)}
+        </Text>
       </Box>
     </Animated.View>
   )
@@ -72,20 +77,25 @@ function Row({ item, index }: ListRenderItemInfo<Recurrence>) {
 
 export default function RecurrentListPage() {
   const [items, query] = useReccurences()
-  const router = useRouter()
 
   return (
     <ScreenRoot>
       <Box className="mb-4 h-10 flex-row items-center justify-between gap-2">
-        <Heading size="2xl">Recorrências</Heading>
-        <Button
-          size="sm"
-          className="size-10"
-          onPress={() => router.navigate("/recurrences/register")}
-        >
-          <ButtonIcon as={PlusIcon} />
-        </Button>
+        <Heading size="2xl">Fixos</Heading>
       </Box>
+
+      <Selector onChange={(v) => console.log(v)} className="mb-2">
+        <SelectorItem
+          index={0}
+          label="Entradas"
+          value={TransactionType.INCOME}
+        />
+        <SelectorItem
+          index={1}
+          label="Saídas"
+          value={TransactionType.OUTCOME}
+        />
+      </Selector>
 
       <Animated.FlatList
         data={items}

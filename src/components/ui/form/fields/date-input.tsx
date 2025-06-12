@@ -21,8 +21,10 @@ import { Field, FieldProps } from "../field"
 interface Props extends FieldProps {
   value: Date
   onChange: (value: Date) => void
+  className?: string
+  placeholder?: string
 }
-export function DateInput({ value, onChange, ...rest }: Props) {
+export function DateInput({ value, onChange, placeholder, ...rest }: Props) {
   const [open, toggleOpen] = useToggle()
 
   return (
@@ -37,6 +39,7 @@ export function DateInput({ value, onChange, ...rest }: Props) {
           <SelectInput
             value={value && formatDate(value.toISOString())}
             className="flex-1 px-0"
+            placeholder={placeholder}
           />
           <SelectIcon as={ChevronDownIcon} />
         </SelectTrigger>

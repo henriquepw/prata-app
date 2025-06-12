@@ -29,7 +29,7 @@ const cardStyle = tva({
     },
     variant: {
       outline: {
-        root: "bg-background-100/40 dark:bg-background-50/20 border border-outline-50",
+        root: "bg-background-100/40 dark:bg-background-50/20 border border-outline-100",
       },
       ghost: {
         root: "rounded-none",
@@ -41,17 +41,29 @@ const cardStyle = tva({
 type Props = ViewProps &
   VariantProps<typeof cardStyle> & {
     className?: string
+    contentClassName?: string
   }
 
 const Card = React.forwardRef<React.ComponentRef<typeof View>, Props>(
   (
-    { className, children, size = "md", variant = "outline", ...props },
+    {
+      className,
+      contentClassName,
+      children,
+      size = "md",
+      variant = "outline",
+      ...props
+    },
     ref,
   ) => {
     const s = cardStyle({ size, variant })
     return (
       <Glass className={s.root({ className })}>
-        <View className={s.content()} {...props} ref={ref}>
+        <View
+          className={s.content({ className: contentClassName })}
+          {...props}
+          ref={ref}
+        >
           {children}
         </View>
       </Glass>

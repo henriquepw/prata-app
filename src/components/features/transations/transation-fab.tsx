@@ -1,5 +1,10 @@
 import { Href, Link } from "expo-router"
-import { ArrowDownIcon, ArrowUpIcon, PlusIcon } from "lucide-react-native"
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  PinIcon,
+  PlusIcon,
+} from "lucide-react-native"
 import { Pressable, TouchableOpacity } from "react-native"
 import Animated, {
   FadeIn,
@@ -20,7 +25,7 @@ import { Text } from "~/components/ui/text"
 import { useToggle } from "~/hooks/use-toggle"
 import { cn } from "~/utils/cn"
 
-const BTN_OPEN_SCALE = 0.7
+const BTN_OPEN_SCALE = 0.6
 
 type Props = {
   label: string
@@ -103,14 +108,22 @@ export function TransationFab() {
         </Animated.View>
       )}
       <Box
-        className="absolute right-6 bottom-2 flex items-end"
+        className="absolute right-8 bottom-0 flex items-end"
         style={{ paddingBottom: bottom, paddingRight: right }}
       >
         {open && (
-          <Box className="mr-1 mb-4 flex items-end gap-4">
+          <Box className="mr-2 mb-4 flex items-end gap-4">
+            <FabItem
+              enteringDelay={160}
+              exitingDelay={0}
+              icon={PinIcon}
+              label="Fixos"
+              href="/(private)/recurrences/register"
+              onPress={onPressOut}
+            />
             <FabItem
               enteringDelay={80}
-              exitingDelay={0}
+              exitingDelay={80}
               icon={ArrowUpIcon}
               label="Entrada"
               href="/(private)/transations/new-income"
@@ -118,7 +131,7 @@ export function TransationFab() {
             />
             <FabItem
               enteringDelay={0}
-              exitingDelay={80}
+              exitingDelay={160}
               icon={ArrowDownIcon}
               label="Saída"
               href="/(private)/transations/new-outcome"
@@ -130,7 +143,7 @@ export function TransationFab() {
         <Animated.View style={btnStyle}>
           <Pressable
             className={cn(
-              "size-11 items-center justify-center rounded-full",
+              "size-14 items-center justify-center rounded-full",
               open
                 ? "border-2 border-primary-500 bg-background-0"
                 : "bg-primary-500",
@@ -140,6 +153,7 @@ export function TransationFab() {
           >
             <Animated.View style={iconStyle}>
               <Icon
+                size="xl"
                 as={PlusIcon}
                 className={open ? "text-primary-500" : "text-typography-0"}
               />

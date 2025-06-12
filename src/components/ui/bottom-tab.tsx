@@ -17,7 +17,7 @@ import { TabTriggerSlotProps } from "expo-router/ui"
 import { Icon } from "~/components/ui/icon"
 import { Text } from "./text"
 
-const BTN_GAP = 4
+const BTN_GAP = 3
 
 type TabAttr = {
   width: number
@@ -48,7 +48,7 @@ export const TabView = forwardRef(
     const ctx = useMemo(
       () => ({
         selectTab: (idx: number) => {
-          let translateX = BTN_GAP
+          let translateX = 6
           for (const t of tabRefs.current.slice(0, idx)) {
             translateX += BTN_GAP + (t.width ?? 0)
           }
@@ -57,8 +57,11 @@ export const TabView = forwardRef(
           width.value = withSpring(tabRefs.current[idx].width)
           scaleY.value = withSequence(withSpring(0.9), withSpring(1))
         },
-        setTabRef: (ref: TabAttr, index: number) => {
-          tabRefs.current[index] = ref
+        setTabRef: (ref: TabAttr, idx: number) => {
+          tabRefs.current[idx] = ref
+          if (width.value === 0 && idx === 0) {
+            width.value = withSpring(tabRefs.current[idx].width)
+          }
         },
       }),
       [translate, width, scaleY],
@@ -71,11 +74,11 @@ export const TabView = forwardRef(
           intensity={100}
           tint={theme}
           experimentalBlurMethod="dimezisBlurView"
-          className="-translate-x-1/2 absolute bottom-10 left-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border border-outline-100 p-1"
+          className="-translate-x-1/2 absolute bottom-10 left-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border border-outline-100 px-1.5 py-1"
           style={{ paddingHorizontal: BTN_GAP }}
         >
           <Animated.View
-            className="absolute left-0 h-10 rounded-full bg-primary-500"
+            className="absolute left-0 h-10 rounded-full border border-primary-700 bg-primary-600"
             style={bgStyle}
           />
           {children}
@@ -114,7 +117,7 @@ export const TabButton = forwardRef(
         {...props}
         onLayout={onLayout}
         onPress={onPress}
-        className="h-11 flex-row items-center gap-2 rounded-full px-2 active:opacity-50"
+        className="h-11 flex-row items-center gap-2 rounded-full px-3 active:opacity-50"
         style={{ justifyContent: "center", alignItems: "center" }}
       >
         <Icon

@@ -26,7 +26,7 @@ export default function TabLayout() {
             name="automation"
             href="/(private)/(tabs)/recurrences"
           >
-            <TabButton index={1} icon={PinIcon} label="Automação" />
+            <TabButton index={1} icon={PinIcon} label="Fixos" />
           </TabTrigger>
         </TabView>
       </TabList>
