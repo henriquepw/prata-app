@@ -11,6 +11,7 @@ import { createSelect } from "@gluestack-ui/select"
 import { cssInterop } from "nativewind"
 import React from "react"
 import { Pressable, TextInput, View } from "react-native"
+import { Glass } from "../glass"
 import {
   Actionsheet,
   ActionsheetBackdrop,
@@ -25,7 +26,6 @@ import {
   ActionsheetSectionList,
   ActionsheetVirtualizedList,
 } from "./select-actionsheet"
-import { Glass } from "../glass"
 
 const SelectTriggerWrapper = React.forwardRef<
   React.ComponentRef<typeof Pressable>,

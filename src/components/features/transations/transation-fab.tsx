@@ -5,7 +5,7 @@ import {
   PinIcon,
   PlusIcon,
 } from "lucide-react-native"
-import { Pressable, TouchableOpacity } from "react-native"
+import { Platform, Pressable, TouchableOpacity } from "react-native"
 import Animated, {
   FadeIn,
   FadeOut,
@@ -108,7 +108,10 @@ export function TransationFab() {
         </Animated.View>
       )}
       <Box
-        className="absolute right-8 bottom-0 flex items-end"
+        className={cn(
+          "absolute right-8 bottom-0 flex items-end",
+          Platform.OS !== "ios" && "bottom-3",
+        )}
         style={{ paddingBottom: bottom, paddingRight: right }}
       >
         {open && (

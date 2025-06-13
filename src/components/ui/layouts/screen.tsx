@@ -1,12 +1,12 @@
-import { SafeAreaView } from "react-native-safe-area-context"
-import { Background } from "../background"
-import { cn } from "~/utils/cn"
-import { ChevronLeftIcon } from "lucide-react-native"
-import { Pressable } from "react-native"
-import { Icon } from "../icon"
 import { useNavigation } from "expo-router"
+import { ChevronLeftIcon } from "lucide-react-native"
+import { Platform, Pressable } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
+import { cn } from "~/utils/cn"
+import { Background } from "../background"
 import { Box } from "../box"
 import { Heading } from "../heading"
+import { Icon } from "../icon"
 
 const edges = {
   bottom: "off",
@@ -22,6 +22,9 @@ type RootProps = {
 export function ScreenRoot({ children, className }: RootProps) {
   return (
     <Background>
+      {Platform.OS === "android" && (
+        <Background className="absolute bottom-0 h-24 w-full" />
+      )}
       <SafeAreaView
         edges={edges}
         className={cn("flex-1 gap-4 px-4", className)}

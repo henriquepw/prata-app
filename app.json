@@ -2,7 +2,7 @@
   "expo": {
     "name": "Prata",
     "slug": "prata",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "prata",
@@ -75,6 +75,9 @@
       "eas": {
         "projectId": "daf96d73-1589-4b83-9ae8-124a8b1f318f"
       }
+    },
+    "runtimeVersion": {
+      "policy": "fingerprint"
     },
     "owner": "henry-ns"
   }

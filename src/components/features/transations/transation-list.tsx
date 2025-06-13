@@ -1,8 +1,8 @@
 import { Box } from "~/components/ui/box"
 import { Skeleton } from "~/components/ui/skeleton"
+import { Text } from "~/components/ui/text"
 import { useTransactions } from "~/store/slices/transation"
 import { TransationCard } from "./transation-card"
-import { Text } from "~/components/ui/text"
 
 export function TransactionList() {
   const transations = useTransactions()

@@ -1,10 +1,11 @@
 import { BlurView } from "expo-blur"
+import { TabTriggerSlotProps } from "expo-router/ui"
 import { Ref, createContext, forwardRef, use, useMemo, useRef } from "react"
 import {
-  View,
-  Pressable,
   GestureResponderEvent,
   LayoutChangeEvent,
+  Pressable,
+  View,
 } from "react-native"
 import Animated, {
   useAnimatedStyle,
@@ -12,9 +13,8 @@ import Animated, {
   withSequence,
   withSpring,
 } from "react-native-reanimated"
-import { useTheme } from "~/store/slices/theme"
-import { TabTriggerSlotProps } from "expo-router/ui"
 import { Icon } from "~/components/ui/icon"
+import { useTheme } from "~/store/slices/theme"
 import { Text } from "./text"
 
 const BTN_GAP = 3
@@ -74,11 +74,12 @@ export const TabView = forwardRef(
           intensity={100}
           tint={theme}
           experimentalBlurMethod="dimezisBlurView"
-          className="-translate-x-1/2 absolute bottom-10 left-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border border-outline-100 px-1.5 py-1"
-          style={{ paddingHorizontal: BTN_GAP }}
+          className={
+            "-translate-x-1/2 absolute bottom-10 left-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border border-outline-100 px-1.5 py-1"
+          }
         >
           <Animated.View
-            className="absolute left-0 h-10 rounded-full border border-primary-700 bg-primary-600"
+            className="absolute left-0 h-10 rounded-full border border-primary-700 bg-primary-600/80"
             style={bgStyle}
           />
           {children}
@@ -117,7 +118,7 @@ export const TabButton = forwardRef(
         {...props}
         onLayout={onLayout}
         onPress={onPress}
-        className="h-11 flex-row items-center gap-2 rounded-full px-3 active:opacity-50"
+        className="h-11 flex-row items-center gap-2 rounded-full px-4 active:opacity-50"
         style={{ justifyContent: "center", alignItems: "center" }}
       >
         <Icon

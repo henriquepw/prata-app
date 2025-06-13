@@ -7,7 +7,7 @@ import Animated, {
 } from "react-native-reanimated"
 import { Box } from "~/components/ui/box"
 import { Button, ButtonIcon } from "~/components/ui/button"
-import { InputRef, Input } from "~/components/ui/form/fields/input"
+import { Input, InputRef } from "~/components/ui/form/fields/input"
 import { MoneyPrefix } from "~/components/ui/form/prefix"
 import { Text } from "~/components/ui/text"
 

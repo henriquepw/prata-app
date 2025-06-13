@@ -58,7 +58,7 @@ const Card = React.forwardRef<React.ComponentRef<typeof View>, Props>(
   ) => {
     const s = cardStyle({ size, variant })
     return (
-      <Glass className={s.root({ className })}>
+      <Glass androidBlur={false} className={s.root({ className })}>
         <View
           className={s.content({ className: contentClassName })}
           {...props}

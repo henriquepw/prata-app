@@ -1,6 +1,7 @@
 import "../../assets/global.css"
 import "abortcontroller-polyfill/dist/polyfill-patch-fetch"
 
+import * as NavigationBar from "expo-navigation-bar"
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
@@ -13,6 +14,11 @@ import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
 import { useIsSignedIn } from "~/store/slices/auth"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/slices/theme"
+
+if (Platform.OS === "android") {
+  NavigationBar.setPositionAsync("absolute")
+  NavigationBar.setBackgroundColorAsync("#00000001")
+}
 
 SplashScreen.setOptions({
   duration: 1000,

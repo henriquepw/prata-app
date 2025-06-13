@@ -15,9 +15,9 @@ import {
   SelectItem as UISelectItem,
 } from "~/components/ui/select"
 import { useToggle } from "~/hooks/use-toggle"
+import { Glass } from "../../glass"
 import { useFieldContext } from "../context"
 import { Field, FieldProps } from "../field"
-import { Glass } from "../../glass"
 
 export interface SelectProps extends FieldProps {
   children: React.ReactNode

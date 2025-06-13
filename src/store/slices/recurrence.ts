@@ -4,8 +4,10 @@ import {
   useQueryClient,
 } from "@tanstack/react-query"
 import { useMemo } from "react"
-import { api, Page } from "~/api"
+import { create } from "zustand"
+import { Page, api } from "~/api"
 import { formatISO } from "~/utils/format-date"
+import { TransactionType } from "./transation"
 
 const keys = {
   all: ["recurrences"],
@@ -51,11 +53,6 @@ export function useCreateRecurrence() {
 
   return useMutation({
     mutationFn: async (payload: RecurrenteCreateDTO) => {
-      console.log({
-        ...payload,
-        startAt: formatISO(payload.startAt),
-        endAt: payload.endAt ? formatISO(payload.endAt) : undefined,
-      })
       return api
         .post("me/recurrences", {
           json: {
@@ -71,6 +68,21 @@ export function useCreateRecurrence() {
     },
   })
 }
+
+type RecurrenceFilter = {
+  cursor?: string
+  limit?: number
+  type?: TransactionType
+}
+
+type FilterStore = {
+  params: RecurrenceFilter
+  setParams: (q: RecurrenceFilter) => void
+}
+const _useFilterStore = create<FilterStore>((set) => ({
+  params: {},
+  setParams: (params) => set({ params }),
+}))
 
 export function useReccurences() {
   const query = useInfiniteQuery({

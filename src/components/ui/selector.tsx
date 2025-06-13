@@ -1,18 +1,18 @@
 import { createContext, use, useMemo, useRef, useState } from "react"
-import { Box } from "./box"
-import { Text } from "./text"
+import {
+  GestureResponderEvent,
+  LayoutChangeEvent,
+  Pressable,
+} from "react-native"
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
   withSequence,
 } from "react-native-reanimated"
-import {
-  GestureResponderEvent,
-  LayoutChangeEvent,
-  Pressable,
-} from "react-native"
 import { cn } from "~/utils/cn"
+import { Box } from "./box"
+import { Text } from "./text"
 
 const GAP = 7
 
