@@ -10,6 +10,7 @@ const opts = {
 
 const modalOpts = {
   presentation: "transparentModal",
+  animation: "fade_from_bottom",
 } as const
 
 export const unstable_settings = {

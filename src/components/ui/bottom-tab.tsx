@@ -16,6 +16,7 @@ import Animated, {
 import { Icon } from "~/components/ui/icon"
 import { useTheme } from "~/store/slices/theme"
 import { Text } from "./text"
+import { useNavigation } from "expo-router"
 
 const BTN_GAP = 3
 
@@ -39,6 +40,9 @@ export const TabView = forwardRef(
     const translate = useSharedValue(4)
     const scaleY = useSharedValue(1)
     const width = useSharedValue(0)
+
+    const navigation = useNavigation()
+    const blueMethod = navigation.isFocused() ? "dimezisBlurView" : "none"
 
     const bgStyle = useAnimatedStyle(() => ({
       transform: [{ translateX: translate.value }, { scaleY: scaleY.value }],
@@ -73,7 +77,7 @@ export const TabView = forwardRef(
           ref={ref}
           intensity={100}
           tint={theme}
-          experimentalBlurMethod="dimezisBlurView"
+          experimentalBlurMethod={blueMethod}
           className={
             "-translate-x-1/2 absolute bottom-10 left-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border border-outline-100 px-1.5 py-1"
           }
