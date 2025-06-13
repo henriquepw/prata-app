@@ -18,8 +18,6 @@ export default function HomePage() {
         <Card>
           <Heading className="mb-2 text-center">Últimos Registros</Heading>
           <TransactionList />
-          <TransactionList />
-          <TransactionList />
         </Card>
       </ScrollView>
     </ScreenRoot>
