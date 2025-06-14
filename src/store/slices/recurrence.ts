@@ -11,7 +11,7 @@ import { TransactionType } from "./transation"
 
 const keys = {
   all: ["recurrences"],
-  list: () => [...keys.all],
+  list: (q: RecurrenceParams) => [...keys.all, q],
 } as const
 
 export enum Frequence {
@@ -38,7 +38,7 @@ export type Recurrence = {
   local?: boolean
 }
 
-export type RecurrenteCreateDTO = {
+export type RecurrenceCreateDTO = {
   amount: number
   type: "INCOME" | "OUTCOME"
   description: string
@@ -52,7 +52,7 @@ export function useCreateRecurrence() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (payload: RecurrenteCreateDTO) => {
+    mutationFn: async (payload: RecurrenceCreateDTO) => {
       return api
         .post("me/recurrences", {
           json: {
@@ -69,30 +69,51 @@ export function useCreateRecurrence() {
   })
 }
 
-type RecurrenceFilter = {
+export function useDeleteRecurrence() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (payload: Recurrence) => {
+      await api.delete(`me/recurrences/${payload.id}`).json()
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: keys.all })
+    },
+  })
+}
+
+type RecurrenceParams = {
   cursor?: string
   limit?: number
   type?: TransactionType
 }
 
 type FilterStore = {
-  params: RecurrenceFilter
-  setParams: (q: RecurrenceFilter) => void
+  params: RecurrenceParams
+  setParams: (q: RecurrenceParams) => void
 }
 const _useFilterStore = create<FilterStore>((set) => ({
   params: {},
   setParams: (params) => set({ params }),
 }))
 
+export const useRecurrencesParams = () => _useFilterStore((s) => s.params)
+export const useSetRecurrencesParams = () => _useFilterStore((s) => s.setParams)
+
 export function useReccurences() {
+  const params = useRecurrencesParams()
+
   const query = useInfiniteQuery({
-    queryKey: keys.list(),
+    queryKey: keys.list(params),
     initialPageParam: null,
     getNextPageParam: (lastPage: Page<Recurrence>) => lastPage.next,
     queryFn: async ({ signal, pageParam }) => {
       const searchParams = new URLSearchParams()
       searchParams.set("cursor", pageParam || "")
-      searchParams.set("limit", "20")
+      searchParams.set("limit", String(params.limit || 20))
+      if (params.type) {
+        searchParams.set("type", params.type)
+      }
 
       return api
         .get<Page<Recurrence>>("me/recurrences", {

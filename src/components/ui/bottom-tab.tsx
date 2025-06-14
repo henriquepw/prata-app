@@ -1,4 +1,5 @@
 import { BlurView } from "expo-blur"
+import { useNavigation } from "expo-router"
 import { TabTriggerSlotProps } from "expo-router/ui"
 import { Ref, createContext, forwardRef, use, useMemo, useRef } from "react"
 import {
@@ -16,7 +17,6 @@ import Animated, {
 import { Icon } from "~/components/ui/icon"
 import { useTheme } from "~/store/slices/theme"
 import { Text } from "./text"
-import { useNavigation } from "expo-router"
 
 const BTN_GAP = 3
 
@@ -76,6 +76,7 @@ export const TabView = forwardRef(
         <BlurView
           ref={ref}
           intensity={100}
+          blurReductionFactor={5}
           tint={theme}
           experimentalBlurMethod={blueMethod}
           className={

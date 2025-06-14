@@ -108,7 +108,7 @@ export function SelectorItem({ index, value, label }: ItemProps) {
   return (
     <Pressable onPress={onPress} onLayout={onLayout}>
       <Box className="rounded px-3 py-1">
-        <Text size="xl" className="text-typography-950">
+        <Text size="lg" className="text-typography-950">
           {label}
         </Text>
       </Box>

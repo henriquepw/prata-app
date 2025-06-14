@@ -1,21 +1,26 @@
 import { ListRenderItemInfo } from "react-native"
-import Animated, {
-  FadeInDown,
-  FadeInUp,
-  LinearTransition,
-} from "react-native-reanimated"
-import { FrequenceBadge } from "~/components/features/recurrences/frequance-badge"
+import {
+  Gesture,
+  GestureDetector,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler"
+import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated"
+import { RecurrenceCard } from "~/components/features/recurrences/recurrence-card"
 import { Box } from "~/components/ui/box"
 import { Card } from "~/components/ui/card"
 import { Heading } from "~/components/ui/heading"
 import { ScreenRoot } from "~/components/ui/layouts/screen"
 import { Selector, SelectorItem } from "~/components/ui/selector"
 import { Text } from "~/components/ui/text"
-import { Recurrence, useReccurences } from "~/store/slices/recurrence"
+import {
+  Recurrence,
+  useReccurences,
+  useSetRecurrencesParams,
+} from "~/store/slices/recurrence"
 import { TransactionType } from "~/store/slices/transation"
 import { cn } from "~/utils/cn"
-import { formatAmount } from "~/utils/format-amount"
-import { formatDate } from "~/utils/format-date"
+
+const panGesture = Gesture.Pan()
 
 type CellProps = {
   className?: string
@@ -40,42 +45,22 @@ function Empty() {
 function Header() {
   return (
     <Box className="mb-2 flex-row gap-4">
-      <Cell>
+      <Cell className="ml-2">
         <Text className="font-medium text-typography-500">DESCRIÇÃO</Text>
       </Cell>
-      <Cell className="items-end">
+      <Cell className="mr-2 items-end">
         <Text className="font-medium text-typography-500">VALOR</Text>
       </Cell>
     </Box>
   )
 }
 
-function Row({ item, index }: ListRenderItemInfo<Recurrence>) {
-  return (
-    <Animated.View
-      className="flex-row items-end justify-between gap-4 py-2"
-      entering={FadeInDown.delay(index * 50)}
-      exiting={FadeInUp}
-    >
-      <Cell>
-        <FrequenceBadge value={item.frequence} />
-        <Text size="lg" numberOfLines={1} className="ml-2">
-          {item.description}
-        </Text>
-      </Cell>
-      <Box className="items-end">
-        <Text size="sm" className="text-typography-500">
-          {formatDate(item.startAt)}
-        </Text>
-        <Text size="lg" className="font-medium">
-          {formatAmount(item.amount)}
-        </Text>
-      </Box>
-    </Animated.View>
-  )
+function Row({ item }: ListRenderItemInfo<Recurrence>) {
+  return <RecurrenceCard item={item} />
 }
 
 export default function RecurrentListPage() {
+  const setReccurencesParams = useSetRecurrencesParams()
   const [items, query] = useReccurences()
 
   return (
@@ -84,7 +69,12 @@ export default function RecurrentListPage() {
         <Heading size="2xl">Fixos</Heading>
       </Box>
 
-      <Selector onChange={(v) => console.log(v)} className="mb-2">
+      <Selector
+        className="mb-2"
+        onChange={(type) =>
+          setReccurencesParams({ type: type as TransactionType })
+        }
+      >
         <SelectorItem
           index={0}
           label="Entradas"
@@ -97,17 +87,22 @@ export default function RecurrentListPage() {
         />
       </Selector>
 
-      <Animated.FlatList
-        data={items}
-        keyExtractor={(item) => item.id}
-        refreshing={query.isRefetching}
-        onRefresh={() => !query.isFetching && query.refetch()}
-        ListEmptyComponent={Empty}
-        ListHeaderComponent={Header}
-        ItemSeparatorComponent={Separetor}
-        renderItem={Row}
-        itemLayoutAnimation={LinearTransition}
-      />
+      <GestureHandlerRootView>
+        <GestureDetector gesture={panGesture}>
+          <Animated.FlatList
+            entering={FadeInUp}
+            exiting={FadeOutDown}
+            data={items}
+            keyExtractor={(item) => item.id}
+            refreshing={query.isRefetching}
+            onRefresh={() => !query.isFetching && query.refetch()}
+            ListEmptyComponent={Empty}
+            ListHeaderComponent={Header}
+            ItemSeparatorComponent={Separetor}
+            renderItem={Row}
+          />
+        </GestureDetector>
+      </GestureHandlerRootView>
     </ScreenRoot>
   )
 }
