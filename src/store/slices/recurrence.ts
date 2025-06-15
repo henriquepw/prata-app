@@ -28,7 +28,7 @@ export type Recurrence = {
   description: string
   amount: number
   frequence: Frequence
-  type: "INCOME" | "OUTCOME"
+  type: TransactionType
   startAt: string
   endAt?: string
   installments?: number

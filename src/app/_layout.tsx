@@ -13,6 +13,7 @@ import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
 import { useIsSignedIn } from "~/store/slices/auth"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/slices/theme"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 
 SplashScreen.setOptions({
   duration: 1000,
@@ -51,7 +52,9 @@ export default function RootLayout() {
   return (
     <GluestackUIProvider mode={theme}>
       <StoreProvider>
-        <Main />
+        <GestureHandlerRootView>
+          <Main />
+        </GestureHandlerRootView>
       </StoreProvider>
     </GluestackUIProvider>
   )
