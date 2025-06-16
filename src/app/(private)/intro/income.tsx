@@ -23,7 +23,7 @@ const defaultValues = {
   frequence: Frequence.MONTHLY,
 }
 
-export default function IntroductionIncomeScreen() {
+export default function IntroductionIncomePage() {
   const router = useRouter()
 
   const income = useIncome()

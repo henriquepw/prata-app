@@ -32,7 +32,7 @@ const defaultValues: z.input<typeof validator> = {
   type: TransactionType.OUTCOME,
 }
 
-export default function RegisterRecurrencePage() {
+export default function EditRecurrencePage() {
   const router = useRouter()
   const createRecurrence = useCreateRecurrence()
   const form = useAppForm({

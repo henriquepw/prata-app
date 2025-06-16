@@ -26,7 +26,7 @@ function Point({ title, children }: PointProps) {
   )
 }
 
-export default function IntroductionStartScreen() {
+export default function IntroductionStartPage() {
   return (
     <Background>
       <SafeAreaView className="flex-1 p-6">

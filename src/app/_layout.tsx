@@ -5,6 +5,7 @@ import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 import { Appearance, Platform } from "react-native"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 import {
   ReanimatedLogLevel,
   configureReanimatedLogger,
@@ -13,7 +14,6 @@ import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
 import { useIsSignedIn } from "~/store/slices/auth"
 import { StoreProvider } from "../store"
 import { useTheme } from "../store/slices/theme"
-import { GestureHandlerRootView } from "react-native-gesture-handler"
 
 SplashScreen.setOptions({
   duration: 1000,

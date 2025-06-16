@@ -43,7 +43,7 @@ const schema = z.object({
   ),
 })
 
-export default function CreateBalanceScreen() {
+export default function CreateBalancePage() {
   const router = useRouter()
 
   const { width } = useWindowDimensions()

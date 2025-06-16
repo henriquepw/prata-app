@@ -6,7 +6,7 @@ import { Glass } from "./glass"
 
 const cardStyle = tva({
   slots: {
-    root: "overflow-hidden",
+    root: "",
     content: "flex flex-col relative z-0 gap-4",
   },
   variants: {
@@ -29,7 +29,7 @@ const cardStyle = tva({
     },
     variant: {
       outline: {
-        root: "bg-background-100/40 dark:bg-background-50/20 border border-outline-100",
+        root: "border border-outline-100",
       },
       ghost: {
         root: "rounded-none",
@@ -58,11 +58,7 @@ const Card = React.forwardRef<React.ComponentRef<typeof View>, Props>(
   ) => {
     const s = cardStyle({ size, variant })
     return (
-      <Glass
-        intensity={80}
-        androidBlur={false}
-        className={s.root({ className })}
-      >
+      <Glass intensity={80} className={s.root({ className })}>
         <View
           className={s.content({ className: contentClassName })}
           {...props}

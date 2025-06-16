@@ -1,7 +1,7 @@
 import { ListRenderItemInfo } from "react-native"
 import { Gesture, GestureDetector } from "react-native-gesture-handler"
 import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated"
-import { RecurrenceCard } from "~/components/features/recurrences/recurrence-card"
+import { RecurrenceItem } from "~/components/features/recurrences/recurrence-item"
 import { Box } from "~/components/ui/box"
 import { Card } from "~/components/ui/card"
 import { Heading } from "~/components/ui/heading"
@@ -27,7 +27,7 @@ function Cell({ children, className }: CellProps) {
 }
 
 function Separetor() {
-  return <Box className="my-2 h-[1px] bg-outline-100" />
+  return <Box className="h-[1px] bg-outline-100" />
 }
 
 function Empty() {
@@ -52,7 +52,7 @@ function Header() {
 }
 
 function Row({ item }: ListRenderItemInfo<Recurrence>) {
-  return <RecurrenceCard item={item} />
+  return <RecurrenceItem item={item} />
 }
 
 export default function RecurrentListPage() {
