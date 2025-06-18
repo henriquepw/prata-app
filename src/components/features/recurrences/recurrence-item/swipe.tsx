@@ -1,5 +1,5 @@
 import { Trash2Icon } from "lucide-react-native"
-import { useRef } from "react"
+import { forwardRef, Ref } from "react"
 import { useWindowDimensions } from "react-native"
 import Swipeable, {
   SwipeableMethods,
@@ -34,19 +34,19 @@ type Props = {
   children: React.ReactNode
   onDelete: () => void
 }
-export function RecurrenceSwipe({ children, onDelete }: Props) {
-  const swipeableRef = useRef<SwipeableMethods>(null)
-
-  return (
-    <Swipeable
-      ref={swipeableRef}
-      friction={2}
-      rightThreshold={40}
-      overshootRight={false}
-      renderRightActions={RightAction}
-      onSwipeableOpen={onDelete}
-    >
-      {children}
-    </Swipeable>
-  )
-}
+export const RecurrenceSwipe = forwardRef(
+  ({ children, onDelete }: Props, ref: Ref<SwipeableMethods>) => {
+    return (
+      <Swipeable
+        ref={ref}
+        friction={2}
+        rightThreshold={40}
+        overshootRight={false}
+        renderRightActions={RightAction}
+        onSwipeableOpen={onDelete}
+      >
+        {children}
+      </Swipeable>
+    )
+  },
+)
