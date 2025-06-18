@@ -3,7 +3,10 @@ import { TouchableOpacity } from "react-native"
 import { Box } from "~/shared/components/ui/box"
 import { Icon } from "~/shared/components/ui/icon"
 import { Text } from "~/shared/components/ui/text"
-import { Transaction, TransactionType } from "~/shared/store/slices/transation"
+import {
+  type Transaction,
+  TransactionType,
+} from "~/shared/store/slices/transation"
 import { cn } from "~/shared/utils/cn"
 import { formatAmount } from "~/shared/utils/format-amount"
 import { formatDate } from "~/shared/utils/format-date"
@@ -28,16 +31,16 @@ export function TransationCard({ transaction }: Props) {
           )}
         >
           <Icon
-            className={isIncome ? "text-success-600" : "text-error-600"}
             as={isIncome ? ArrowUpIcon : ArrowDownIcon}
+            className={isIncome ? "text-success-600" : "text-error-600"}
           />
         </Box>
         <Box>
           <Text className="text-typography-500">{dueAt}</Text>
           <Text
             bold
-            size="xl"
             className={isIncome ? "text-success-600" : "text-error-600"}
+            size="xl"
           >
             {amount}
           </Text>

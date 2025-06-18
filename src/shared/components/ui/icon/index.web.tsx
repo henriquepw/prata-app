@@ -1,7 +1,6 @@
 "use client"
-import { createIcon } from "@gluestack-ui/icon"
-import { PrimitiveIcon, Svg } from "@gluestack-ui/icon"
-import { VariantProps } from "@gluestack-ui/nativewind-utils"
+import { createIcon, PrimitiveIcon, Svg } from "@gluestack-ui/icon"
+import type { VariantProps } from "@gluestack-ui/nativewind-utils"
 import { tva } from "@gluestack-ui/nativewind-utils/tva"
 import React from "react"
 

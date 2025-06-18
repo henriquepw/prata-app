@@ -1,5 +1,6 @@
 import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import React, { forwardRef } from "react"
+import type React from "react"
+import { forwardRef } from "react"
 import { Animated, Easing, Platform, View } from "react-native"
 import { skeletonStyle, skeletonTextStyle } from "./styles"
 
@@ -61,11 +62,11 @@ const Skeleton = forwardRef<
     Animated.loop(pulse).start()
     return (
       <Animated.View
-        style={{ opacity: pulseAnim }}
         className={`${startColor} ${skeletonStyle({
           variant,
           class: className,
         })}`}
+        style={{ opacity: pulseAnim }}
         {...props}
         ref={ref}
       />
@@ -102,11 +103,11 @@ const SkeletonText = forwardRef<
         >
           {Array.from({ length: _lines }).map((_, index) => (
             <Skeleton
-              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-              key={index}
               className={`${startColor} ${skeletonTextStyle({
                 class: className,
               })}`}
+              // biome-ignore lint/suspicious/noArrayIndexKey: it's ok
+              key={index}
               {...props}
             />
           ))}

@@ -41,12 +41,12 @@ export function UserHeader() {
     <Box className="flex-row items-center gap-4">
       <Box className="h-14 w-14 items-center justify-center overflow-hidden rounded-full bg-primary-500/50">
         {profile.data.avatar ? (
-          <Image source={{ uri: profile.data.avatar }} className="size-14" />
+          <Image className="size-14" source={{ uri: profile.data.avatar }} />
         ) : (
           <UserIcon />
         )}
       </Box>
-      <Link href="/(auth)/sign-up" asChild>
+      <Link asChild href="/(auth)/sign-up">
         <Pressable className="flex-1 gap-1 active:opacity-50">
           <Heading
             className="text-typography-900 leading-none"
@@ -64,18 +64,18 @@ export function UserHeader() {
       </Link>
 
       <Button
-        variant="link"
         action="primary"
-        onPress={toggleTheme}
         className="w-10"
+        onPress={toggleTheme}
+        variant="link"
       >
         <ButtonIcon as={theme === "dark" ? MoonIcon : SunIcon} />
       </Button>
       <Button
-        variant="link"
         action="negative"
-        onPress={logout}
         className="w-10"
+        onPress={logout}
+        variant="link"
       >
         <ButtonIcon as={LogOutIcon} />
       </Button>

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react"
 import { Alert, View } from "react-native"
-import { SwipeableMethods } from "react-native-gesture-handler/ReanimatedSwipeable"
+import type { SwipeableMethods } from "react-native-gesture-handler/ReanimatedSwipeable"
 import { useSharedValue } from "react-native-reanimated"
 import { useBoolean } from "~/shared/hooks/use-boolean"
 import {
-  Recurrence,
+  type Recurrence,
   useDeleteRecurrence,
 } from "~/shared/store/slices/recurrence"
 import { RecurrenceDetail } from "../recurrence-detail"
@@ -48,15 +48,15 @@ export function RecurrenceItem({ item }: Props) {
 
   return (
     <View ref={rootRef}>
-      <RecurrenceSwipe ref={swipeRef} onDelete={handleDelete}>
+      <RecurrenceSwipe onDelete={handleDelete} ref={swipeRef}>
         <RecurrenceCard item={item} onPress={openDetail} />
       </RecurrenceSwipe>
       <RecurrenceDetail
-        top={top}
         isOpen={isOpen}
+        item={item}
         onClose={closeDetail}
         onDelete={() => swipeRef.current?.openRight()}
-        item={item}
+        top={top}
       />
     </View>
   )

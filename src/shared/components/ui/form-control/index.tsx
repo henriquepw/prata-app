@@ -223,11 +223,11 @@ const FormControlLabelAstrick = React.forwardRef<
 
   return (
     <Text
-      ref={ref}
       className={formControlLabelAstrickStyle({
         parentVariants: { size: parentSize },
         class: className,
       })}
+      ref={ref}
       {...props}
     />
   )
@@ -267,8 +267,8 @@ const FormControl = React.forwardRef<
 >(({ className, size = "md", ...props }, ref) => {
   return (
     <UIFormControl
-      ref={ref}
       className={formControlStyle({ size, class: className })}
+      ref={ref}
       {...props}
       context={{ size }}
     />
@@ -284,8 +284,8 @@ const FormControlError = React.forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <UIFormControl.Error
-      ref={ref}
       className={formControlErrorStyle({ class: className })}
+      ref={ref}
       {...props}
     />
   )
@@ -373,8 +373,8 @@ const FormControlLabel = React.forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <UIFormControl.Label
-      ref={ref}
       className={formControlLabelStyle({ class: className })}
+      ref={ref}
       {...props}
     />
   )
@@ -415,10 +415,10 @@ const FormControlHelper = React.forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <UIFormControl.Helper
-      ref={ref}
       className={formControlHelperStyle({
         class: className,
       })}
+      ref={ref}
       {...props}
     />
   )

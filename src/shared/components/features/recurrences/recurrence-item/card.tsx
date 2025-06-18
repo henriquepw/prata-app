@@ -9,7 +9,7 @@ import Animated, {
 } from "react-native-reanimated"
 import { Box } from "~/shared/components/ui/box"
 import { Text } from "~/shared/components/ui/text"
-import { Recurrence } from "~/shared/store/slices/recurrence"
+import type { Recurrence } from "~/shared/store/slices/recurrence"
 import { formatAmount } from "~/shared/utils/format-amount"
 import { formatDate } from "~/shared/utils/format-date"
 import { FrequenceBadge } from "../frequance-badge"
@@ -59,15 +59,15 @@ export function RecurrenceCard({ item, onPress }: Props) {
         <View className="flex-1 flex-row items-end justify-between gap-4 px-1 py-3">
           <Box className="ml-2 flex-1 items-start">
             <FrequenceBadge value={item.frequence} />
-            <Text size="lg" numberOfLines={1}>
+            <Text numberOfLines={1} size="lg">
               {item.description}
             </Text>
           </Box>
           <Box className="mr-2 items-end">
-            <Text size="sm" className="text-typography-500">
+            <Text className="text-typography-500" size="sm">
               {formatDate(item.startAt)}
             </Text>
-            <Text size="lg" className="font-medium">
+            <Text className="font-medium" size="lg">
               {formatAmount(item.amount)}
             </Text>
           </Box>

@@ -1,7 +1,7 @@
 import {
   Button,
   ButtonIcon,
-  ButtonProps,
+  type ButtonProps,
   ButtonSpinner,
   ButtonText,
 } from "../../button"
@@ -28,9 +28,9 @@ export default function SubmitButton({
     <form.Subscribe selector={(state) => state.isSubmitting}>
       {(isSubmitting) => (
         <Button
+          className={className}
           isDisabled={isLoading || isSubmitting}
           onPress={form.handleSubmit}
-          className={className}
         >
           {isLoading || isSubmitting ? (
             <ButtonSpinner className="text-typography-0" />

@@ -62,21 +62,21 @@ export default function RegisterRecurrencePage() {
       <Box className="flex-grow gap-4">
         <form.AppField name="type">
           {(field) => (
-            <field.Select isRequired label="Tipo" initialLabel="Saída">
-              <SelectItem value={TransactionType.INCOME} label="Entrada" />
-              <SelectItem value={TransactionType.OUTCOME} label="SAIDA" />
+            <field.Select initialLabel="Saída" isRequired label="Tipo">
+              <SelectItem label="Entrada" value={TransactionType.INCOME} />
+              <SelectItem label="SAIDA" value={TransactionType.OUTCOME} />
             </field.Select>
           )}
         </form.AppField>
 
         <form.AppField name="frequence">
           {(field) => (
-            <field.Select isRequired label="Frequência" initialLabel="Mensal">
-              <SelectItem value={Frequence.YEARLY} label="Anual" />
-              <SelectItem value={Frequence.MONTHLY} label="Mensal" />
-              <SelectItem value={Frequence.BIWEEKLY} label="Quinzenal" />
-              <SelectItem value={Frequence.WEEKLY} label="Semanal" />
-              <SelectItem value={Frequence.DAILY} label="Diario" />
+            <field.Select initialLabel="Mensal" isRequired label="Frequência">
+              <SelectItem label="Anual" value={Frequence.YEARLY} />
+              <SelectItem label="Mensal" value={Frequence.MONTHLY} />
+              <SelectItem label="Quinzenal" value={Frequence.BIWEEKLY} />
+              <SelectItem label="Semanal" value={Frequence.WEEKLY} />
+              <SelectItem label="Diario" value={Frequence.DAILY} />
             </field.Select>
           )}
         </form.AppField>
@@ -87,9 +87,9 @@ export default function RegisterRecurrencePage() {
           <form.AppField name="startAt">
             {(field) => (
               <field.DateInput
+                className="flex-1"
                 isRequired
                 label="Data Inicial"
-                className="flex-1"
               />
             )}
           </form.AppField>
@@ -97,8 +97,8 @@ export default function RegisterRecurrencePage() {
           <form.AppField name="endAt">
             {(field) => (
               <field.DateInput
-                label="Data Final"
                 className="flex-1"
+                label="Data Final"
                 placeholder="Sem fim"
               />
             )}
@@ -122,7 +122,7 @@ export default function RegisterRecurrencePage() {
       </Box>
 
       <form.AppForm>
-        <form.SubmitButton leftIcon={SaveIcon} className="mt-6 ml-auto">
+        <form.SubmitButton className="mt-6 ml-auto" leftIcon={SaveIcon}>
           Registrar
         </form.SubmitButton>
       </form.AppForm>

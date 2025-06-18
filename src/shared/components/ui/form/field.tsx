@@ -26,7 +26,7 @@ export function Field({ label, children, errors, ...rest }: Props) {
   const msg = new Set(errors?.map((e) => e?.message))
 
   return (
-    <FormControl size="md" isInvalid={isInvalid} {...rest}>
+    <FormControl isInvalid={isInvalid} size="md" {...rest}>
       {label && (
         <FormControlLabel>
           <FormControlLabelText>{label}</FormControlLabelText>

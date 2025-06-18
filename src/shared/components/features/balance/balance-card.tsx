@@ -55,9 +55,9 @@ export function BalanceCard() {
           onPress={() => setVisibility((v) => !v)}
         >
           <Icon
-            size="xl"
-            className="text-typography-600"
             as={visible ? EyeIcon : EyeClosedIcon}
+            className="text-typography-600"
+            size="xl"
           />
         </Pressable>
       </Box>

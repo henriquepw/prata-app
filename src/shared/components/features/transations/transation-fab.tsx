@@ -1,4 +1,4 @@
-import { Href, Link } from "expo-router"
+import { type Href, Link } from "expo-router"
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -100,9 +100,9 @@ export function TransationFab() {
       {open && (
         <Animated.View
           className="absolute inset-0 top-0 flex-1 bg-transparent"
-          onTouchStart={onPressOut}
           entering={FadeIn}
           exiting={FadeOut}
+          onTouchStart={onPressOut}
         >
           <Glass className="flex-1" intensity={20} />
         </Animated.View>
@@ -119,25 +119,25 @@ export function TransationFab() {
             <FabItem
               enteringDelay={160}
               exitingDelay={0}
+              href="/(private)/recurrences/register"
               icon={PinIcon}
               label="Fixos"
-              href="/(private)/recurrences/register"
               onPress={onPressOut}
             />
             <FabItem
               enteringDelay={80}
               exitingDelay={80}
+              href="/(private)/transations/new-income"
               icon={ArrowUpIcon}
               label="Entrada"
-              href="/(private)/transations/new-income"
               onPress={onPressOut}
             />
             <FabItem
               enteringDelay={0}
               exitingDelay={160}
+              href="/(private)/transations/new-outcome"
               icon={ArrowDownIcon}
               label="Saída"
-              href="/(private)/transations/new-outcome"
               onPress={onPressOut}
             />
           </Box>
@@ -156,9 +156,9 @@ export function TransationFab() {
           >
             <Animated.View style={iconStyle}>
               <Icon
-                size="xl"
                 as={PlusIcon}
                 className={open ? "text-primary-500" : "text-typography-0"}
+                size="xl"
               />
             </Animated.View>
           </Pressable>

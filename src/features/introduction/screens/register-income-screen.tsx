@@ -44,19 +44,19 @@ export function RegisterIncomeScreen() {
     <Background>
       <SafeAreaView className="flex-1 p-6">
         <IntroHeader
-          title="Renda"
           subtitle="Lorem ipsum dolor sit amet consectetur. Enim habitasse tempor tortor pellentesque in ornare sed sapien. Nam commodo consectetur egestas lacus massa eget. Tristique hac non in elementum. Elit pharetra nibh aliquet ut nulla in."
+          title="Renda"
         />
 
         <Box className="mt-16 gap-4">
           <form.AppField name="frequence">
             {(field) => (
-              <field.Select label="Frêquencia" initialLabel="Mensal">
-                <SelectItem value={Frequence.YEARLY} label="Anual" />
-                <SelectItem value={Frequence.MONTHLY} label="Mensal" />
-                <SelectItem value={Frequence.BIWEEKLY} label="Quinzenal" />
-                <SelectItem value={Frequence.WEEKLY} label="Semanal" />
-                <SelectItem value={Frequence.DAILY} label="Diário" />
+              <field.Select initialLabel="Mensal" label="Frêquencia">
+                <SelectItem label="Anual" value={Frequence.YEARLY} />
+                <SelectItem label="Mensal" value={Frequence.MONTHLY} />
+                <SelectItem label="Quinzenal" value={Frequence.BIWEEKLY} />
+                <SelectItem label="Semanal" value={Frequence.WEEKLY} />
+                <SelectItem label="Diário" value={Frequence.DAILY} />
               </field.Select>
             )}
           </form.AppField>
@@ -64,8 +64,8 @@ export function RegisterIncomeScreen() {
             {(field) => (
               <field.Input
                 label="Renda"
-                placeholder="0,00"
                 mask="MONEY"
+                placeholder="0,00"
                 prefix={<MoneyPrefix />}
               />
             )}

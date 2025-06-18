@@ -71,8 +71,8 @@ export default function RegisterOutcomePage() {
       <ScreenHeader title="Registrar Saídas" />
 
       <ScrollView
-        showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
       >
         <Box className="flex-grow gap-4">
           <form.AppField name="receivedAt">
@@ -83,15 +83,15 @@ export default function RegisterOutcomePage() {
             {(field) => (
               <BalanceSelect
                 errors={field.state.meta.errors}
-                value={field.state.value}
                 onChange={(v) => field.handleChange(v || "")}
+                value={field.state.value}
               />
             )}
           </form.Field>
 
           <Box className="gap-3">
             <Heading className="font-medium">Gastos</Heading>
-            <form.Field name="items" mode="array">
+            <form.Field mode="array" name="items">
               {(field) => (
                 <>
                   {field.state.value.map((v, i) => (
@@ -100,25 +100,25 @@ export default function RegisterOutcomePage() {
                         <OutcomeInput
                           index={i}
                           isFocused={i === focusedIndex}
-                          value={sub.state.value}
-                          onChange={sub.handleChange}
-                          onRemove={() => field.removeValue(i)}
                           onBlur={sub.handleBlur}
-                          onFocus={() => setFocusedIndex(i)}
+                          onChange={sub.handleChange}
                           onEnd={() => {
                             setFocusedIndex(i + 1)
                             if (field.state.value.length === i + 1) {
                               field.pushValue(emptyItem())
                             }
                           }}
+                          onFocus={() => setFocusedIndex(i)}
+                          onRemove={() => field.removeValue(i)}
+                          value={sub.state.value}
                         />
                       )}
                     </form.Field>
                   ))}
                   <Button
-                    size="xs"
                     className="mt-2 ml-auto"
                     onPress={() => field.pushValue(emptyItem())}
+                    size="xs"
                   >
                     <ButtonIcon as={PlusIcon} />
                     <ButtonText>Adicionar</ButtonText>
@@ -130,7 +130,7 @@ export default function RegisterOutcomePage() {
         </Box>
 
         <form.AppForm>
-          <form.SubmitButton leftIcon={SaveIcon} className="mt-6 ml-auto">
+          <form.SubmitButton className="mt-6 ml-auto" leftIcon={SaveIcon}>
             Registrar
           </form.SubmitButton>
         </form.AppForm>

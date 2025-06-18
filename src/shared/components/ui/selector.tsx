@@ -1,14 +1,14 @@
 import { createContext, use, useMemo, useRef, useState } from "react"
 import {
-  GestureResponderEvent,
-  LayoutChangeEvent,
+  type GestureResponderEvent,
+  type LayoutChangeEvent,
   Pressable,
 } from "react-native"
 import Animated, {
-  useSharedValue,
   useAnimatedStyle,
-  withSpring,
+  useSharedValue,
   withSequence,
+  withSpring,
 } from "react-native-reanimated"
 import { cn } from "~/shared/utils/cn"
 import { Box } from "./box"
@@ -106,9 +106,9 @@ export function SelectorItem({ index, value, label }: ItemProps) {
   }
 
   return (
-    <Pressable onPress={onPress} onLayout={onLayout}>
+    <Pressable onLayout={onLayout} onPress={onPress}>
       <Box className="rounded px-3 py-1">
-        <Text size="lg" className="text-typography-950">
+        <Text className="text-typography-950" size="lg">
           {label}
         </Text>
       </Box>

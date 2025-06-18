@@ -3,7 +3,6 @@
   "assist": {
     "actions": {
       "source": {
-        "recommended": true,
         "organizeImports": "on",
         "useSortedAttributes": "on",
         "useSortedProperties": "on"
@@ -23,18 +22,30 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "recommended": true,
       "complexity": {
         "noUselessContinue": "warn"
       },
       "correctness": {
         "noUnusedImports": "warn",
-        "noUnusedVariables": "warn"
+        "noUnusedVariables": {
+          "level": "warn",
+          "options": {
+            "ignoreRestSiblings": true
+          }
+        }
       },
       "nursery": {
-        "useSortedClasses": "warn"
+        "useSortedClasses": {
+          "level": "warn",
+          "options": {
+            "functions": ["cn"]
+          }
+        }
       },
-      "performance": {},
-      "recommended": true,
+      "performance": {
+        "recommended": true
+      },
       "style": {
         "noInferrableTypes": "error",
         "noParameterAssign": "error",
@@ -43,7 +54,7 @@
         "useAsConstAssertion": "error",
         "useDefaultParameterLast": "error",
         "useEnumInitializers": "error",
-        "useImportType": "off",
+        "useImportType": "warn",
         "useNumberNamespace": "error",
         "useSelfClosingElements": "error",
         "useSingleVarDeclarator": "error"

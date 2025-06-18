@@ -8,7 +8,7 @@ import { Background } from "~/shared/components/ui/background"
 import { Box } from "~/shared/components/ui/box"
 import { Card } from "~/shared/components/ui/card"
 import { useAppForm } from "~/shared/components/ui/form"
-import { InputRef } from "~/shared/components/ui/form/fields/input"
+import type { InputRef } from "~/shared/components/ui/form/fields/input"
 import { Heading } from "~/shared/components/ui/heading"
 import { Text } from "~/shared/components/ui/text"
 import { useSignUp } from "~/shared/store/slices/auth"
@@ -76,60 +76,60 @@ export default function SignUpPage() {
               <signUpform.AppField name="name">
                 {(field) => (
                   <field.Input
-                    ref={nameRef}
+                    autoCapitalize="words"
+                    autoCorrect={false}
                     isRequired
                     label="Nome"
-                    autoCorrect={false}
-                    autoCapitalize="words"
-                    textContentType="givenName"
-                    placeholder="Como gosta de ser chamado"
-                    returnKeyType="next"
                     onSubmitEditing={() => emailRef.current?.focus()}
+                    placeholder="Como gosta de ser chamado"
+                    ref={nameRef}
+                    returnKeyType="next"
+                    textContentType="givenName"
                   />
                 )}
               </signUpform.AppField>
               <signUpform.AppField name="email">
                 {(field) => (
                   <field.Input
-                    ref={emailRef}
-                    isRequired
-                    label="E-mail"
-                    autoCorrect={false}
                     autoCapitalize="none"
+                    autoCorrect={false}
+                    isRequired
                     keyboardType="email-address"
-                    textContentType="emailAddress"
-                    placeholder="exemplo@email.com"
-                    returnKeyType="next"
+                    label="E-mail"
                     onSubmitEditing={() => passwordRef.current?.focus()}
+                    placeholder="exemplo@email.com"
+                    ref={emailRef}
+                    returnKeyType="next"
+                    textContentType="emailAddress"
                   />
                 )}
               </signUpform.AppField>
               <signUpform.AppField name="password">
                 {(field) => (
                   <field.Input
-                    ref={passwordRef}
                     isRequired
                     label="Senha"
-                    type="password"
-                    textContentType="password"
-                    placeholder="Senha ULTRA segura (ou não)"
-                    returnKeyType="next"
                     onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+                    placeholder="Senha ULTRA segura (ou não)"
+                    ref={passwordRef}
+                    returnKeyType="next"
+                    textContentType="password"
+                    type="password"
                   />
                 )}
               </signUpform.AppField>
               <signUpform.AppField name="confirmPassword">
                 {(field) => (
                   <field.Input
-                    ref={confirmPasswordRef}
                     isRequired
                     label="Confirmação da Senha"
-                    type="password"
+                    onSubmitEditing={signUpform.handleSubmit}
+                    placeholder="A mesma senha de cima"
+                    ref={confirmPasswordRef}
+                    returnKeyType="done"
                     submitBehavior="submit"
                     textContentType="password"
-                    placeholder="A mesma senha de cima"
-                    returnKeyType="done"
-                    onSubmitEditing={signUpform.handleSubmit}
+                    type="password"
                   />
                 )}
               </signUpform.AppField>
@@ -142,8 +142,8 @@ export default function SignUpPage() {
                 <Box className="mt-2 flex-row items-center justify-center gap-2">
                   <Text>Já possui uma conta?</Text>
                   <Link
-                    href="/(auth)/sign-in"
                     className="text-primary-600 underline"
+                    href="/(auth)/sign-in"
                   >
                     Entrar
                   </Link>

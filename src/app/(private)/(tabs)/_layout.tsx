@@ -1,4 +1,4 @@
-import { TabList, TabSlot, TabTrigger, Tabs } from "expo-router/ui"
+import { TabList, TabSlot, Tabs, TabTrigger } from "expo-router/ui"
 import { StatusBar } from "expo-status-bar"
 import { HomeIcon, PinIcon } from "lucide-react-native"
 import { TransationFab } from "~/shared/components/features/transations/transation-fab"
@@ -10,20 +10,20 @@ export default function TabLayout() {
 
   return (
     <Tabs>
-      <StatusBar translucent style={theme === "dark" ? "light" : "dark"} />
+      <StatusBar style={theme === "dark" ? "light" : "dark"} translucent />
       <TabSlot />
 
       <TabList asChild>
         <TabView>
-          <TabTrigger asChild name="home" href="/(private)/(tabs)">
-            <TabButton index={0} icon={HomeIcon} label="Geral" />
+          <TabTrigger asChild href="/(private)/(tabs)" name="home">
+            <TabButton icon={HomeIcon} index={0} label="Geral" />
           </TabTrigger>
           <TabTrigger
             asChild
-            name="automation"
             href="/(private)/(tabs)/recurrences"
+            name="automation"
           >
-            <TabButton index={1} icon={PinIcon} label="Fixos" />
+            <TabButton icon={PinIcon} index={1} label="Fixos" />
           </TabTrigger>
         </TabView>
       </TabList>

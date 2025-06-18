@@ -2,7 +2,7 @@ import { Field } from "~/shared/components/ui/form/field"
 import {
   Select,
   SelectItem,
-  SelectProps,
+  type SelectProps,
 } from "~/shared/components/ui/form/fields/select"
 import { Skeleton } from "~/shared/components/ui/skeleton"
 import { useBalance } from "~/shared/store/slices/balance"

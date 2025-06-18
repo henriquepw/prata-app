@@ -7,7 +7,7 @@ import Animated, {
 } from "react-native-reanimated"
 import { Box } from "~/shared/components/ui/box"
 import { Button, ButtonIcon } from "~/shared/components/ui/button"
-import { Input, InputRef } from "~/shared/components/ui/form/fields/input"
+import { Input, type InputRef } from "~/shared/components/ui/form/fields/input"
 import { MoneyPrefix } from "~/shared/components/ui/form/prefix"
 import { Text } from "~/shared/components/ui/text"
 
@@ -55,7 +55,7 @@ export function OutcomeInput({
   }
 
   return (
-    <Animated.View exiting={EXITING} entering={ENTERING} layout={LAYOUT}>
+    <Animated.View entering={ENTERING} exiting={EXITING} layout={LAYOUT}>
       <Box className="flex-row items-center gap-3">
         <Box className="ml-2 w-4 justify-end">
           <Text className="self-end font-bold text-lg" numberOfLines={1}>
@@ -64,34 +64,34 @@ export function OutcomeInput({
         </Box>
         <Box className="w-1/4">
           <Input
-            ref={amountRef}
-            placeholder="0,00"
             mask="MONEY"
-            prefix={<MoneyPrefix className="font-normal text-lg" />}
-            returnKeyType="next"
-            value={value.amount}
             onChangeText={(v) => onChange({ ...value, amount: v })}
             onFocus={onFocus}
             onSubmitEditing={() => isFocused && descriptionRef.current?.focus()}
+            placeholder="0,00"
+            prefix={<MoneyPrefix className="font-normal text-lg" />}
+            ref={amountRef}
+            returnKeyType="next"
+            value={value.amount}
           />
         </Box>
         <Box className="flex-1">
           <Input
-            ref={descriptionRef}
-            placeholder="Descrição..."
-            returnKeyType="next"
-            value={value.description}
+            onBlur={onBlur}
+            onChangeText={(v) => onChange({ ...value, description: v })}
             onFocus={onFocus}
             onSubmitEditing={() => isFocused && onEnd()}
-            onChangeText={(v) => onChange({ ...value, description: v })}
-            onBlur={onBlur}
+            placeholder="Descrição..."
+            ref={descriptionRef}
+            returnKeyType="next"
+            value={value.description}
           />
         </Box>
         <Button
           action="negative"
-          variant="link"
           className="p-0"
           onPress={onRemove}
+          variant="link"
         >
           <ButtonIcon as={XCircleIcon} />
         </Button>

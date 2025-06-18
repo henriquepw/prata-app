@@ -26,8 +26,8 @@ export function ScreenRoot({ children, className }: RootProps) {
         <Background className="absolute bottom-0 h-24 w-full" />
       )}
       <SafeAreaView
-        edges={edges}
         className={cn("flex-1 gap-4 px-4", className)}
+        edges={edges}
       >
         {children}
       </SafeAreaView>
@@ -53,7 +53,7 @@ export function ScreenHeader({ title, children }: HeaderProps) {
         </Pressable>
       )}
 
-      <Heading size="xl" className="flex-1">
+      <Heading className="flex-1" size="xl">
         {title}
       </Heading>
       {children}

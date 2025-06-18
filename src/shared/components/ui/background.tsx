@@ -1,6 +1,6 @@
 import { Canvas, FractalNoise, Rect } from "@shopify/react-native-skia"
 import React from "react"
-import { View, useWindowDimensions } from "react-native"
+import { useWindowDimensions, View } from "react-native"
 import { cn } from "~/shared/utils/cn"
 
 interface Props {
@@ -13,9 +13,9 @@ const Background = React.forwardRef<View, Props>(
     const { width, height } = useWindowDimensions()
 
     return (
-      <View ref={ref} className={cn("flex-1 bg-background-0", className)}>
+      <View className={cn("flex-1 bg-background-0", className)} ref={ref}>
         <Canvas style={{ flex: 1, width, height, position: "absolute" }}>
-          <Rect x={0} y={0} width={width} height={height}>
+          <Rect height={height} width={width} x={0} y={0}>
             <FractalNoise freqX={0.5} freqY={0.5} octaves={4} />
           </Rect>
         </Canvas>

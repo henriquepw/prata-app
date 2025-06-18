@@ -1,11 +1,11 @@
 import { Trash2Icon } from "lucide-react-native"
-import { Ref, forwardRef } from "react"
+import { forwardRef, type Ref } from "react"
 import { useWindowDimensions } from "react-native"
 import Swipeable, {
-  SwipeableMethods,
+  type SwipeableMethods,
 } from "react-native-gesture-handler/ReanimatedSwipeable"
 import Animated, {
-  SharedValue,
+  type SharedValue,
   useAnimatedStyle,
 } from "react-native-reanimated"
 import { Icon } from "~/shared/components/ui/icon"
@@ -38,12 +38,12 @@ export const RecurrenceSwipe = forwardRef(
   ({ children, onDelete }: Props, ref: Ref<SwipeableMethods>) => {
     return (
       <Swipeable
-        ref={ref}
         friction={2}
-        rightThreshold={40}
-        overshootRight={false}
-        renderRightActions={RightAction}
         onSwipeableOpen={onDelete}
+        overshootRight={false}
+        ref={ref}
+        renderRightActions={RightAction}
+        rightThreshold={40}
       >
         {children}
       </Swipeable>

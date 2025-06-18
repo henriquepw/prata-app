@@ -1,6 +1,8 @@
 import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import React, { forwardRef, memo } from "react"
+import type React from "react"
+import { forwardRef, memo } from "react"
 import { headingStyle } from "./styles"
+
 type IHeadingProps = VariantProps<typeof headingStyle> &
   React.ComponentPropsWithoutRef<"h1"> & {
     as?: React.ElementType
@@ -192,7 +194,7 @@ const Heading = memo(
       }
 
       return (
-        <MappedHeading className={className} size={size} ref={ref} {...props} />
+        <MappedHeading className={className} ref={ref} size={size} {...props} />
       )
     },
   ),

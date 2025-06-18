@@ -1,4 +1,4 @@
-import { StateCreator, create } from "zustand"
+import { create, type StateCreator } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 import { storage } from "."
 import { secureStorage } from "./secure"

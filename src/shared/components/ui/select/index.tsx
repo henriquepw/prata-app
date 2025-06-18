@@ -167,8 +167,8 @@ const SelectTrigger = React.forwardRef<
           size,
           variant,
         })}
-        ref={ref}
         context={{ size, variant }}
+        ref={ref}
         {...props}
       />
     </Glass>

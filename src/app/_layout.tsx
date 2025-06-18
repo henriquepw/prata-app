@@ -7,8 +7,8 @@ import { useEffect } from "react"
 import { Appearance, Platform } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import {
-  ReanimatedLogLevel,
   configureReanimatedLogger,
+  ReanimatedLogLevel,
 } from "react-native-reanimated"
 import { GluestackUIProvider } from "~/shared/components/ui/gluestack-ui-provider"
 import { useIsSignedIn } from "~/shared/store/slices/auth"

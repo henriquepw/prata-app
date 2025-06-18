@@ -11,7 +11,7 @@ import { cssInterop } from "nativewind"
 import React from "react"
 import {
   ActivityIndicator,
-  GestureResponderEvent,
+  type GestureResponderEvent,
   Pressable,
   Text,
   View,
@@ -332,12 +332,12 @@ const Button = React.forwardRef<
 
     return (
       <AnimatedBtn
-        ref={ref}
+        className={buttonStyle({ variant, size, action, class: className })}
+        context={{ variant, size, action }}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        className={buttonStyle({ variant, size, action, class: className })}
+        ref={ref}
         style={animetedStyle}
-        context={{ variant, size, action }}
         {...props}
       />
     )

@@ -30,14 +30,14 @@ export function PieChart({ children, data, radius, strokeWidth }: Props) {
       const sweepAngle = currentAngle + Number(d.percent) / 100
       paths.push(
         <Path
+          color={d.color}
+          end={sweepAngle}
           key={d.label}
           path={path}
-          style="stroke"
+          start={currentAngle}
           strokeCap="round"
           strokeWidth={strokeWidth}
-          color={d.color}
-          start={currentAngle}
-          end={sweepAngle}
+          style="stroke"
         />,
       )
       currentAngle = sweepAngle

@@ -12,8 +12,8 @@ type Props = {
 }
 export function TransactionTypeBadge({ value }: Props) {
   return (
-    <Card size="xs" className="mr-auto rounded-md px-1">
-      <Text size="sm" className="text-secondary-500 leading-5 tracking-wide">
+    <Card className="mr-auto rounded-md px-1" size="xs">
+      <Text className="text-secondary-500 leading-5 tracking-wide" size="sm">
         {label[value]}
       </Text>
     </Card>

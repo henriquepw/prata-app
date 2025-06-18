@@ -1,7 +1,6 @@
+import type { VariantProps } from "@gluestack-ui/nativewind-utils"
 import React from "react"
 import { skeletonStyle, skeletonTextStyle } from "./styles"
-
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
 
 type ISkeletonProps = React.ComponentPropsWithoutRef<"div"> &
   VariantProps<typeof skeletonStyle> & {
@@ -25,12 +24,12 @@ const Skeleton = React.forwardRef<HTMLDivElement, ISkeletonProps>(
     if (!isLoaded) {
       return (
         <div
-          ref={ref}
           className={`animate-pulse ${startColor} ${skeletonStyle({
             variant,
             speed,
             class: className,
           })}`}
+          ref={ref}
           {...props}
         />
       )
@@ -63,18 +62,18 @@ const SkeletonText = React.forwardRef<HTMLDivElement, ISkeletonTextProps>(
       if (_lines) {
         return (
           <div
-            ref={ref}
             className={`flex flex-col ${skeletonTextStyle({
               gap,
             })}`}
+            ref={ref}
           >
             {Array.from({ length: _lines }).map((_, index) => (
               <div
-                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                key={index}
                 className={`animate-pulse ${startColor} ${skeletonTextStyle({
                   class: className,
                 })}`}
+                // biome-ignore lint/suspicious/noArrayIndexKey: it's ok
+                key={index}
                 {...props}
               />
             ))}
@@ -83,10 +82,10 @@ const SkeletonText = React.forwardRef<HTMLDivElement, ISkeletonTextProps>(
       }
       return (
         <div
-          ref={ref}
           className={`animate-pulse ${startColor} ${skeletonTextStyle({
             class: className,
           })}`}
+          ref={ref}
           {...props}
         />
       )

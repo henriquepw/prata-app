@@ -35,18 +35,18 @@ export function IntroChartTitle({ radius }: Props) {
   return (
     <>
       <Text
+        color={textColor}
         font={titleFont}
         text={title}
         x={size / 2 - titleDim.width / 2}
         y={titleY}
-        color={textColor}
       />
       <Text
+        color={textColor}
         font={amountFont}
         text={income.amount}
         x={size / 2 - amountDim.width / 2}
         y={titleY + titleDim.height + 10}
-        color={textColor}
       />
     </>
   )

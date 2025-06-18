@@ -8,11 +8,12 @@ import { tva } from "@gluestack-ui/nativewind-utils/tva"
 import { withStyleContext } from "@gluestack-ui/nativewind-utils/withStyleContext"
 import {
   AnimatePresence,
-  Motion,
-  MotionComponentProps,
   createMotionAnimatedComponent,
+  Motion,
+  type MotionComponentProps,
 } from "@legendapp/motion"
 import { cssInterop } from "nativewind"
+import React from "react"
 import {
   FlatList,
   Pressable,
@@ -20,11 +21,9 @@ import {
   SectionList,
   Text,
   View,
-  ViewStyle,
+  type ViewStyle,
   VirtualizedList,
 } from "react-native"
-
-import React from "react"
 
 type IAnimatedPressableProps = React.ComponentProps<typeof Pressable> &
   MotionComponentProps<typeof Pressable, ViewStyle, unknown, unknown, unknown>
@@ -399,13 +398,13 @@ const ActionsheetBackdrop = React.forwardRef<
 >(function ActionsheetBackdrop({ className, ...props }, ref) {
   return (
     <UIActionsheet.Backdrop
-      initial={{
-        opacity: 0,
-      }}
       animate={{
         opacity: 0.5,
       }}
       exit={{
+        opacity: 0,
+      }}
+      initial={{
         opacity: 0,
       }}
       {...props}

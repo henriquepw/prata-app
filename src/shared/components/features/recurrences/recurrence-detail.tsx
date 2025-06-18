@@ -1,11 +1,11 @@
 import { Link } from "expo-router"
 import { Edit3Icon, Trash2Icon } from "lucide-react-native"
-import { View, useWindowDimensions } from "react-native"
+import { useWindowDimensions, View } from "react-native"
 import { Pressable } from "react-native-gesture-handler"
 import Animated, {
   FadeIn,
   FadeOut,
-  SharedValue,
+  type SharedValue,
   useAnimatedStyle,
   ZoomIn,
   ZoomOut,
@@ -16,7 +16,7 @@ import { Card } from "~/shared/components/ui/card"
 import { Divider } from "~/shared/components/ui/divider"
 import { Portal } from "~/shared/components/ui/portal"
 import { Text } from "~/shared/components/ui/text"
-import { Recurrence } from "~/shared/store/slices/recurrence"
+import type { Recurrence } from "~/shared/store/slices/recurrence"
 import { formatAmount } from "~/shared/utils/format-amount"
 import { formatDate } from "~/shared/utils/format-date"
 import { FrequenceBadge } from "./frequance-badge"
@@ -49,32 +49,32 @@ export function RecurrenceDetail({
       <View className="flex-1 items-center justify-center p-4">
         <Animated.View
           className="absolute top-0 left-0 bg-background-0/40"
-          style={{ width, height }}
           entering={FadeIn}
           exiting={FadeOut}
+          style={{ width, height }}
         >
-          <Pressable onPress={onClose} className="flex-1" />
+          <Pressable className="flex-1" onPress={onClose} />
         </Animated.View>
 
         <Animated.View
+          className="absolute left-4 w-full"
           entering={ZoomIn}
           exiting={ZoomOut}
-          className="absolute left-4 w-full"
           style={modalStyle}
         >
           <Card contentClassName="gap-2">
             <Box className="flex-row items-end justify-between gap-4">
               <Box className="flex-1 items-start">
                 <FrequenceBadge value={item.frequence} />
-                <Text size="lg" numberOfLines={1}>
+                <Text numberOfLines={1} size="lg">
                   {item.description}
                 </Text>
               </Box>
               <Box className="items-end">
-                <Text size="sm" className="text-typography-500">
+                <Text className="text-typography-500" size="sm">
                   {formatDate(item.startAt)}
                 </Text>
-                <Text size="lg" className="font-medium">
+                <Text className="font-medium" size="lg">
                   {formatAmount(item.amount)}
                 </Text>
               </Box>
@@ -97,13 +97,13 @@ export function RecurrenceDetail({
 
             <Box className="mt-2 flex-row items-center justify-stretch gap-4">
               <Button
-                size="sm"
                 action="negative"
                 className="flex-1"
                 onPress={() => {
                   onClose()
                   onDelete()
                 }}
+                size="sm"
               >
                 <ButtonIcon as={Trash2Icon} />
                 <ButtonText>Deletar</ButtonText>
@@ -113,7 +113,7 @@ export function RecurrenceDetail({
                 href={`/recurrences/${item.id}`}
                 onPressOut={onClose}
               >
-                <Button size="sm" className="flex-1">
+                <Button className="flex-1" size="sm">
                   <ButtonIcon as={Edit3Icon} />
                   <ButtonText>Editar</ButtonText>
                 </Button>

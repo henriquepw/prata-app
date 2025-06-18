@@ -1,12 +1,19 @@
 import { BlurView } from "expo-blur"
 import { useNavigation } from "expo-router"
-import { TabTriggerSlotProps } from "expo-router/ui"
-import { Ref, createContext, forwardRef, use, useMemo, useRef } from "react"
+import type { TabTriggerSlotProps } from "expo-router/ui"
 import {
-  GestureResponderEvent,
-  LayoutChangeEvent,
+  createContext,
+  forwardRef,
+  type Ref,
+  use,
+  useMemo,
+  useRef,
+} from "react"
+import {
+  type GestureResponderEvent,
+  type LayoutChangeEvent,
   Pressable,
-  View,
+  type View,
 } from "react-native"
 import Animated, {
   useAnimatedStyle,
@@ -74,14 +81,14 @@ export const TabView = forwardRef(
     return (
       <context.Provider value={ctx}>
         <BlurView
-          ref={ref}
-          intensity={100}
           blurReductionFactor={5}
-          tint={theme}
-          experimentalBlurMethod={blueMethod}
           className={
             "-translate-x-1/2 absolute bottom-10 left-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border border-outline-100 px-1.5 py-1"
           }
+          experimentalBlurMethod={blueMethod}
+          intensity={100}
+          ref={ref}
+          tint={theme}
         >
           <Animated.View
             className="absolute left-0 h-10 rounded-full border border-primary-700 bg-primary-600/80"
@@ -121,19 +128,19 @@ export const TabButton = forwardRef(
       <Pressable
         ref={ref}
         {...props}
+        className="h-11 flex-row items-center gap-2 rounded-full px-4 active:opacity-50"
         onLayout={onLayout}
         onPress={onPress}
-        className="h-11 flex-row items-center gap-2 rounded-full px-4 active:opacity-50"
         style={{ justifyContent: "center", alignItems: "center" }}
       >
         <Icon
           as={icon}
-          size="xl"
           className={
             isFocused
               ? "text-typography-0"
               : "text-typography-800 dark:text-typography-900"
           }
+          size="xl"
         />
         {!!label && (
           <Text

@@ -1,5 +1,5 @@
 import { BlurView } from "expo-blur"
-import React from "react"
+import type React from "react"
 import { Platform, View } from "react-native"
 import { cn } from "~/shared/utils/cn"
 
@@ -18,7 +18,7 @@ export function Glass({ children, intensity = 10, className }: Props) {
       )}
     >
       {Platform.OS !== "android" && (
-        <BlurView intensity={intensity} className="absolute size-full" />
+        <BlurView className="absolute size-full" intensity={intensity} />
       )}
 
       {children}

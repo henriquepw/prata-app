@@ -107,18 +107,18 @@ export function SetupBalanceScreen() {
       <SafeAreaView className="flex-1 p-6">
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <IntroHeader
-            title="Balanço"
-            subtitle="Adeque como achar melhor para sua realidade"
             className="mb-10"
+            subtitle="Adeque como achar melhor para sua realidade"
+            title="Balanço"
           />
 
           <form.Subscribe selector={({ values }) => values.balance}>
             {(balance) => (
               <PieChart
                 data={balance}
+                label={formatAmount(100000)}
                 radius={radius}
                 strokeWidth={40}
-                label={formatAmount(100000)}
               >
                 <IntroChartTitle radius={radius} />
               </PieChart>
@@ -128,13 +128,13 @@ export function SetupBalanceScreen() {
           <Box className="mt-10 gap-10">
             {form.state.values.balance.map((piece, i) => (
               <Box
-                key={piece.label}
                 className="flex-row items-center justify-between gap-2"
+                key={piece.label}
               >
                 <Box className="size-4 items-center justify-center rounded-full bg-primary-500/50">
                   <Box className="size-2 rounded-full bg-primary-500" />
                 </Box>
-                <Text size="3xl" className="flex-1">
+                <Text className="flex-1" size="3xl">
                   {piece.label}
                 </Text>
                 <form.AppField name={`balance[${i}].percent`}>
@@ -148,14 +148,14 @@ export function SetupBalanceScreen() {
                         <ButtonIcon as={MinusIcon} />
                       </Button>
                       <field.Input
-                        mask="NUM"
-                        textAlign="center"
-                        keyboardType="number-pad"
-                        conteinerProps={{ className: "min-w-24" }}
                         className="text-2xl"
+                        conteinerProps={{ className: "min-w-24" }}
+                        keyboardType="number-pad"
+                        mask="NUM"
                         sufix={
                           <Text className="text-primary-500 text-xl">%</Text>
                         }
+                        textAlign="center"
                       />
                       <Button
                         action="positive"
@@ -172,7 +172,7 @@ export function SetupBalanceScreen() {
           </Box>
 
           <Box className="mt-auto mb-4 flex-row items-center justify-between gap-4">
-            <Button size="lg" variant="outline" onPress={router.back}>
+            <Button onPress={router.back} size="lg" variant="outline">
               <ButtonIcon as={ChevronLeftIcon} />
               <ButtonText>Voltar</ButtonText>
             </Button>

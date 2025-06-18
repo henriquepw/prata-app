@@ -16,7 +16,7 @@ import {
 import { useToggle } from "~/shared/hooks/use-toggle"
 import { formatDate } from "~/shared/utils/format-date"
 import { useFieldContext } from "../context"
-import { Field, FieldProps } from "../field"
+import { Field, type FieldProps } from "../field"
 
 interface Props extends FieldProps {
   value: Date
@@ -31,32 +31,32 @@ export function DateInput({ value, onChange, placeholder, ...rest }: Props) {
     <Field {...rest}>
       <UISelect closeOnOverlayClick onClose={toggleOpen}>
         <SelectTrigger
-          size="md"
-          variant="outline"
           className="gap-2 rounded-lg px-2 active:opacity-50"
           onPress={toggleOpen}
+          size="md"
+          variant="outline"
         >
           <SelectInput
-            value={value && formatDate(value.toISOString())}
             className="flex-1 px-0"
             placeholder={placeholder}
+            value={value && formatDate(value.toISOString())}
           />
           <SelectIcon as={ChevronDownIcon} />
         </SelectTrigger>
 
-        <SelectPortal useRNModal isOpen={open} onClose={toggleOpen}>
+        <SelectPortal isOpen={open} onClose={toggleOpen} useRNModal>
           <SelectBackdrop />
           <SelectContent className="my-4 px-0">
             <SelectDragIndicatorWrapper>
               <SelectDragIndicator />
             </SelectDragIndicatorWrapper>
             <DateTimePicker
-              value={value || new Date()}
               display="inline"
               onChange={(_, newDate) => {
                 onChange(newDate || value)
                 toggleOpen()
               }}
+              value={value || new Date()}
             />
             <SafeAreaView className="mt-4" />
           </SelectContent>
@@ -75,8 +75,8 @@ export default function FormDateInput(props: FormDateInputProps) {
     <DateInput
       {...props}
       errors={errors}
-      value={field.state.value}
       onChange={field.handleChange}
+      value={field.state.value}
     />
   )
 }

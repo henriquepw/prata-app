@@ -31,8 +31,8 @@ export default function StartIntroductionScreen() {
     <Background>
       <SafeAreaView className="flex-1 p-6">
         <IntroHeader
-          title="Bem vindo"
           subtitle="Lorem ipsum dolor sit amet consectetur. Enim habitasse tempor tortor pellentesque in ornare sed sapien. Nam commodo consectetur egestas lacus massa eget. Tristique hac non in elementum. Elit pharetra nibh aliquet ut nulla in."
+          title="Bem vindo"
         />
 
         <Point title="Básico">

@@ -11,7 +11,7 @@ type Props = {
 export function IntroHeader({ title, subtitle, className }: Props) {
   return (
     <Box className={cn("mb-4", className)}>
-      <Heading size="2xl" className="mb-6">
+      <Heading className="mb-6" size="2xl">
         {title}
       </Heading>
       <Box className="mb-2 h-1 w-10 rounded-full bg-primary-500" />

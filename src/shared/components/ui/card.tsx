@@ -1,7 +1,7 @@
 import type { VariantProps } from "@gluestack-ui/nativewind-utils"
 import { tva } from "@gluestack-ui/nativewind-utils/tva"
 import React from "react"
-import { View, ViewProps } from "react-native"
+import { View, type ViewProps } from "react-native"
 import { Glass } from "./glass"
 
 const cardStyle = tva({
@@ -58,7 +58,7 @@ const Card = React.forwardRef<React.ComponentRef<typeof View>, Props>(
   ) => {
     const s = cardStyle({ size, variant })
     return (
-      <Glass intensity={80} className={s.root({ className })}>
+      <Glass className={s.root({ className })} intensity={80}>
         <View
           className={s.content({ className: contentClassName })}
           {...props}

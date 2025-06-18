@@ -8,7 +8,7 @@ import { Background } from "~/shared/components/ui/background"
 import { Box } from "~/shared/components/ui/box"
 import { Card } from "~/shared/components/ui/card"
 import { useAppForm } from "~/shared/components/ui/form"
-import { InputRef } from "~/shared/components/ui/form/fields/input"
+import type { InputRef } from "~/shared/components/ui/form/fields/input"
 import { Heading } from "~/shared/components/ui/heading"
 import { Text } from "~/shared/components/ui/text"
 import { useSignIn } from "~/shared/store/slices/auth"
@@ -56,29 +56,29 @@ export default function SignInPage() {
             <form.AppField name="identifier">
               {(field) => (
                 <field.Input
+                  autoCapitalize="none"
+                  autoComplete="email"
+                  autoCorrect={false}
                   isRequired
                   label="E-mail"
-                  autoCorrect={false}
-                  autoComplete="email"
-                  autoCapitalize="none"
-                  textContentType="emailAddress"
+                  onSubmitEditing={() => emailRef.current?.focus()}
                   placeholder="exemplo@email.com"
                   returnKeyType="next"
-                  onSubmitEditing={() => emailRef.current?.focus()}
+                  textContentType="emailAddress"
                 />
               )}
             </form.AppField>
             <form.AppField name="password">
               {(field) => (
                 <field.Input
-                  ref={passwordRef}
                   isRequired
                   label="Senha"
-                  type="password"
-                  textContentType="password"
-                  placeholder="Sua senha ULTRA segura (ou não)"
-                  returnKeyType="done"
                   onSubmitEditing={() => form.handleSubmit}
+                  placeholder="Sua senha ULTRA segura (ou não)"
+                  ref={passwordRef}
+                  returnKeyType="done"
+                  textContentType="password"
+                  type="password"
                 />
               )}
             </form.AppField>
@@ -90,8 +90,8 @@ export default function SignInPage() {
               <Box className="mt-2 flex-row items-center justify-center gap-2">
                 <Text>Não possui uma conta?</Text>
                 <Link
-                  href="/(auth)/sign-up"
                   className="text-primary-600 underline"
+                  href="/(auth)/sign-up"
                 >
                   Cadastrar
                 </Link>

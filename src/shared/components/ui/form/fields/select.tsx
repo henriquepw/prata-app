@@ -1,4 +1,4 @@
-import { ISelectItemProps } from "@gluestack-ui/select/lib/types"
+import type { ISelectItemProps } from "@gluestack-ui/select/lib/types"
 import { useStore } from "@tanstack/react-form"
 import { ChevronDownIcon } from "lucide-react-native"
 import { SafeAreaView } from "react-native"
@@ -17,7 +17,7 @@ import {
 import { useToggle } from "~/shared/hooks/use-toggle"
 import { Glass } from "../../glass"
 import { useFieldContext } from "../context"
-import { Field, FieldProps } from "../field"
+import { Field, type FieldProps } from "../field"
 
 export interface SelectProps extends FieldProps {
   children: React.ReactNode
@@ -38,28 +38,28 @@ export function Select({
   return (
     <Field {...rest}>
       <UISelect
-        selectedValue={value}
-        initialLabel={initialLabel}
         closeOnOverlayClick
+        initialLabel={initialLabel}
         onClose={toggleOpen}
         onValueChange={onChange}
+        selectedValue={value}
       >
         <Glass>
           <SelectTrigger
-            size="md"
-            variant="outline"
             className="gap-2 rounded-lg px-2 active:opacity-50"
             onPress={toggleOpen}
+            size="md"
+            variant="outline"
           >
             <SelectInput
-              placeholder="Selecione uma opção"
               className="flex-1 px-0"
+              placeholder="Selecione uma opção"
             />
             <SelectIcon as={ChevronDownIcon} />
           </SelectTrigger>
         </Glass>
 
-        <SelectPortal useRNModal isOpen={isOpen} onClose={toggleOpen}>
+        <SelectPortal isOpen={isOpen} onClose={toggleOpen} useRNModal>
           <SelectBackdrop />
           <SelectContent className="my-4 px-0">
             <SelectDragIndicatorWrapper>
@@ -90,8 +90,8 @@ export default function FormSelect(props: FormSelectProps) {
     <Select
       {...props}
       errors={errors}
-      value={field.state.value}
       onChange={(v) => field.handleChange(v || "")}
+      value={field.state.value}
     />
   )
 }

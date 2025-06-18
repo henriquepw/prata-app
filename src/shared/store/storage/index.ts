@@ -1,5 +1,5 @@
 import { MMKV } from "react-native-mmkv"
-import { Storage } from "./type"
+import type { Storage } from "./type"
 
 const mmkv = new MMKV()
 

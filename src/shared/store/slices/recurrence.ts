@@ -5,9 +5,9 @@ import {
 } from "@tanstack/react-query"
 import { useMemo } from "react"
 import { create } from "zustand"
-import { Page, api } from "~/shared/api"
+import { api, type Page } from "~/shared/api"
 import { formatISO } from "~/shared/utils/format-date"
-import { TransactionType } from "./transation"
+import type { TransactionType } from "./transation"
 
 const keys = {
   all: ["recurrences"],

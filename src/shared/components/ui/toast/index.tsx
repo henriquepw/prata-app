@@ -9,11 +9,11 @@ import { createToastHook } from "@gluestack-ui/toast"
 import {
   AnimatePresence,
   Motion,
-  MotionComponentProps,
+  type MotionComponentProps,
 } from "@legendapp/motion"
 import { cssInterop } from "nativewind"
 import React from "react"
-import { AccessibilityInfo, Text, View, ViewStyle } from "react-native"
+import { AccessibilityInfo, Text, View, type ViewStyle } from "react-native"
 
 type IMotionViewProps = React.ComponentProps<typeof View> &
   MotionComponentProps<typeof View, ViewStyle, unknown, unknown, unknown>
@@ -163,9 +163,9 @@ const Toast = React.forwardRef<React.ComponentRef<typeof Root>, IToastProps>(
   ) {
     return (
       <Root
-        ref={ref}
         className={toastStyle({ variant, action, class: className })}
         context={{ variant, action }}
+        ref={ref}
         {...props}
       />
     )
@@ -191,10 +191,8 @@ const ToastTitle = React.forwardRef<
   return (
     <Text
       {...props}
-      ref={ref}
-      aria-live="assertive"
       aria-atomic="true"
-      role="alert"
+      aria-live="assertive"
       className={toastTitleStyle({
         size,
         class: className,
@@ -203,6 +201,8 @@ const ToastTitle = React.forwardRef<
           action: parentAction,
         },
       })}
+      ref={ref}
+      role="alert"
     >
       {children}
     </Text>

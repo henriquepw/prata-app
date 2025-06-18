@@ -1,4 +1,4 @@
-import { ListRenderItemInfo } from "react-native"
+import type { ListRenderItemInfo } from "react-native"
 import { Gesture, GestureDetector } from "react-native-gesture-handler"
 import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated"
 import { RecurrenceItem } from "~/shared/components/features/recurrences/recurrence-item"
@@ -9,7 +9,7 @@ import { ScreenRoot } from "~/shared/components/ui/layouts/screen"
 import { Selector, SelectorItem } from "~/shared/components/ui/selector"
 import { Text } from "~/shared/components/ui/text"
 import {
-  Recurrence,
+  type Recurrence,
   useReccurences,
   useSetRecurrencesParams,
 } from "~/shared/store/slices/recurrence"
@@ -85,15 +85,15 @@ export default function RecurrentListPage() {
 
       <GestureDetector gesture={panGesture}>
         <Animated.FlatList
+          data={items}
           entering={FadeInUp}
           exiting={FadeOutDown}
-          data={items}
+          ItemSeparatorComponent={Separetor}
           keyExtractor={(item) => item.id}
-          refreshing={query.isRefetching}
-          onRefresh={() => !query.isFetching && query.refetch()}
           ListEmptyComponent={Empty}
           ListHeaderComponent={Header}
-          ItemSeparatorComponent={Separetor}
+          onRefresh={() => !query.isFetching && query.refetch()}
+          refreshing={query.isRefetching}
           renderItem={Row}
         />
       </GestureDetector>

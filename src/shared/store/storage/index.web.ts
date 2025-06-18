@@ -1,4 +1,4 @@
-import { Storage } from "./type"
+import type { Storage } from "./type"
 
 export const storage: Storage = {
   setItem: (key, value) => localStorage.setItem(key, value),

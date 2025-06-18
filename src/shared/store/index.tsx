@@ -1,7 +1,6 @@
 import NetInfo from "@react-native-community/netinfo"
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister"
-import { QueryClient } from "@tanstack/react-query"
-import { onlineManager } from "@tanstack/react-query"
+import { onlineManager, QueryClient } from "@tanstack/react-query"
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client"
 import { storage } from "./storage"
 
