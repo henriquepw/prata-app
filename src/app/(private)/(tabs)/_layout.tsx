@@ -1,9 +1,9 @@
 import { TabList, TabSlot, TabTrigger, Tabs } from "expo-router/ui"
 import { StatusBar } from "expo-status-bar"
 import { HomeIcon, PinIcon } from "lucide-react-native"
-import { TransationFab } from "~/components/features/transations/transation-fab"
-import { TabButton, TabView } from "~/components/ui/bottom-tab"
-import { useTheme } from "~/store/slices/theme"
+import { TransationFab } from "~/shared/components/features/transations/transation-fab"
+import { TabButton, TabView } from "~/shared/components/ui/bottom-tab"
+import { useTheme } from "~/shared/store/slices/theme"
 
 export default function TabLayout() {
   const theme = useTheme()

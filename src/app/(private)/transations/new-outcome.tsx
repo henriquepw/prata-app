@@ -3,19 +3,19 @@ import { PlusIcon, SaveIcon } from "lucide-react-native"
 import { useState } from "react"
 import { ScrollView } from "react-native"
 import { z } from "zod"
-import { BalanceSelect } from "~/components/features/balance/balance-select"
-import { OutcomeInput } from "~/components/features/transations/outcome-input"
-import { Box } from "~/components/ui/box"
-import { Button, ButtonIcon, ButtonText } from "~/components/ui/button"
-import { useAppForm } from "~/components/ui/form"
-import { Heading } from "~/components/ui/heading"
-import { ScreenHeader, ScreenRoot } from "~/components/ui/layouts/screen"
+import { BalanceSelect } from "~/shared/components/features/balance/balance-select"
+import { OutcomeInput } from "~/shared/components/features/transations/outcome-input"
+import { Box } from "~/shared/components/ui/box"
+import { Button, ButtonIcon, ButtonText } from "~/shared/components/ui/button"
+import { useAppForm } from "~/shared/components/ui/form"
+import { Heading } from "~/shared/components/ui/heading"
+import { ScreenHeader, ScreenRoot } from "~/shared/components/ui/layouts/screen"
 import {
   TransactionType,
   useCreateTransaction,
-} from "~/store/slices/transation"
-import { getOnlyDigits } from "~/utils/format-amount"
-import { newId } from "~/utils/id"
+} from "~/shared/store/slices/transation"
+import { getOnlyDigits } from "~/shared/utils/format-amount"
+import { newId } from "~/shared/utils/id"
 
 const validator = z.object({
   balanceId: z.string(),

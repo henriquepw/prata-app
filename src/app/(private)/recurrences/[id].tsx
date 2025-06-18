@@ -1,16 +1,19 @@
 import { useRouter } from "expo-router"
 import { SaveIcon } from "lucide-react-native"
 import { z } from "zod"
-import { BalanceSelect } from "~/components/features/balance/balance-select"
-import { Box } from "~/components/ui/box"
-import { useAppForm } from "~/components/ui/form"
-import { SelectItem } from "~/components/ui/form/fields/select"
-import { MoneyPrefix } from "~/components/ui/form/prefix"
-import { ScreenHeader, ScreenRoot } from "~/components/ui/layouts/screen"
-import { Text } from "~/components/ui/text"
-import { Frequence, useCreateRecurrence } from "~/store/slices/recurrence"
-import { TransactionType } from "~/store/slices/transation"
-import { getOnlyDigits } from "~/utils/format-amount"
+import { BalanceSelect } from "~/shared/components/features/balance/balance-select"
+import { Box } from "~/shared/components/ui/box"
+import { useAppForm } from "~/shared/components/ui/form"
+import { SelectItem } from "~/shared/components/ui/form/fields/select"
+import { MoneyPrefix } from "~/shared/components/ui/form/prefix"
+import { ScreenHeader, ScreenRoot } from "~/shared/components/ui/layouts/screen"
+import { Text } from "~/shared/components/ui/text"
+import {
+  Frequence,
+  useCreateRecurrence,
+} from "~/shared/store/slices/recurrence"
+import { TransactionType } from "~/shared/store/slices/transation"
+import { getOnlyDigits } from "~/shared/utils/format-amount"
 
 const validator = z.object({
   balanceId: z.string(),

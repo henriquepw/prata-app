@@ -10,10 +10,10 @@ import {
   ReanimatedLogLevel,
   configureReanimatedLogger,
 } from "react-native-reanimated"
-import { GluestackUIProvider } from "~/components/ui/gluestack-ui-provider"
-import { useIsSignedIn } from "~/store/slices/auth"
-import { StoreProvider } from "../store"
-import { useTheme } from "../store/slices/theme"
+import { GluestackUIProvider } from "~/shared/components/ui/gluestack-ui-provider"
+import { useIsSignedIn } from "~/shared/store/slices/auth"
+import { StoreProvider } from "../shared/store"
+import { useTheme } from "../shared/store/slices/theme"
 
 SplashScreen.setOptions({
   duration: 1000,

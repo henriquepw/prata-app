@@ -1,11 +1,11 @@
 import { ScrollView } from "react-native"
-import { BalanceCard } from "~/components/features/balance/balance-card"
-import { BalanceView } from "~/components/features/balance/balance-view"
-import { TransactionList } from "~/components/features/transations/transation-list"
-import { UserHeader } from "~/components/features/user/user-header"
-import { Card } from "~/components/ui/card"
-import { Heading } from "~/components/ui/heading"
-import { ScreenRoot } from "~/components/ui/layouts/screen"
+import { BalanceCard } from "~/shared/components/features/balance/balance-card"
+import { BalanceView } from "~/shared/components/features/balance/balance-view"
+import { TransactionList } from "~/shared/components/features/transations/transation-list"
+import { Card } from "~/shared/components/ui/card"
+import { Heading } from "~/shared/components/ui/heading"
+import { ScreenRoot } from "~/shared/components/ui/layouts/screen"
+import { UserHeader } from "~/shared/components/user/user-header"
 
 export default function HomePage() {
   return (
