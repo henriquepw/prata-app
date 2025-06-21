@@ -10,8 +10,8 @@ import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from "react-native-reanimated"
+import { useIsSignedIn } from "~/features/auth/store/auth"
 import { GluestackUIProvider } from "~/shared/components/ui/gluestack-ui-provider"
-import { useIsSignedIn } from "~/shared/store/slices/auth"
 import { StoreProvider } from "../shared/store"
 import { useTheme } from "../shared/store/slices/theme"
 

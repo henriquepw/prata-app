@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
 import { isBefore } from "date-fns"
 import { publicApi } from "~/shared/api/public"
-import { createSecureStore } from "../storage/persist"
+import { createSecureStore } from "~/shared/store/storage/persist"
 
 export type Access = {
   userId: string

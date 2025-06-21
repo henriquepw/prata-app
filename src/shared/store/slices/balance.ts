@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query"
 import { api } from "~/shared/api"
 import { newId } from "~/shared/utils/id"
-import { useIsSignedIn } from "./auth"
+import { useIsSignedIn } from "../../../features/auth/store/auth"
 
 const keys = {
   list: ["balance"],

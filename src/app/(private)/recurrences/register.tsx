@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router"
 import { SaveIcon } from "lucide-react-native"
 import { z } from "zod"
-import { BalanceSelect } from "~/shared/components/features/balance/balance-select"
+import { BalanceSelect } from "~/features/balance/components/balance-select"
 import { Box } from "~/shared/components/ui/box"
 import { useAppForm } from "~/shared/components/ui/form"
 import { SelectItem } from "~/shared/components/ui/form/fields/select"

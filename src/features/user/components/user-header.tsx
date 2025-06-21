@@ -1,12 +1,12 @@
 import { Link } from "expo-router"
 import { LogOutIcon, MoonIcon, SunIcon, UserIcon } from "lucide-react-native"
 import { Image, Pressable } from "react-native"
+import { useIsSignedIn, useLogout } from "~/features/auth/store/auth"
 import { Box } from "~/shared/components/ui/box"
 import { Button, ButtonIcon } from "~/shared/components/ui/button"
 import { Heading } from "~/shared/components/ui/heading"
 import { Skeleton, SkeletonText } from "~/shared/components/ui/skeleton"
 import { Text } from "~/shared/components/ui/text"
-import { useIsSignedIn, useLogout } from "~/shared/store/slices/auth"
 import { useProfile } from "~/shared/store/slices/profile"
 import { useTheme, useToggleTheme } from "~/shared/store/slices/theme"
 

@@ -1,7 +1,7 @@
 import type { ListRenderItemInfo } from "react-native"
 import { Gesture, GestureDetector } from "react-native-gesture-handler"
 import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated"
-import { RecurrenceItem } from "~/shared/components/features/recurrences/recurrence-item"
+import { RecurrenceItem } from "~/features/recurrence/components/recurrence-item"
 import { Box } from "~/shared/components/ui/box"
 import { Card } from "~/shared/components/ui/card"
 import { Heading } from "~/shared/components/ui/heading"

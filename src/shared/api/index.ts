@@ -1,5 +1,5 @@
 import { isBefore } from "date-fns"
-import { useAuth } from "~/shared/store/slices/auth"
+import { useAuth } from "~/features/auth/store/auth"
 import { publicApi } from "./public"
 
 export type Page<T> = {
