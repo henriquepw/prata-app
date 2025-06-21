@@ -2,17 +2,17 @@ import { useRouter } from "expo-router"
 import { SaveIcon } from "lucide-react-native"
 import { z } from "zod"
 import { BalanceSelect } from "~/features/balance/components/balance-select"
-import { Box } from "~/shared/components/ui/box"
-import { useAppForm } from "~/shared/components/ui/form"
-import { SelectItem } from "~/shared/components/ui/form/fields/select"
-import { MoneyPrefix } from "~/shared/components/ui/form/prefix"
-import { ScreenHeader, ScreenRoot } from "~/shared/components/ui/layouts/screen"
-import { Text } from "~/shared/components/ui/text"
 import {
   Frequence,
   useCreateRecurrence,
-} from "~/shared/store/slices/recurrence"
-import { TransactionType } from "~/shared/store/slices/transation"
+} from "~/features/recurrence/store/recurrence"
+import { TransactionType } from "~/features/transaction/store/transation"
+import { Box } from "~/shared/components/box"
+import { useAppForm } from "~/shared/components/form"
+import { SelectItem } from "~/shared/components/form/fields/select"
+import { MoneyPrefix } from "~/shared/components/form/prefix"
+import { ScreenHeader, ScreenRoot } from "~/shared/components/layouts/screen"
+import { Text } from "~/shared/components/text"
 import { getOnlyDigits } from "~/shared/utils/format-amount"
 
 const validator = z.object({

@@ -8,8 +8,8 @@ import Animated, {
   type SharedValue,
   useAnimatedStyle,
 } from "react-native-reanimated"
-import { Icon } from "~/shared/components/ui/icon"
-import { Text } from "~/shared/components/ui/text"
+import { Icon } from "~/shared/components/icon"
+import { Text } from "~/shared/components/text"
 
 function RightAction(_prog: SharedValue<number>, drag: SharedValue<number>) {
   const { width } = useWindowDimensions()

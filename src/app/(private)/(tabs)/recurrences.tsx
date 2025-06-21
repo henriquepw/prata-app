@@ -2,18 +2,18 @@ import type { ListRenderItemInfo } from "react-native"
 import { Gesture, GestureDetector } from "react-native-gesture-handler"
 import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated"
 import { RecurrenceItem } from "~/features/recurrence/components/recurrence-item"
-import { Box } from "~/shared/components/ui/box"
-import { Card } from "~/shared/components/ui/card"
-import { Heading } from "~/shared/components/ui/heading"
-import { ScreenRoot } from "~/shared/components/ui/layouts/screen"
-import { Selector, SelectorItem } from "~/shared/components/ui/selector"
-import { Text } from "~/shared/components/ui/text"
 import {
   type Recurrence,
   useReccurences,
   useSetRecurrencesParams,
-} from "~/shared/store/slices/recurrence"
-import { TransactionType } from "~/shared/store/slices/transation"
+} from "~/features/recurrence/store/recurrence"
+import { TransactionType } from "~/features/transaction/store/transation"
+import { Box } from "~/shared/components/box"
+import { Card } from "~/shared/components/card"
+import { Heading } from "~/shared/components/heading"
+import { ScreenRoot } from "~/shared/components/layouts/screen"
+import { Selector, SelectorItem } from "~/shared/components/selector"
+import { Text } from "~/shared/components/text"
 import { cn } from "~/shared/utils/cn"
 
 const panGesture = Gesture.Pan()

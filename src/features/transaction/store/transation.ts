@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { api, type Page } from "~/shared/api"
 import { formatISO } from "~/shared/utils/format-date"
-import { useIsSignedIn } from "../../../features/auth/store/auth"
+import { useIsSignedIn } from "../../auth/store/auth"
 
 export enum TransactionType {
   INCOME = "INCOME",

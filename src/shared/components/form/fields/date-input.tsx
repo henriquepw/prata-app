@@ -12,7 +12,7 @@ import {
   SelectPortal,
   SelectTrigger,
   Select as UISelect,
-} from "~/shared/components/ui/select"
+} from "~/shared/components/select"
 import { useToggle } from "~/shared/hooks/use-toggle"
 import { formatDate } from "~/shared/utils/format-date"
 import { useFieldContext } from "../context"

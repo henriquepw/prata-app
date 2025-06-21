@@ -18,10 +18,10 @@ import Animated, {
   ZoomOut,
 } from "react-native-reanimated"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { Box } from "~/shared/components/ui/box"
-import { Glass } from "~/shared/components/ui/glass"
-import { Icon } from "~/shared/components/ui/icon"
-import { Text } from "~/shared/components/ui/text"
+import { Box } from "~/shared/components/box"
+import { Glass } from "~/shared/components/glass"
+import { Icon } from "~/shared/components/icon"
+import { Text } from "~/shared/components/text"
 import { useToggle } from "~/shared/hooks/use-toggle"
 import { cn } from "~/shared/utils/cn"
 

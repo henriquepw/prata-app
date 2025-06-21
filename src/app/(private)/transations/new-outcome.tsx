@@ -5,15 +5,15 @@ import { ScrollView } from "react-native"
 import { z } from "zod"
 import { BalanceSelect } from "~/features/balance/components/balance-select"
 import { OutcomeInput } from "~/features/transaction/components/outcome-input"
-import { Box } from "~/shared/components/ui/box"
-import { Button, ButtonIcon, ButtonText } from "~/shared/components/ui/button"
-import { useAppForm } from "~/shared/components/ui/form"
-import { Heading } from "~/shared/components/ui/heading"
-import { ScreenHeader, ScreenRoot } from "~/shared/components/ui/layouts/screen"
 import {
   TransactionType,
   useCreateTransaction,
-} from "~/shared/store/slices/transation"
+} from "~/features/transaction/store/transation"
+import { Box } from "~/shared/components/box"
+import { Button, ButtonIcon, ButtonText } from "~/shared/components/button"
+import { useAppForm } from "~/shared/components/form"
+import { Heading } from "~/shared/components/heading"
+import { ScreenHeader, ScreenRoot } from "~/shared/components/layouts/screen"
 import { getOnlyDigits } from "~/shared/utils/format-amount"
 import { newId } from "~/shared/utils/id"
 

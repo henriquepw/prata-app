@@ -1,11 +1,11 @@
-import { Field } from "~/shared/components/ui/form/field"
+import { useBalance } from "~/features/balance/store/balance"
+import { Field } from "~/shared/components/form/field"
 import {
   Select,
   SelectItem,
   type SelectProps,
-} from "~/shared/components/ui/form/fields/select"
-import { Skeleton } from "~/shared/components/ui/skeleton"
-import { useBalance } from "~/shared/store/slices/balance"
+} from "~/shared/components/form/fields/select"
+import { Skeleton } from "~/shared/components/skeleton"
 
 export function BalanceSelect(props: Omit<SelectProps, "children">) {
   const balance = useBalance()

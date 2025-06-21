@@ -6,7 +6,7 @@ import {
   FormControlErrorText,
   FormControlLabel,
   FormControlLabelText,
-} from "~/shared/components/ui/form-control"
+} from "~/shared/components/form-control"
 
 type FieldError = any
 

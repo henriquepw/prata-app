@@ -6,10 +6,10 @@ import {
 } from "lucide-react-native"
 import { useMemo, useState } from "react"
 import { Pressable } from "react-native"
-import { Box } from "~/shared/components/ui/box"
-import { Icon } from "~/shared/components/ui/icon"
-import { Text } from "~/shared/components/ui/text"
-import { useTransactions } from "~/shared/store/slices/transation"
+import { useTransactions } from "~/features/transaction/store/transation"
+import { Box } from "~/shared/components/box"
+import { Icon } from "~/shared/components/icon"
+import { Text } from "~/shared/components/text"
 import { formatAmount } from "~/shared/utils/format-amount"
 
 export function BalanceCard() {

@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   Select as UISelect,
   SelectItem as UISelectItem,
-} from "~/shared/components/ui/select"
+} from "~/shared/components/select"
 import { useToggle } from "~/shared/hooks/use-toggle"
 import { Glass } from "../../glass"
 import { useFieldContext } from "../context"

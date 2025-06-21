@@ -21,8 +21,8 @@ import Animated, {
   withSequence,
   withSpring,
 } from "react-native-reanimated"
-import { Icon } from "~/shared/components/ui/icon"
-import { useTheme } from "~/shared/store/slices/theme"
+import { Icon } from "~/shared/components/icon"
+import { useTheme } from "~/shared/store/theme"
 import { Text } from "./text"
 
 const BTN_GAP = 3

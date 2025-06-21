@@ -1,6 +1,6 @@
-import { Card } from "~/shared/components/ui/card"
-import { Text } from "~/shared/components/ui/text"
-import { TransactionType } from "~/shared/store/slices/transation"
+import { TransactionType } from "~/features/transaction/store/transation"
+import { Card } from "~/shared/components/card"
+import { Text } from "~/shared/components/text"
 
 const label = {
   [TransactionType.INCOME]: "Entrada",

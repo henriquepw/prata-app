@@ -7,9 +7,9 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated"
-import { Box } from "~/shared/components/ui/box"
-import { Text } from "~/shared/components/ui/text"
-import type { Recurrence } from "~/shared/store/slices/recurrence"
+import type { Recurrence } from "~/features/recurrence/store/recurrence"
+import { Box } from "~/shared/components/box"
+import { Text } from "~/shared/components/text"
 import { formatAmount } from "~/shared/utils/format-amount"
 import { formatDate } from "~/shared/utils/format-date"
 import { FrequenceBadge } from "../frequance-badge"

@@ -1,12 +1,12 @@
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react-native"
 import { TouchableOpacity } from "react-native"
-import { Box } from "~/shared/components/ui/box"
-import { Icon } from "~/shared/components/ui/icon"
-import { Text } from "~/shared/components/ui/text"
 import {
   type Transaction,
   TransactionType,
-} from "~/shared/store/slices/transation"
+} from "~/features/transaction/store/transation"
+import { Box } from "~/shared/components/box"
+import { Icon } from "~/shared/components/icon"
+import { Text } from "~/shared/components/text"
 import { cn } from "~/shared/utils/cn"
 import { formatAmount } from "~/shared/utils/format-amount"
 import { formatDate } from "~/shared/utils/format-date"

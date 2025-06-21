@@ -6,7 +6,7 @@ import {
   type IInputProps,
   InputField,
   Input as UIInput,
-} from "~/shared/components/ui/input"
+} from "~/shared/components/input"
 import { cn } from "~/shared/utils/cn"
 import { formatAmount, getOnlyDigits } from "~/shared/utils/format-amount"
 import { useFieldContext } from "../context"

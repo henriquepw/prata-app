@@ -1,11 +1,11 @@
 import { Link } from "expo-router"
 import { ChevronRightIcon } from "lucide-react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Background } from "~/shared/components/ui/background"
-import { Box } from "~/shared/components/ui/box"
-import { Button, ButtonIcon, ButtonText } from "~/shared/components/ui/button"
-import { Heading } from "~/shared/components/ui/heading"
-import { Text } from "~/shared/components/ui/text"
+import { Background } from "~/shared/components/background"
+import { Box } from "~/shared/components/box"
+import { Button, ButtonIcon, ButtonText } from "~/shared/components/button"
+import { Heading } from "~/shared/components/heading"
+import { Text } from "~/shared/components/text"
 import { IntroHeader } from "../components/intro-header"
 
 interface PointProps {

@@ -5,6 +5,6 @@
   },
   "app": {
     "entry": "src/app/_layout.tsx",
-    "components": "shared/components/ui"
+    "components": "shared/components"
   }
 }

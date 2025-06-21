@@ -1,6 +1,6 @@
-import { Card } from "~/shared/components/ui/card"
-import { Text } from "~/shared/components/ui/text"
-import { Frequence } from "~/shared/store/slices/recurrence"
+import { Frequence } from "~/features/recurrence/store/recurrence"
+import { Card } from "~/shared/components/card"
+import { Text } from "~/shared/components/text"
 
 const label = {
   [Frequence.DAILY]: "Diário",

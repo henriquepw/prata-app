@@ -1,6 +1,6 @@
-import { Box } from "~/shared/components/ui/box"
-import { Heading } from "~/shared/components/ui/heading"
-import { Text } from "~/shared/components/ui/text"
+import { Box } from "~/shared/components/box"
+import { Heading } from "~/shared/components/heading"
+import { Text } from "~/shared/components/text"
 import { cn } from "~/shared/utils/cn"
 
 type Props = {

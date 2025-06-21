@@ -7,7 +7,7 @@ import { useMemo } from "react"
 import { create } from "zustand"
 import { api, type Page } from "~/shared/api"
 import { formatISO } from "~/shared/utils/format-date"
-import type { TransactionType } from "./transation"
+import type { TransactionType } from "../../transaction/store/transation"
 
 const keys = {
   all: ["recurrences"],

@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react"
 import { Alert, View } from "react-native"
 import type { SwipeableMethods } from "react-native-gesture-handler/ReanimatedSwipeable"
 import { useSharedValue } from "react-native-reanimated"
-import { useBoolean } from "~/shared/hooks/use-boolean"
 import {
   type Recurrence,
   useDeleteRecurrence,
-} from "~/shared/store/slices/recurrence"
+} from "~/features/recurrence/store/recurrence"
+import { useBoolean } from "~/shared/hooks/use-boolean"
 import { RecurrenceDetail } from "../recurrence-detail"
 import { RecurrenceCard } from "./card"
 import { RecurrenceSwipe } from "./swipe"

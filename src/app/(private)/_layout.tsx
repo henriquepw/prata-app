@@ -1,8 +1,8 @@
 import { Stack } from "expo-router"
 import { SafeAreaView } from "react-native"
-import { Background } from "~/shared/components/ui/background"
-import { Skeleton } from "~/shared/components/ui/skeleton"
-import { useBalance } from "~/shared/store/slices/balance"
+import { useBalance } from "~/features/balance/store/balance"
+import { Background } from "~/shared/components/background"
+import { Skeleton } from "~/shared/components/skeleton"
 
 const opts = {
   headerShown: false,
