@@ -2,12 +2,10 @@ import { useEffect, useRef } from "react"
 import { Alert, View } from "react-native"
 import type { SwipeableMethods } from "react-native-gesture-handler/ReanimatedSwipeable"
 import { useSharedValue } from "react-native-reanimated"
-import {
-  type Recurrence,
-  useDeleteRecurrence,
-} from "~/features/recurrence/store/recurrence"
+import type { Recurrence } from "~/features/recurrence/store/types"
 import { useBoolean } from "~/shared/hooks/use-boolean"
-import { RecurrenceDetail } from "../recurrence-detail"
+import { useDeleteRecurrence } from "../../store/delete-recurrence"
+import { RecurrenceDetail } from "../detail-modal"
 import { RecurrenceCard } from "./card"
 import { RecurrenceSwipe } from "./swipe"
 
@@ -39,7 +37,7 @@ export function RecurrenceItem({ item }: Props) {
         text: "Deletar",
         style: "destructive",
         onPress: () => {
-          deleteRecurrence.mutate(item)
+          deleteRecurrence.mutate(item.id)
           closeDetail()
         },
       },

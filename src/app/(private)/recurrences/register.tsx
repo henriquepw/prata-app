@@ -2,10 +2,8 @@ import { useRouter } from "expo-router"
 import { SaveIcon } from "lucide-react-native"
 import { z } from "zod"
 import { BalanceSelect } from "~/features/balance/components/balance-select"
-import {
-  Frequence,
-  useCreateRecurrence,
-} from "~/features/recurrence/store/recurrence"
+import { useCreateRecurrence } from "~/features/recurrence/store/create-recurrence"
+import { Frequence } from "~/features/recurrence/store/types"
 import { TransactionType } from "~/features/transaction/store/transation"
 import { Box } from "~/shared/components/box"
 import { useAppForm } from "~/shared/components/form"

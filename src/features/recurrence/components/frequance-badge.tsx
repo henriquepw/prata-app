@@ -1,6 +1,6 @@
-import { Frequence } from "~/features/recurrence/store/recurrence"
 import { Card } from "~/shared/components/card"
 import { Text } from "~/shared/components/text"
+import { Frequence } from "../store/types"
 
 const label = {
   [Frequence.DAILY]: "Diário",

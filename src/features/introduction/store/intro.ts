@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import type { Frequence } from "~/features/recurrence/store/recurrence"
+import type { Frequence } from "~/features/recurrence/store/types"
 
 type Income = {
   amount: string

@@ -18,6 +18,7 @@ const queryClient = new QueryClient({
       staleTime: 1000 * 60 * 5, // 5 min
       throwOnError: process.env.NODE_ENV === "development",
     },
+
     mutations: {
       networkMode: "offlineFirst",
     },

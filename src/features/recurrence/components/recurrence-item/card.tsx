@@ -7,7 +7,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated"
-import type { Recurrence } from "~/features/recurrence/store/recurrence"
+import type { Recurrence } from "~/features/recurrence/store/types"
 import { Box } from "~/shared/components/box"
 import { Text } from "~/shared/components/text"
 import { formatAmount } from "~/shared/utils/format-amount"
