@@ -2,7 +2,7 @@ import { Card } from "~/shared/components/card"
 import { Text } from "~/shared/components/text"
 import { Frequence } from "../store/types"
 
-const label = {
+export const frequenceLabel = {
   [Frequence.DAILY]: "Diário",
   [Frequence.WEEKLY]: "Semanal",
   [Frequence.BIWEEKLY]: "Quinzenal",
@@ -17,7 +17,7 @@ export function FrequenceBadge({ value }: Props) {
   return (
     <Card className="rounded-md px-1" size="xs">
       <Text className="text-secondary-500 leading-5 tracking-wide" size="sm">
-        {label[value]}
+        {frequenceLabel[value]}
       </Text>
     </Card>
   )

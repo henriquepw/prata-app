@@ -16,13 +16,13 @@ export enum Frequence {
 export type Recurrence = {
   id: string
   userId: string
+  balanceId?: string
   description: string
   amount: number
   frequence: Frequence
   type: TransactionType
   startAt: string
   endAt?: string
-  installments?: number
   createdAt: string
   updatedAt: string
   deletedAt?: string

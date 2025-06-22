@@ -19,6 +19,7 @@ import { Portal } from "~/shared/components/portal"
 import { Text } from "~/shared/components/text"
 import { formatAmount } from "~/shared/utils/format-amount"
 import { formatDate } from "~/shared/utils/format-date"
+import { useSelectRecurrence } from "../store/selected-recurrence"
 import { FrequenceBadge } from "./frequance-badge"
 
 type Props = {
@@ -35,6 +36,8 @@ export function RecurrenceDetail({
   onClose,
   top,
 }: Props) {
+  const selectRecurrence = useSelectRecurrence()
+
   const { width, height } = useWindowDimensions()
   const modalStyle = useAnimatedStyle(() => ({
     top: top.value,
@@ -112,6 +115,7 @@ export function RecurrenceDetail({
                 <Link
                   asChild
                   href={`/recurrences/${item.id}`}
+                  onPressIn={() => selectRecurrence(item)}
                   onPressOut={onClose}
                 >
                   <Button className="flex-1" size="sm">

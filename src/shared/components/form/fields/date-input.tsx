@@ -20,7 +20,7 @@ import { Field, type FieldProps } from "../field"
 
 interface Props extends FieldProps {
   value: Date
-  onChange: (value: Date) => void
+  onChange?: (value: Date) => void
   className?: string
   placeholder?: string
 }
@@ -53,7 +53,7 @@ export function DateInput({ value, onChange, placeholder, ...rest }: Props) {
             <DateTimePicker
               display="inline"
               onChange={(_, newDate) => {
-                onChange(newDate || value)
+                onChange?.(newDate || value)
                 toggleOpen()
               }}
               value={value || new Date()}

@@ -3,33 +3,31 @@ import { formatISO } from "date-fns"
 import { api } from "~/shared/api"
 import { type Frequence, queryKeys, type Recurrence } from "./types"
 
-export type RecurrenceCreateDTO = {
-  amount: number
+export type RecurrenceEditDTO = {
+  id: string
   balanceId?: string
-  type: "INCOME" | "OUTCOME"
-  description: string
-  frequence: Frequence
-  startAt: Date
+  amount?: number
+  description?: string
+  frequence?: Frequence
   endAt?: Date
 }
 
-function createRecurrence(dto: RecurrenceCreateDTO) {
+function updateRecurrence({ id, ...dto }: RecurrenceEditDTO) {
   return api
-    .post("me/recurrences", {
+    .patch(`me/recurrences/${id}`, {
       json: {
         ...dto,
-        startAt: formatISO(dto.startAt),
         endAt: dto.endAt ? formatISO(dto.endAt) : undefined,
       },
     })
     .json<Recurrence>()
 }
 
-export function useCreateRecurrence() {
+export function useUpdateRecurrence() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: createRecurrence,
+    mutationFn: updateRecurrence,
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.all })
     },

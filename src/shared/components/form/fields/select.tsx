@@ -23,6 +23,7 @@ export interface SelectProps extends FieldProps {
   children: React.ReactNode
   initialLabel?: string
   onChange?: (arg?: string) => void
+  className?: string
   value?: string
 }
 

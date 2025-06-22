@@ -38,16 +38,22 @@ export function ScreenRoot({ children, className }: RootProps) {
 type HeaderProps = {
   title: string
   children?: React.ReactNode
+  onBack?: () => void
 }
-export function ScreenHeader({ title, children }: HeaderProps) {
-  const nativagion = useNavigation()
+export function ScreenHeader({ title, children, onBack }: HeaderProps) {
+  const navigation = useNavigation()
+
+  const handleBack = () => {
+    onBack?.()
+    navigation.goBack()
+  }
 
   return (
     <Box className="h-12 flex-row items-center justify-between gap-2">
-      {nativagion.canGoBack() && (
+      {navigation.canGoBack() && (
         <Pressable
           className="size-10 items-start justify-center active:opacity-50"
-          onPress={nativagion.goBack}
+          onPress={handleBack}
         >
           <Icon as={ChevronLeftIcon} size="xl" />
         </Pressable>
