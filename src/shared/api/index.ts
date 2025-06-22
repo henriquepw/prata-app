@@ -38,11 +38,14 @@ export const api = publicApi.extend({
     ],
     afterResponse: [
       async (_, __, response) => {
-        console.info({
-          url: response.url,
-          status: response.status,
-          body: await response.clone().json(),
-        })
+        let body: any
+        try {
+          body = await response.clone().json()
+        } catch {
+          body = undefined
+        }
+
+        console.info({ url: response.url, status: response.status, body })
         if (response.status === 401) {
           useAuth.getState().logout()
         }

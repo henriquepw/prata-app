@@ -56,13 +56,17 @@ export default function RecurrenceEditScreen() {
         return
       }
 
-      await updateRecurrence.mutateAsync({
-        id: recurrence.id,
-        amount: Number(getOnlyDigits(value.amount)),
-        description: value.description,
-        frequence: value.frequence,
-      })
-      router.back()
+      try {
+        await updateRecurrence.mutateAsync({
+          id: recurrence.id,
+          amount: Number(getOnlyDigits(value.amount)),
+          description: value.description,
+          frequence: value.frequence,
+        })
+        router.back()
+      } catch (e) {
+        console.error(e)
+      }
     },
   })
 
