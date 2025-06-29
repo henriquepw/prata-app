@@ -4,10 +4,8 @@ import { useState } from "react"
 import { ScrollView } from "react-native"
 import { z } from "zod"
 import { OutcomeInput } from "~/features/transaction/components/outcome-input"
-import {
-  TransactionType,
-  useCreateTransaction,
-} from "~/features/transaction/store/transation"
+import { useCreateTransaction } from "~/features/transaction/store/transation"
+import { TransactionType } from "~/features/transaction/store/types"
 import { Box } from "~/shared/components/box"
 import { Button, ButtonIcon, ButtonText } from "~/shared/components/button"
 import { useAppForm } from "~/shared/components/form"

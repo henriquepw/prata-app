@@ -51,7 +51,7 @@ export const useAuth = createSecureStore<AuthStore>("auth", (set, get) => ({
     }
 
     const renew = await publicApi
-      .get(`auth/renew/${auth.data.refreshToken}`)
+      .post("auth/renew", { json: { refreshToken: auth.data.refreshToken } })
       .json<Renew>()
 
     set({

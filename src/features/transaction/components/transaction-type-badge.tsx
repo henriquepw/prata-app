@@ -1,6 +1,6 @@
-import { TransactionType } from "~/features/transaction/store/transation"
 import { Card } from "~/shared/components/card"
 import { Text } from "~/shared/components/text"
+import { TransactionType } from "../store/types"
 
 const label = {
   [TransactionType.INCOME]: "Entrada",

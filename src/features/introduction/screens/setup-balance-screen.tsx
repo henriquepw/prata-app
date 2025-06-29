@@ -11,7 +11,7 @@ import { z } from "zod"
 import { useUpdateBalance } from "~/features/balance/store/balance"
 import { IntroChartTitle } from "~/features/introduction/components/intro-chart-title"
 import { IntroHeader } from "~/features/introduction/components/intro-header"
-import { getIncome } from "~/features/introduction/store/intro"
+import { getIncome, useIncome } from "~/features/introduction/store/intro"
 import { useCreateRecurrence } from "~/features/recurrence/store/create-recurrence"
 import { Background } from "~/shared/components/background"
 import { Box } from "~/shared/components/box"
@@ -19,7 +19,7 @@ import { Button, ButtonIcon, ButtonText } from "~/shared/components/button"
 import { PieChart } from "~/shared/components/chart/pie"
 import { useAppForm } from "~/shared/components/form"
 import { Text } from "~/shared/components/text"
-import { formatAmount, getOnlyDigits } from "~/shared/utils/format-amount"
+import { getOnlyDigits } from "~/shared/utils/format-amount"
 
 type Piece = {
   label: string
@@ -51,6 +51,7 @@ export function SetupBalanceScreen() {
 
   const createRecurrence = useCreateRecurrence()
   const updateBalance = useUpdateBalance()
+  const income = useIncome()
 
   const form = useAppForm({
     defaultValues: {
@@ -116,7 +117,7 @@ export function SetupBalanceScreen() {
             {(balance) => (
               <PieChart
                 data={balance}
-                label={formatAmount(100000)}
+                label={income?.amount}
                 radius={radius}
                 strokeWidth={40}
               >

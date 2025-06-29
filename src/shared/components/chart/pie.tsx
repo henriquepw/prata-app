@@ -10,13 +10,13 @@ type PieSlice = {
 
 type Props = {
   data: PieSlice[]
-  radius: number
   strokeWidth: number
+  radius: number
   label?: string
   children?: React.ReactNode
 }
 
-export function PieChart({ children, data, radius, strokeWidth }: Props) {
+export function PieChart({ children, radius, data, strokeWidth }: Props) {
   const size = radius * 2
   const innerRadius = radius - strokeWidth
   const paths = useMemo(() => {
