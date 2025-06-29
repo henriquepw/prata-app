@@ -1,16 +1,14 @@
 import { Link } from "expo-router"
-import { StatusBar } from "expo-status-bar"
 import { useRef } from "react"
 import { KeyboardAvoidingView } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
 import { z } from "zod"
 import { useSignIn } from "~/features/auth/store/auth"
-import { Background } from "~/shared/components/background"
 import { Box } from "~/shared/components/box"
 import { Card } from "~/shared/components/card"
 import { useAppForm } from "~/shared/components/form"
 import type { InputRef } from "~/shared/components/form/fields/input"
 import { Heading } from "~/shared/components/heading"
+import { ScreenRoot } from "~/shared/components/layouts/screen"
 import { Text } from "~/shared/components/text"
 
 const schema = z.object({
@@ -22,7 +20,6 @@ const schema = z.object({
 
 export function SignInScreen() {
   const signIn = useSignIn()
-  const emailRef = useRef<InputRef>(null)
   const passwordRef = useRef<InputRef>(null)
 
   const form = useAppForm({
@@ -31,7 +28,6 @@ export function SignInScreen() {
       password: "",
     },
     validators: {
-      onChange: schema,
       onSubmit: schema,
     },
     onSubmit: async ({ value }) => {
@@ -47,59 +43,56 @@ export function SignInScreen() {
   })
 
   return (
-    <Background>
-      <SafeAreaView className="justify-center p-6">
-        <StatusBar style="light" />
-        <KeyboardAvoidingView>
-          <Card>
-            <Heading>Bem vindo!</Heading>
-            <form.AppField name="identifier">
-              {(field) => (
-                <field.Input
-                  autoCapitalize="none"
-                  autoComplete="email"
-                  autoCorrect={false}
-                  isRequired
-                  label="E-mail"
-                  onSubmitEditing={() => emailRef.current?.focus()}
-                  placeholder="exemplo@email.com"
-                  returnKeyType="next"
-                  textContentType="emailAddress"
-                />
-              )}
-            </form.AppField>
-            <form.AppField name="password">
-              {(field) => (
-                <field.Input
-                  isRequired
-                  label="Senha"
-                  onSubmitEditing={() => form.handleSubmit}
-                  placeholder="Sua senha ULTRA segura (ou não)"
-                  ref={passwordRef}
-                  returnKeyType="done"
-                  textContentType="password"
-                  type="password"
-                />
-              )}
-            </form.AppField>
+    <ScreenRoot className="justify-center">
+      <KeyboardAvoidingView>
+        <Card>
+          <Heading>Bem vindo!</Heading>
+          <form.AppField name="identifier">
+            {(field) => (
+              <field.Input
+                isRequired
+                autoCapitalize="none"
+                autoComplete="email"
+                autoCorrect={false}
+                label="E-mail"
+                placeholder="exemplo@email.com"
+                returnKeyType="next"
+                textContentType="emailAddress"
+                onSubmitEditing={() => passwordRef.current?.focus()}
+              />
+            )}
+          </form.AppField>
+          <form.AppField name="password">
+            {(field) => (
+              <field.Input
+                isRequired
+                ref={passwordRef}
+                label="Senha"
+                type="password"
+                placeholder="Sua senha ULTRA segura (ou não)"
+                returnKeyType="done"
+                textContentType="password"
+                onSubmitEditing={form.handleSubmit}
+              />
+            )}
+          </form.AppField>
 
-            <Box className="mt-4">
-              <form.AppForm>
-                <form.SubmitButton>Entrar</form.SubmitButton>
-              </form.AppForm>
-              <Box className="mt-2 flex-row items-center justify-center gap-2">
-                <Text>Não possui uma conta?</Text>
-                <Link
-                  className="text-primary-600 underline"
-                  href="/(auth)/sign-up"
-                >
-                  Cadastrar
-                </Link>
-              </Box>
+          <Box className="mt-4">
+            <form.AppForm>
+              <form.SubmitButton>Entrar</form.SubmitButton>
+            </form.AppForm>
+            <Box className="mt-2 flex-row items-center justify-center gap-2">
+              <Text>Não possui uma conta?</Text>
+              <Link
+                className="text-primary-600 underline"
+                href="/(auth)/sign-up"
+              >
+                Cadastrar
+              </Link>
             </Box>
-          </Card>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </Background>
+          </Box>
+        </Card>
+      </KeyboardAvoidingView>
+    </ScreenRoot>
   )
 }

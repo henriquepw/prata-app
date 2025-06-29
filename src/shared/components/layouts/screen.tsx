@@ -1,4 +1,5 @@
 import { useNavigation } from "expo-router"
+import { StatusBar } from "expo-status-bar"
 import { ChevronLeftIcon } from "lucide-react-native"
 import { Platform, Pressable } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -22,6 +23,7 @@ type RootProps = {
 export function ScreenRoot({ children, className }: RootProps) {
   return (
     <Background>
+      <StatusBar style="light" />
       {Platform.OS === "android" && (
         <Background className="absolute bottom-0 h-24 w-full" />
       )}
