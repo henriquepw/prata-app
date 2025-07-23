@@ -8,7 +8,7 @@ import { Heading } from "~/shared/components/heading"
 import { Text } from "~/shared/components/text"
 import { IntroHeader } from "../components/intro-header"
 
-interface PointProps {
+type PointProps = {
   title: string
   children: string
 }

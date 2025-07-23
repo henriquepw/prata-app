@@ -1,4 +1,4 @@
-import type { TransactionType } from "~/features/transaction/store/transation"
+import type { TransactionType } from "~/features/transaction/store/types"
 
 export const queryKeys = {
   all: ["recurrences"],

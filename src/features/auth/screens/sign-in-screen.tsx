@@ -12,9 +12,7 @@ import { ScreenRoot } from "~/shared/components/layouts/screen"
 import { Text } from "~/shared/components/text"
 
 const schema = z.object({
-  identifier: z
-    .string({ required_error: "O email é obrigatório" })
-    .email("Deve ser um email válido"),
+  identifier: z.email({ error: "Deve ser um email válido" }),
   password: z.string().min(1, "A senha é obrigatória"),
 })
 
