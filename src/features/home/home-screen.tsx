@@ -21,7 +21,6 @@ export function HomeScreen() {
           <BalanceView />
         </Suspense>
 
-        <SkeletonBarChart />
         <Suspense fallback={<SkeletonBarChart />}>
           <TransactionYearlyChart />
         </Suspense>

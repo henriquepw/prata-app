@@ -28,37 +28,37 @@ const _ORANGE = [
   "117 77 21",
 ]
 
-const PRIMARY = _BLUE
+export const PRIMARY_COLOR = _BLUE
 
 function getAccentColor(theme: "light" | "dark", color: string) {
   if (theme === "light") {
     return {
-      [`--color-${color}-50`]: PRIMARY[0],
-      [`--color-${color}-100`]: PRIMARY[1],
-      [`--color-${color}-200`]: PRIMARY[2],
-      [`--color-${color}-300`]: PRIMARY[3],
-      [`--color-${color}-400`]: PRIMARY[4],
-      [`--color-${color}-500`]: PRIMARY[5],
-      [`--color-${color}-600`]: PRIMARY[6],
-      [`--color-${color}-700`]: PRIMARY[7],
-      [`--color-${color}-800`]: PRIMARY[8],
-      [`--color-${color}-900`]: PRIMARY[9],
-      [`--color-${color}-950`]: PRIMARY[10],
+      [`--color-${color}-50`]: PRIMARY_COLOR[0],
+      [`--color-${color}-100`]: PRIMARY_COLOR[1],
+      [`--color-${color}-200`]: PRIMARY_COLOR[2],
+      [`--color-${color}-300`]: PRIMARY_COLOR[3],
+      [`--color-${color}-400`]: PRIMARY_COLOR[4],
+      [`--color-${color}-500`]: PRIMARY_COLOR[5],
+      [`--color-${color}-600`]: PRIMARY_COLOR[6],
+      [`--color-${color}-700`]: PRIMARY_COLOR[7],
+      [`--color-${color}-800`]: PRIMARY_COLOR[8],
+      [`--color-${color}-900`]: PRIMARY_COLOR[9],
+      [`--color-${color}-950`]: PRIMARY_COLOR[10],
     } as const
   }
 
   return {
-    [`--color-${color}-50`]: PRIMARY[10],
-    [`--color-${color}-100`]: PRIMARY[9],
-    [`--color-${color}-200`]: PRIMARY[8],
-    [`--color-${color}-300`]: PRIMARY[7],
-    [`--color-${color}-400`]: PRIMARY[6],
-    [`--color-${color}-500`]: PRIMARY[5],
-    [`--color-${color}-600`]: PRIMARY[4],
-    [`--color-${color}-700`]: PRIMARY[3],
-    [`--color-${color}-800`]: PRIMARY[2],
-    [`--color-${color}-900`]: PRIMARY[1],
-    [`--color-${color}-950`]: PRIMARY[0],
+    [`--color-${color}-50`]: PRIMARY_COLOR[10],
+    [`--color-${color}-100`]: PRIMARY_COLOR[9],
+    [`--color-${color}-200`]: PRIMARY_COLOR[8],
+    [`--color-${color}-300`]: PRIMARY_COLOR[7],
+    [`--color-${color}-400`]: PRIMARY_COLOR[6],
+    [`--color-${color}-500`]: PRIMARY_COLOR[5],
+    [`--color-${color}-600`]: PRIMARY_COLOR[4],
+    [`--color-${color}-700`]: PRIMARY_COLOR[3],
+    [`--color-${color}-800`]: PRIMARY_COLOR[2],
+    [`--color-${color}-900`]: PRIMARY_COLOR[1],
+    [`--color-${color}-950`]: PRIMARY_COLOR[0],
   } as const
 }
 
