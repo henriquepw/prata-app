@@ -5,10 +5,11 @@ import {
   Bar,
   CartesianChart,
   useChartPressState,
-  Viewport,
+  type Viewport,
 } from "victory-native"
-import { Card } from "~/shared/components/card"
+import { CardTitle } from "~/shared/components/card"
 import { PRIMARY_COLOR } from "~/shared/components/gluestack-ui-provider/config"
+import { useChartTransactions } from "../store/chart"
 
 function ToolTip({ x, y }: { x: SharedValue<number>; y: SharedValue<number> }) {
   return <Circle cx={x} cy={y} r={8} color="white" />
@@ -28,19 +29,19 @@ const month = [
   "nov",
   "dez",
 ]
-const DATA = Array.from({ length: 12 }, (_, i) => ({
-  day: month[i],
-  highTmp: Math.floor(400 + 3000 * Math.random()),
-}))
 
-const viewport: Viewport = { x: [-1, 12] }
+const viewport: Viewport = { x: [-1, 12] } as const
 
-const barColor = `rgb(${PRIMARY_COLOR[5].split(" ").join(",")})`
+const barColor = `rgb(${PRIMARY_COLOR[5].split(" ").join(",")})` as const
+
+const roundedCorners = { topLeft: 4, topRight: 4 } as const
 
 export function TransactionYearlyChart() {
+  const trx = useChartTransactions()
+
   const { state, isActive } = useChartPressState({
-    x: "jan",
-    y: { highTmp: 0 },
+    x: 0,
+    y: { value: 0 },
   })
 
   const font = useFont(
@@ -49,35 +50,39 @@ export function TransactionYearlyChart() {
   )
 
   return (
-    <Card className="h-[300px]">
-      <View className="h-full">
+    <View>
+      <CardTitle>Gastos em 2025</CardTitle>
+      <View className="h-[250px]">
         <CartesianChart
-          data={DATA}
-          xKey="day"
-          yKeys={["highTmp"]}
+          data={trx.data}
+          xKey="month"
+          yKeys={["value"]}
           chartPressState={state}
+          viewport={viewport}
           axisOptions={{
             font,
+            formatYLabel: (v) => Math.floor(v / 100).toString(),
+            formatXLabel: (v) => month[v] || "0",
+            lineColor: "rgba(255,255,255, 20%)",
             labelColor: "white",
           }}
-          viewport={viewport}
         >
           {({ points, chartBounds }) => (
             <>
               <Bar
-                points={points.highTmp}
-                chartBounds={chartBounds}
                 color={barColor}
-                roundedCorners={{ topLeft: 4, topRight: 4 }}
+                points={points.value}
+                chartBounds={chartBounds}
+                roundedCorners={roundedCorners}
               />
 
               {isActive && (
-                <ToolTip x={state.x.position} y={state.y.highTmp.position} />
+                <ToolTip x={state.x.position} y={state.y.value.position} />
               )}
             </>
           )}
         </CartesianChart>
       </View>
-    </Card>
+    </View>
   )
 }

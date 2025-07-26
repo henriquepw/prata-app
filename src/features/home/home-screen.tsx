@@ -14,7 +14,7 @@ import { UserHeader } from "./components/user-header"
 export function HomeScreen() {
   return (
     <ScreenRoot>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <UserHeader />
 
         <Suspense fallback={<BalanceViewFallback />}>

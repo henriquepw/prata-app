@@ -3,10 +3,10 @@ import React from "react"
 import { Text as RNText } from "react-native"
 import { textStyle } from "./styles"
 
-type ITextProps = React.ComponentProps<typeof RNText> &
+export type TextProps = React.ComponentProps<typeof RNText> &
   VariantProps<typeof textStyle>
 
-const Text = React.forwardRef<React.ComponentRef<typeof RNText>, ITextProps>(
+const Text = React.forwardRef<React.ComponentRef<typeof RNText>, TextProps>(
   (
     {
       className,

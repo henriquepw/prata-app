@@ -2,7 +2,9 @@ import type { VariantProps } from "@gluestack-ui/nativewind-utils"
 import { tva } from "@gluestack-ui/nativewind-utils/tva"
 import React from "react"
 import { View, type ViewProps } from "react-native"
+import { cn } from "../utils/cn"
 import { Glass } from "./glass"
+import { Text, type TextProps } from "./text"
 
 const cardStyle = tva({
   slots: {
@@ -73,4 +75,21 @@ const Card = React.forwardRef<React.ComponentRef<typeof View>, Props>(
 
 Card.displayName = "Card"
 
-export { Card }
+const CardTitle = React.forwardRef<React.ComponentRef<typeof Text>, TextProps>(
+  ({ children, className, ...rest }, ref) => {
+    return (
+      <Text
+        className={cn("w-full text-center font-medium mb-1", className)}
+        size="xl"
+        ref={ref}
+        {...rest}
+      >
+        {children}
+      </Text>
+    )
+  },
+)
+
+CardTitle.displayName = "CardTitle"
+
+export { Card, CardTitle }
