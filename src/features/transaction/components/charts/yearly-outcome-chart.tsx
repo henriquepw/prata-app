@@ -1,5 +1,5 @@
 import { Circle, useFont } from "@shopify/react-native-skia"
-import { View } from "react-native"
+import { useWindowDimensions, View } from "react-native"
 import type { SharedValue } from "react-native-reanimated"
 import {
   Bar,
@@ -7,9 +7,9 @@ import {
   useChartPressState,
   type Viewport,
 } from "victory-native"
-import { CardTitle } from "~/shared/components/card"
+import { Card, CardTitle } from "~/shared/components/card"
 import { PRIMARY_COLOR } from "~/shared/components/gluestack-ui-provider/config"
-import { useChartTransactions } from "../store/chart"
+import { useChartTransactions } from "../../store/chart"
 
 function ToolTip({ x, y }: { x: SharedValue<number>; y: SharedValue<number> }) {
   return <Circle cx={x} cy={y} r={8} color="white" />
@@ -36,8 +36,9 @@ const barColor = `rgb(${PRIMARY_COLOR[5].split(" ").join(",")})` as const
 
 const roundedCorners = { topLeft: 4, topRight: 4 } as const
 
-export function TransactionYearlyChart() {
+export function YearlyOutcomeChart() {
   const trx = useChartTransactions()
+  const _dimensions = useWindowDimensions()
 
   const { state, isActive } = useChartPressState({
     x: 0,
@@ -50,7 +51,7 @@ export function TransactionYearlyChart() {
   )
 
   return (
-    <View>
+    <Card>
       <CardTitle>Gastos em 2025</CardTitle>
       <View className="h-[250px]">
         <CartesianChart
@@ -83,6 +84,6 @@ export function TransactionYearlyChart() {
           )}
         </CartesianChart>
       </View>
-    </View>
+    </Card>
   )
 }

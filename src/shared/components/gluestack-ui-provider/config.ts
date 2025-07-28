@@ -28,7 +28,11 @@ const _ORANGE = [
   "117 77 21",
 ]
 
-export const PRIMARY_COLOR = _BLUE
+const PRIMARY_COLOR = _BLUE
+
+export const THEME = {
+  primary: PRIMARY_COLOR.map((p) => p.split(" ").join(",")),
+}
 
 function getAccentColor(theme: "light" | "dark", color: string) {
   if (theme === "light") {

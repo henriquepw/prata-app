@@ -21,6 +21,7 @@ export type TransactionFilters = {
 export const queryKeys = {
   all: ["transactions"],
   month: ["transactions", "month"],
+  year: ["transactions", "year"],
   list: (filters?: TransactionFilters) => [...queryKeys.all, filters],
   detail: (id: string) => [...queryKeys.all, id],
 } as const

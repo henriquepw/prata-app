@@ -1,5 +1,5 @@
 import { Suspense } from "react"
-import { ScrollView } from "react-native"
+import { ScrollView, View } from "react-native"
 import {
   BalanceView,
   BalanceViewFallback,
@@ -7,28 +7,37 @@ import {
 import { Heading } from "~/shared/components/heading"
 import { ScreenRoot } from "~/shared/components/layouts/screen"
 import { SkeletonBarChart } from "~/shared/components/skeleton/skeleton-bar-chart"
-import { TransactionYearlyChart } from "../transaction/components/transaction-yearly-chart"
+import { OutcomeByBalanceChart } from "../transaction/components/charts/outcome-by-balance-chart"
+import { YearlyOutcomeChart } from "../transaction/components/charts/yearly-outcome-chart"
 import { TransactionLastList } from "../transaction/components/transation-last-list"
+import { Carousel } from "./components/carousel"
 import { UserHeader } from "./components/user-header"
 
 export function HomeScreen() {
   return (
-    <ScreenRoot>
+    <ScreenRoot className="px-0">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <UserHeader />
+        <View className="px-4">
+          <UserHeader />
 
-        <Suspense fallback={<BalanceViewFallback />}>
-          <BalanceView />
-        </Suspense>
+          <Suspense fallback={<BalanceViewFallback />}>
+            <BalanceView />
+          </Suspense>
+        </View>
 
         <Suspense fallback={<SkeletonBarChart />}>
-          <TransactionYearlyChart />
+          <Carousel>
+            <YearlyOutcomeChart />
+            <OutcomeByBalanceChart />
+          </Carousel>
         </Suspense>
 
-        <Heading className="mt-6 mb-2 text-center">
-          Últimas Movimentações
-        </Heading>
-        <TransactionLastList />
+        <View className="px-4">
+          <Heading className="mt-6 mb-2 text-center">
+            Últimas Movimentações
+          </Heading>
+          <TransactionLastList />
+        </View>
       </ScrollView>
     </ScreenRoot>
   )

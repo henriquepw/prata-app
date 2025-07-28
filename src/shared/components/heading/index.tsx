@@ -5,7 +5,7 @@ import type React from "react"
 import { forwardRef, memo } from "react"
 import { headingStyle } from "./styles"
 
-type IHeadingProps = VariantProps<typeof headingStyle> &
+export type HeadingProps = VariantProps<typeof headingStyle> &
   React.ComponentPropsWithoutRef<typeof H1> & {
     as?: React.ElementType
   }
@@ -18,7 +18,7 @@ cssInterop(H5, { className: "style" })
 cssInterop(H6, { className: "style" })
 
 const MappedHeading = memo(
-  forwardRef<React.ComponentRef<typeof H1>, IHeadingProps>(
+  forwardRef<React.ComponentRef<typeof H1>, HeadingProps>(
     (
       {
         size,
@@ -177,7 +177,7 @@ const MappedHeading = memo(
 )
 
 const Heading = memo(
-  forwardRef<React.ComponentRef<typeof H1>, IHeadingProps>(
+  forwardRef<React.ComponentRef<typeof H1>, HeadingProps>(
     ({ className, size = "lg", as: AsComp, ...props }, ref) => {
       const {
         isTruncated,

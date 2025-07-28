@@ -16,6 +16,7 @@ async function getChartTransactions(signal?: AbortSignal) {
     .get("me/transactions", { signal, searchParams: search })
     .json<Page<Transaction>>()
 
+  console.log(trxs)
   const map: Record<number, number> = {
     0: 0,
     1: 0,
@@ -47,7 +48,7 @@ async function getChartTransactions(signal?: AbortSignal) {
 
 export function useChartTransactions() {
   return useSuspenseQuery({
-    queryKey: queryKeys.month,
+    queryKey: queryKeys.year,
     queryFn: ({ signal }) => getChartTransactions(signal),
   })
 }
