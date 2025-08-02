@@ -2,7 +2,9 @@ import { Canvas, Path, Skia } from "@shopify/react-native-skia"
 import { useMemo } from "react"
 import { Box } from "../box"
 
-type PieSlice = {
+const GAP = 0.055
+
+export type PieSlice = {
   label: string
   percent: number | string
   color: string
@@ -24,23 +26,23 @@ export function PieChart({ children, radius, data, strokeWidth }: Props) {
     path.addCircle(radius, radius, innerRadius)
 
     const paths = []
-    let currentAngle = 0
+    let startAngle = 0
     for (let i = 0; i < data.length; i++) {
       const d = data[i]
-      const sweepAngle = currentAngle + Number(d.percent) / 100
+      const endAngle = startAngle + Number(d.percent) / 100
       paths.push(
         <Path
           color={d.color}
-          end={sweepAngle}
           key={d.label}
           path={path}
-          start={currentAngle}
+          start={startAngle}
+          end={endAngle - GAP}
           strokeCap="round"
           strokeWidth={strokeWidth}
           style="stroke"
         />,
       )
-      currentAngle = sweepAngle
+      startAngle = endAngle
     }
 
     return paths

@@ -27,8 +27,8 @@ export function HomeScreen() {
 
         <Suspense fallback={<SkeletonBarChart />}>
           <Carousel>
-            <YearlyOutcomeChart />
             <OutcomeByBalanceChart />
+            <YearlyOutcomeChart />
           </Carousel>
         </Suspense>
 

@@ -1,5 +1,6 @@
 import { Circle, useFont } from "@shopify/react-native-skia"
-import { useWindowDimensions, View } from "react-native"
+import { useMemo } from "react"
+import { View } from "react-native"
 import type { SharedValue } from "react-native-reanimated"
 import {
   Bar,
@@ -8,8 +9,29 @@ import {
   type Viewport,
 } from "victory-native"
 import { Card, CardTitle } from "~/shared/components/card"
-import { PRIMARY_COLOR } from "~/shared/components/gluestack-ui-provider/config"
+import { THEME } from "~/shared/components/gluestack-ui-provider/config"
 import { useChartTransactions } from "../../store/chart"
+import { type Transaction, TransactionType } from "../../store/types"
+
+type ChartData = {
+  month: number
+  value: number
+}
+
+function parseChartData(trx: Transaction[]) {
+  const data: ChartData[] = Array.from({ length: 12 })
+    .fill(0)
+    .map((_, i) => ({ month: i, value: 0 }))
+
+  for (const t of trx) {
+    if (t.type === TransactionType.OUTCOME) {
+      const month = new Date(t.receivedAt).getMonth()
+      data[month].value = data[month].value + t.amount
+    }
+  }
+
+  return data
+}
 
 function ToolTip({ x, y }: { x: SharedValue<number>; y: SharedValue<number> }) {
   return <Circle cx={x} cy={y} r={8} color="white" />
@@ -31,14 +53,12 @@ const month = [
 ]
 
 const viewport: Viewport = { x: [-1, 12] } as const
-
-const barColor = `rgb(${PRIMARY_COLOR[5].split(" ").join(",")})` as const
-
+const barColor = `rgb(${THEME.primary[5]})` as const
 const roundedCorners = { topLeft: 4, topRight: 4 } as const
 
 export function YearlyOutcomeChart() {
   const trx = useChartTransactions()
-  const _dimensions = useWindowDimensions()
+  const data = useMemo(() => parseChartData(trx.data || []), [trx.data])
 
   const { state, isActive } = useChartPressState({
     x: 0,
@@ -55,7 +75,7 @@ export function YearlyOutcomeChart() {
       <CardTitle>Gastos em 2025</CardTitle>
       <View className="h-[250px]">
         <CartesianChart
-          data={trx.data}
+          data={data}
           xKey="month"
           yKeys={["value"]}
           chartPressState={state}
