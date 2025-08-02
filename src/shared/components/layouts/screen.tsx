@@ -1,7 +1,7 @@
 import { useNavigation } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import { ChevronLeftIcon } from "lucide-react-native"
-import { Platform, Pressable } from "react-native"
+import { Platform, Pressable, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { cn } from "~/shared/utils/cn"
 import { Background } from "../background"

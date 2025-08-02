@@ -3,6 +3,7 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler"
 import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated"
 import { RecurrenceItem } from "~/features/recurrence/components/recurrence-item"
 import { TransactionType } from "~/features/transaction/store/types"
+import { BottomTabGap } from "~/shared/components/bottom-tab"
 import { Box } from "~/shared/components/box"
 import { Heading } from "~/shared/components/heading"
 import { ScreenRoot } from "~/shared/components/layouts/screen"
@@ -57,6 +58,7 @@ export function RecurrentListScreen() {
           ItemSeparatorComponent={Separetor}
           keyExtractor={(item) => item.id}
           ListEmptyComponent={NoItem}
+          ListFooterComponent={BottomTabGap}
           onRefresh={() => !query.isFetching && query.refetch()}
           refreshing={query.isRefetching}
           renderItem={Row}

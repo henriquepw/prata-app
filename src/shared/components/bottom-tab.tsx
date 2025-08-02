@@ -1,4 +1,5 @@
 import { BlurView } from "expo-blur"
+import { LinearGradient } from "expo-linear-gradient"
 import { useNavigation } from "expo-router"
 import type { TabTriggerSlotProps } from "expo-router/ui"
 import {
@@ -23,6 +24,7 @@ import Animated, {
 } from "react-native-reanimated"
 import { Icon } from "~/shared/components/icon"
 import { useTheme } from "~/shared/store/theme"
+import { Box } from "./box"
 import { Text } from "./text"
 
 const BTN_GAP = 3
@@ -80,6 +82,12 @@ export const TabView = forwardRef(
 
     return (
       <context.Provider value={ctx}>
+        <Box className="absolute bottom-0 h-24 w-full">
+          <LinearGradient
+            colors={["transparent", "rgba(0,0,0,0.5)"]}
+            style={{ flex: 1 }}
+          />
+        </Box>
         <BlurView
           blurReductionFactor={5}
           className={
@@ -157,3 +165,7 @@ export const TabButton = forwardRef(
     )
   },
 )
+
+export function BottomTabGap() {
+  return <Box className="h-28" />
+}

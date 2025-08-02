@@ -4,6 +4,7 @@ import {
   BalanceView,
   BalanceViewFallback,
 } from "~/features/balance/components/balance-view"
+import { BottomTabGap } from "~/shared/components/bottom-tab"
 import { Heading } from "~/shared/components/heading"
 import { ScreenRoot } from "~/shared/components/layouts/screen"
 import { SkeletonBarChart } from "~/shared/components/skeleton/skeleton-bar-chart"
@@ -38,6 +39,7 @@ export function HomeScreen() {
           </Heading>
           <TransactionLastList />
         </View>
+        <BottomTabGap />
       </ScrollView>
     </ScreenRoot>
   )

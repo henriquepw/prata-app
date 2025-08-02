@@ -27,7 +27,12 @@ export function TransactionLastList() {
 
       {transations.data?.items.length ? (
         <Link asChild href="/transations">
-          <Button className="mx-auto mt-6" variant="link" action="secondary">
+          <Button
+            size="lg"
+            variant="link"
+            action="secondary"
+            className="mx-auto"
+          >
             <ButtonText>Ver mais</ButtonText>
           </Button>
         </Link>
