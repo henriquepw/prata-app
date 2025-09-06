@@ -3,6 +3,7 @@ import "abortcontroller-polyfill/dist/polyfill-patch-fetch"
 
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
+import { StatusBar } from "expo-status-bar"
 import { useEffect } from "react"
 import { Appearance, Platform } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
@@ -53,6 +54,7 @@ export default function RootLayout() {
     <GluestackUIProvider mode={theme}>
       <StoreProvider>
         <GestureHandlerRootView>
+          <StatusBar style={theme === "dark" ? "light" : "dark"} translucent />
           <Main />
         </GestureHandlerRootView>
       </StoreProvider>

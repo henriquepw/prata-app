@@ -35,6 +35,7 @@ function parseChartData(trx: Transaction[] = [], pieces: Piece[] = []) {
     ...v,
     percent: (+v.percent / total) * 100,
   }))
+
   console.log({
     total,
     values: [...map.values()].map((v) => v.percent),

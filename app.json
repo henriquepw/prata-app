@@ -73,6 +73,12 @@
             "enforceNavigationBarContrast": false
           }
         }
+      ],
+      [
+        "expo-sqlite",
+        {
+          "useLibSQL": true
+        }
       ]
     ],
     "experiments": {
