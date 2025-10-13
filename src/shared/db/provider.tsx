@@ -7,7 +7,7 @@ type Props = {
 export function DBProvider({ children }: Props) {
   return (
     <SQLiteProvider
-      databaseName="local.db"
+      databaseName={env.dbName}
       options={{ libSQLOptions: env.tursor }}
     >
       {children}
