@@ -84,7 +84,10 @@ export const TabView = forwardRef(
       <context.Provider value={ctx}>
         <Box className="absolute bottom-0 h-24 w-full">
           <LinearGradient
-            colors={["transparent", "rgba(0,0,0,0.5)"]}
+            colors={[
+              "transparent",
+              theme === "dark" ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.3)",
+            ]}
             style={{ flex: 1 }}
           />
         </Box>

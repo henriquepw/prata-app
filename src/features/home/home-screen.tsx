@@ -9,6 +9,7 @@ import { Heading } from "~/shared/components/heading"
 import { ScreenRoot } from "~/shared/components/layouts/screen"
 import { SkeletonBarChart } from "~/shared/components/skeleton/skeleton-bar-chart"
 import { OutcomeByBalanceChart } from "../transaction/components/charts/outcome-by-balance-chart"
+import { YearlyOutcomeChart } from "../transaction/components/charts/yearly-outcome-chart"
 import { TransactionLastList } from "../transaction/components/transation-last-list"
 import { Carousel } from "./components/carousel"
 import { UserHeader } from "./components/user-header"
@@ -28,7 +29,7 @@ export function HomeScreen() {
         <Suspense fallback={<SkeletonBarChart />}>
           <Carousel>
             <OutcomeByBalanceChart />
-            {/* <YearlyOutcomeChart /> */}
+            <YearlyOutcomeChart />
           </Carousel>
         </Suspense>
 
