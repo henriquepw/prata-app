@@ -11,7 +11,10 @@ import Animated, {
 import { Icon } from "~/shared/components/icon"
 import { Text } from "~/shared/components/text"
 
-function RightAction(_prog: SharedValue<number>, drag: SharedValue<number>) {
+type RightActionProps = {
+  drag: SharedValue<number>
+}
+function RightAction({ drag }: RightActionProps) {
   const { width } = useWindowDimensions()
   const containerStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: drag.value + width - 28 }],
@@ -42,7 +45,7 @@ export const RecurrenceSwipe = forwardRef(
         onSwipeableOpen={onDelete}
         overshootRight={false}
         ref={ref}
-        renderRightActions={RightAction}
+        renderRightActions={(_prog, drag) => <RightAction drag={drag} />}
         rightThreshold={40}
       >
         {children}

@@ -30,4 +30,5 @@ const Background = React.forwardRef<View, Props>(
 )
 
 Background.displayName = "Background"
+
 export { Background }

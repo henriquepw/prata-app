@@ -10,15 +10,15 @@ export type Page<T> = {
 export const api = publicApi.extend({
   hooks: {
     beforeRequest: [
-      async (r) => {
-        console.info("REQUEST: ", r.method, " ", r.url)
+      async ({ request }) => {
+        console.info("REQUEST: ", request.method, " ", request.url)
         try {
-          console.info("BODY: ", await r.clone().json())
+          console.info("BODY: ", await request.clone().json())
         } catch {
           console.info("BODY: - ")
         }
       },
-      async (request) => {
+      async ({ request }) => {
         const auth = useAuth.getState()
         if (!auth.isSignedIn) {
           return
@@ -37,8 +37,8 @@ export const api = publicApi.extend({
       },
     ],
     afterResponse: [
-      async (_, __, response) => {
-        let body: any
+      async ({ response }) => {
+        let body: unknown
         try {
           body = await response.clone().json()
         } catch {

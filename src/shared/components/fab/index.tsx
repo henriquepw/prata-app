@@ -223,4 +223,4 @@ Fab.displayName = "Fab"
 FabLabel.displayName = "FabLabel"
 FabIcon.displayName = "FabIcon"
 
-export { Fab, FabLabel, FabIcon }
+export { Fab, FabIcon, FabLabel }

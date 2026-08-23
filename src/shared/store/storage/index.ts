@@ -1,10 +1,10 @@
-import { MMKV } from "react-native-mmkv"
+import { createMMKV } from "react-native-mmkv"
 import type { Storage } from "./type"
 
-const mmkv = new MMKV()
+const mmkv = createMMKV()
 
 export const storage: Storage = {
   setItem: (key, value) => mmkv.set(key, value),
   getItem: (key) => mmkv.getString(key) ?? null,
-  removeItem: (key) => mmkv.delete(key),
+  removeItem: (key) => void mmkv.remove(key),
 }

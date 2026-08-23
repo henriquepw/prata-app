@@ -1,6 +1,4 @@
 import "../../assets/global.css"
-import "abortcontroller-polyfill/dist/polyfill-patch-fetch"
-
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { StatusBar } from "expo-status-bar"
@@ -54,7 +52,7 @@ export default function RootLayout() {
     <GluestackUIProvider mode={theme}>
       <StoreProvider>
         <GestureHandlerRootView>
-          <StatusBar style={theme === "dark" ? "light" : "dark"} translucent />
+          <StatusBar style={theme === "dark" ? "light" : "dark"} />
           <Main />
         </GestureHandlerRootView>
       </StoreProvider>

@@ -557,16 +557,16 @@ const ActionsheetIcon = React.forwardRef<
 
 export {
   Actionsheet,
+  ActionsheetBackdrop,
   ActionsheetContent,
-  ActionsheetItem,
-  ActionsheetItemText,
   ActionsheetDragIndicator,
   ActionsheetDragIndicatorWrapper,
-  ActionsheetBackdrop,
-  ActionsheetScrollView,
-  ActionsheetVirtualizedList,
   ActionsheetFlatList,
-  ActionsheetSectionList,
-  ActionsheetSectionHeaderText,
   ActionsheetIcon,
+  ActionsheetItem,
+  ActionsheetItemText,
+  ActionsheetScrollView,
+  ActionsheetSectionHeaderText,
+  ActionsheetSectionList,
+  ActionsheetVirtualizedList,
 }

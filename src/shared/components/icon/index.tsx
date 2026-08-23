@@ -116,4 +116,5 @@ const createIconUI = ({ ...props }: ParameterTypes) => {
     },
   )
 }
+
 export { createIconUI as createIcon }

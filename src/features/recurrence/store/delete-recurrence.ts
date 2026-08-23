@@ -3,7 +3,7 @@ import { api } from "~/shared/api"
 import { queryKeys } from "./types"
 
 async function deleteRecurrence(id: string) {
-  await api.delete(`me/recurrences/${id}`).json()
+  await api.delete(`me/recurrences/${id}`)
 }
 
 export function useDeleteRecurrence() {

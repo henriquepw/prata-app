@@ -461,11 +461,11 @@ FormControlHelperText.displayName = "FormControlHelperText"
 export {
   FormControl,
   FormControlError,
-  FormControlErrorText,
   FormControlErrorIcon,
-  FormControlLabel,
-  FormControlLabelText,
-  FormControlLabelAstrick,
+  FormControlErrorText,
   FormControlHelper,
   FormControlHelperText,
+  FormControlLabel,
+  FormControlLabelAstrick,
+  FormControlLabelText,
 }

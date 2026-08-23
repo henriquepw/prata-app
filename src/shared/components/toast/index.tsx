@@ -237,4 +237,4 @@ Toast.displayName = "Toast"
 ToastTitle.displayName = "ToastTitle"
 ToastDescription.displayName = "ToastDescription"
 
-export { useToast, Toast, ToastTitle, ToastDescription }
+export { Toast, ToastDescription, ToastTitle, useToast }

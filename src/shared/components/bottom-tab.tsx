@@ -94,9 +94,9 @@ export const TabView = forwardRef(
         <BlurView
           blurReductionFactor={5}
           className={
-            "-translate-x-1/2 absolute bottom-10 left-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border border-outline-100 px-1.5 py-1"
+            "absolute bottom-10 left-1/2 -translate-x-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border border-outline-100 px-1.5 py-1"
           }
-          experimentalBlurMethod={blueMethod}
+          blurMethod={blueMethod}
           intensity={100}
           ref={ref}
           tint={theme}
