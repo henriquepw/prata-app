@@ -5,11 +5,11 @@ import Animated, {
   FadeOutRight,
   LinearTransition,
 } from "react-native-reanimated"
-import { Box } from "~/shared/components/box"
-import { Button, ButtonIcon } from "~/shared/components/button"
-import { Input, type InputRef } from "~/shared/components/form/fields/input"
-import { MoneyPrefix } from "~/shared/components/form/prefix"
-import { Text } from "~/shared/components/text"
+import { Box } from "~/components/box"
+import { Button, ButtonIcon } from "~/components/button"
+import { Input, type InputRef } from "~/components/form/fields/input"
+import { MoneyPrefix } from "~/components/form/prefix"
+import { Text } from "~/components/text"
 
 const ENTERING = FadeInDown.duration(200)
 const EXITING = FadeOutRight.duration(150)

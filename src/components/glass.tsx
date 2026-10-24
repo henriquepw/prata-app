@@ -1,7 +1,7 @@
 import { BlurView } from "expo-blur"
 import type React from "react"
 import { Platform, View } from "react-native"
-import { cn } from "~/shared/utils/cn"
+import { cn } from "~/lib/cn"
 
 type Props = {
   children?: React.ReactNode

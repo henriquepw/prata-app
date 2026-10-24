@@ -1,7 +1,7 @@
-import { Box } from "~/shared/components/box"
-import { Text } from "~/shared/components/text"
-import { formatAmount } from "~/shared/utils/format-amount"
-import { formatDate } from "~/shared/utils/format-date"
+import { Box } from "~/components/box"
+import { Text } from "~/components/text"
+import { formatAmount } from "~/lib/format-amount"
+import { formatDate } from "~/lib/format-date"
 import { type Transaction, TransactionType } from "../store/types"
 
 type Props = {

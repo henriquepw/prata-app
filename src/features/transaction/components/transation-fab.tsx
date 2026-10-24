@@ -18,12 +18,12 @@ import Animated, {
   ZoomOut,
 } from "react-native-reanimated"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { Box } from "~/shared/components/box"
-import { Glass } from "~/shared/components/glass"
-import { Icon } from "~/shared/components/icon"
-import { Text } from "~/shared/components/text"
-import { useToggle } from "~/shared/hooks/use-toggle"
-import { cn } from "~/shared/utils/cn"
+import { Box } from "~/components/box"
+import { Glass } from "~/components/glass"
+import { Icon } from "~/components/icon"
+import { Text } from "~/components/text"
+import { useToggle } from "~/hooks/use-toggle"
+import { cn } from "~/lib/cn"
 
 const BTN_OPEN_SCALE = 0.6
 

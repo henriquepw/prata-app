@@ -1,5 +1,5 @@
 import { PixelRatio, useWindowDimensions } from "react-native"
-import { PieChart } from "~/shared/components/chart/pie"
+import { PieChart } from "~/components/chart/pie"
 import { useBalance } from "../store/balance"
 
 export function BalanceChart() {

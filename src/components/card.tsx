@@ -2,7 +2,7 @@ import type { VariantProps } from "@gluestack-ui/nativewind-utils"
 import { tva } from "@gluestack-ui/nativewind-utils/tva"
 import React from "react"
 import { View, type ViewProps } from "react-native"
-import { cn } from "../utils/cn"
+import { cn } from "~/lib/cn"
 import { Glass } from "./glass"
 import { Heading, type HeadingProps } from "./heading"
 

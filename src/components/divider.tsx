@@ -1,5 +1,5 @@
 import { View } from "react-native"
-import { cn } from "~/shared/utils/cn"
+import { cn } from "~/lib/cn"
 
 type Props = {
   className?: string

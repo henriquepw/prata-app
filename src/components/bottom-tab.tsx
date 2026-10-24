@@ -22,7 +22,7 @@ import Animated, {
   withSequence,
   withSpring,
 } from "react-native-reanimated"
-import { Icon } from "~/shared/components/icon"
+import { Icon } from "~/components/icon"
 import { useTheme } from "~/shared/store/theme"
 import { Box } from "./box"
 import { Text } from "./text"

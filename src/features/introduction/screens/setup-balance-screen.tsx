@@ -13,13 +13,13 @@ import { IntroChartTitle } from "~/features/introduction/components/intro-chart-
 import { IntroHeader } from "~/features/introduction/components/intro-header"
 import { getIncome, useIncome } from "~/features/introduction/store/intro"
 import { useCreateRecurrence } from "~/features/recurrence/store/create-recurrence"
-import { Background } from "~/shared/components/background"
-import { Box } from "~/shared/components/box"
-import { Button, ButtonIcon, ButtonText } from "~/shared/components/button"
-import { PieChart } from "~/shared/components/chart/pie"
-import { useAppForm } from "~/shared/components/form"
-import { Text } from "~/shared/components/text"
-import { getOnlyDigits } from "~/shared/utils/format-amount"
+import { Background } from "~/components/background"
+import { Box } from "~/components/box"
+import { Button, ButtonIcon, ButtonText } from "~/components/button"
+import { PieChart } from "~/components/chart/pie"
+import { useAppForm } from "~/components/form"
+import { Text } from "~/components/text"
+import { getOnlyDigits } from "~/lib/format-amount"
 
 type Piece = {
   label: string

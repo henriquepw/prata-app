@@ -1,5 +1,5 @@
-import { Box } from "~/shared/components/box"
-import { cn } from "~/shared/utils/cn"
+import { Box } from "~/components/box"
+import { cn } from "~/lib/cn"
 
 type Props = {
   className?: string

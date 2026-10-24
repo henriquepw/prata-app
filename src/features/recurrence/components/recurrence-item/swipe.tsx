@@ -8,8 +8,8 @@ import Animated, {
   type SharedValue,
   useAnimatedStyle,
 } from "react-native-reanimated"
-import { Icon } from "~/shared/components/icon"
-import { Text } from "~/shared/components/text"
+import { Icon } from "~/components/icon"
+import { Text } from "~/components/text"
 
 type RightActionProps = {
   drag: SharedValue<number>

@@ -10,7 +10,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated"
 import type { AnimatedScrollView } from "react-native-reanimated/lib/typescript/component/ScrollView"
-import { THEME } from "~/shared/components/gluestack-ui-provider/config"
+import { THEME } from "~/components/gluestack-ui-provider/config"
 
 type IndicatorProps = {
   onPress: () => void

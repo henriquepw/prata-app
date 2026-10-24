@@ -1,7 +1,7 @@
 import { Canvas, FractalNoise, Rect } from "@shopify/react-native-skia"
 import React from "react"
 import { useWindowDimensions, View } from "react-native"
-import { cn } from "~/shared/utils/cn"
+import { cn } from "~/lib/cn"
 
 interface Props {
   className?: string

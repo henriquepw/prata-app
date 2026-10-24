@@ -4,10 +4,10 @@ import {
   BalanceView,
   BalanceViewFallback,
 } from "~/features/balance/components/balance-view"
-import { BottomTabGap } from "~/shared/components/bottom-tab"
-import { Heading } from "~/shared/components/heading"
-import { ScreenRoot } from "~/shared/components/layouts/screen"
-import { SkeletonBarChart } from "~/shared/components/skeleton/skeleton-bar-chart"
+import { BottomTabGap } from "~/components/bottom-tab"
+import { Heading } from "~/components/heading"
+import { ScreenRoot } from "~/components/layouts/screen"
+import { SkeletonBarChart } from "~/components/skeleton/skeleton-bar-chart"
 import { OutcomeByBalanceChart } from "../transaction/components/charts/outcome-by-balance-chart"
 import { YearlyOutcomeChart } from "../transaction/components/charts/yearly-outcome-chart"
 import { TransactionLastList } from "../transaction/components/transation-last-list"

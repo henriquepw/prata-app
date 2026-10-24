@@ -1,4 +1,4 @@
-import { ScreenHeader, ScreenRoot } from "~/shared/components/layouts/screen"
+import { ScreenHeader, ScreenRoot } from "~/components/layouts/screen"
 
 export function TransactionListScreen() {
   return (

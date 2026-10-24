@@ -1,9 +1,9 @@
 import { Link } from "expo-router"
 import { useTransactions } from "~/features/transaction/store/transation"
-import { Box } from "~/shared/components/box"
-import { Button, ButtonText } from "~/shared/components/button"
-import { Skeleton } from "~/shared/components/skeleton"
-import { Text } from "~/shared/components/text"
+import { Box } from "~/components/box"
+import { Button, ButtonText } from "~/components/button"
+import { Skeleton } from "~/components/skeleton"
+import { Text } from "~/components/text"
 import { TransationCard } from "./transation-card"
 
 export function TransactionLastList() {

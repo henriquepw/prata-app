@@ -1,7 +1,7 @@
 import { useTransactions } from "~/features/transaction/store/transation"
-import { Box } from "~/shared/components/box"
-import { Skeleton } from "~/shared/components/skeleton"
-import { Text } from "~/shared/components/text"
+import { Box } from "~/components/box"
+import { Skeleton } from "~/components/skeleton"
+import { Text } from "~/components/text"
 import { TransationCard } from "./transation-card"
 
 export function TransactionList() {

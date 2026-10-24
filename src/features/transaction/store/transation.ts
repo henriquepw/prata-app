@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { api, type Page } from "~/shared/api"
-import { formatISO } from "~/shared/utils/format-date"
+import { formatISO } from "~/lib/format-date"
 import { useIsSignedIn } from "../../auth/store/auth"
 import {
   queryKeys,

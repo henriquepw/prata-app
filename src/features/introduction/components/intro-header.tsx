@@ -1,7 +1,7 @@
-import { Box } from "~/shared/components/box"
-import { Heading } from "~/shared/components/heading"
-import { Text } from "~/shared/components/text"
-import { cn } from "~/shared/utils/cn"
+import { Box } from "~/components/box"
+import { Heading } from "~/components/heading"
+import { Text } from "~/components/text"
+import { cn } from "~/lib/cn"
 
 type Props = {
   title: string

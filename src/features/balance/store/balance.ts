@@ -5,7 +5,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query"
 import { api } from "~/shared/api"
-import { newId } from "~/shared/utils/id"
+import { newId } from "~/lib/id"
 import { useIsSignedIn } from "../../../features/auth/store/auth"
 
 const keys = {

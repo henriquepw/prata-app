@@ -10,7 +10,7 @@ import Animated, {
   withSequence,
   withSpring,
 } from "react-native-reanimated"
-import { cn } from "~/shared/utils/cn"
+import { cn } from "~/lib/cn"
 import { Box } from "./box"
 import { Text } from "./text"
 

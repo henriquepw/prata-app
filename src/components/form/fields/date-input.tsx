@@ -1,5 +1,5 @@
 import DateTimePicker from "@react-native-community/datetimepicker"
-import { useStore } from "@tanstack/react-form"
+import { useSelector } from "@tanstack/react-form"
 import { ChevronDownIcon } from "lucide-react-native"
 import { SafeAreaView } from "react-native"
 import {
@@ -12,9 +12,9 @@ import {
   SelectPortal,
   SelectTrigger,
   Select as UISelect,
-} from "~/shared/components/select"
-import { useToggle } from "~/shared/hooks/use-toggle"
-import { formatDate } from "~/shared/utils/format-date"
+} from "~/components/select"
+import { useToggle } from "~/hooks/use-toggle"
+import { formatDate } from "~/lib/format-date"
 import { useFieldContext } from "../context"
 import { Field, type FieldProps } from "../field"
 
@@ -69,7 +69,7 @@ export function DateInput({ value, onChange, placeholder, ...rest }: Props) {
 type FormDateInputProps = Omit<Props, "onChange" | "value">
 export default function FormDateInput(props: FormDateInputProps) {
   const field = useFieldContext<Date>()
-  const errors = useStore(field.store, (state) => state.meta.errors)
+  const errors = useSelector(field.store, (state) => state.meta.errors)
 
   return (
     <DateInput

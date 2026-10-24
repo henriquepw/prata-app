@@ -8,8 +8,8 @@ import {
   useChartPressState,
   type Viewport,
 } from "victory-native"
-import { Card, CardTitle } from "~/shared/components/card"
-import { THEME } from "~/shared/components/gluestack-ui-provider/config"
+import { Card, CardTitle } from "~/components/card"
+import { THEME } from "~/components/gluestack-ui-provider/config"
 import { useChartTransactions } from "../../store/chart"
 import { type Transaction, TransactionType } from "../../store/types"
 

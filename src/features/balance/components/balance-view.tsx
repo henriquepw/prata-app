@@ -1,12 +1,12 @@
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react-native"
 import { useMemo } from "react"
 import { useMontlyTransactions } from "~/features/transaction/store/montly-transactions"
-import { Box } from "~/shared/components/box"
-import { Icon } from "~/shared/components/icon"
-import { SkeletonText } from "~/shared/components/skeleton"
-import { Text } from "~/shared/components/text"
-import { formatAmount } from "~/shared/utils/format-amount"
-import { formatMonth } from "~/shared/utils/format-date"
+import { Box } from "~/components/box"
+import { Icon } from "~/components/icon"
+import { SkeletonText } from "~/components/skeleton"
+import { Text } from "~/components/text"
+import { formatAmount } from "~/lib/format-amount"
+import { formatMonth } from "~/lib/format-date"
 
 export function BalanceViewFallback() {
   return (

@@ -1,5 +1,5 @@
-import { Card } from "~/shared/components/card"
-import { Text } from "~/shared/components/text"
+import { Card } from "~/components/card"
+import { Text } from "~/components/text"
 import { Frequence } from "../store/types"
 
 export const frequenceLabel = {

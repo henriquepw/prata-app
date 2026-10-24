@@ -10,7 +10,7 @@ import {
   ReanimatedLogLevel,
 } from "react-native-reanimated"
 import { useIsSignedIn } from "~/features/auth/store/auth"
-import { GluestackUIProvider } from "~/shared/components/gluestack-ui-provider"
+import { GluestackUIProvider } from "~/components/gluestack-ui-provider"
 import { StoreProvider } from "../shared/store"
 import { useTheme } from "../shared/store/theme"
 
