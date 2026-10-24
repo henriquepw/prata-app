@@ -1,4 +1,3 @@
-"use client"
 import { createFormControl } from "@gluestack-ui/core/form-control/creator"
 import { UIIcon } from "@gluestack-ui/core/icon/creator"
 import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"

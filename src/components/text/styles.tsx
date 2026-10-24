@@ -1,11 +1,7 @@
-import { isWeb, tva } from "@gluestack-ui/utils/nativewind-utils"
-
-const baseStyle = isWeb
-  ? "font-sans tracking-sm my-0 bg-transparent border-0 box-border display-inline list-none margin-0 padding-0 position-relative text-start no-underline whitespace-pre-wrap word-wrap-break-word"
-  : ""
+import { tva } from "@gluestack-ui/utils/nativewind-utils"
 
 export const textStyle = tva({
-  base: `text-foreground/80 font-body ${baseStyle}`,
+  base: "text-foreground/80 font-body",
 
   variants: {
     isTruncated: {

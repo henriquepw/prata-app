@@ -171,7 +171,7 @@ export function SetupBalanceScreen() {
           </Box>
 
           <Box className="mt-auto mb-4 flex-row items-center justify-between gap-4">
-            <Button onPress={router.back} size="lg" variant="outline">
+            <Button onPress={() => router.back()} size="lg" variant="outline">
               <ButtonIcon as={ChevronLeftIcon} />
               <ButtonText>Voltar</ButtonText>
             </Button>

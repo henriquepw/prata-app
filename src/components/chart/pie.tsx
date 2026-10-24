@@ -24,8 +24,9 @@ export function PieChart({ children, radius, data, strokeWidth }: Props) {
   const innerRadius = radius - strokeWidth
   const theme = useTheme()
   const paths = useMemo(() => {
-    const path = Skia.Path.Make()
-    path.addCircle(radius, radius, innerRadius)
+    const path = Skia.PathBuilder.Make()
+      .addCircle(radius, radius, innerRadius)
+      .detach()
 
     const paths = [
       <Path

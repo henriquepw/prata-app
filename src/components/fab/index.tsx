@@ -1,4 +1,3 @@
-"use client"
 import { createFab } from "@gluestack-ui/core/fab/creator"
 import { UIIcon } from "@gluestack-ui/core/icon/creator"
 import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"

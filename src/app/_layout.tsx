@@ -3,7 +3,7 @@ import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { StatusBar } from "expo-status-bar"
 import { useEffect } from "react"
-import { Appearance, Platform } from "react-native"
+import { Appearance } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import {
   configureReanimatedLogger,
@@ -43,9 +43,7 @@ function Main() {
 export default function RootLayout() {
   const theme = useTheme()
   useEffect(() => {
-    if (Platform.OS !== "web") {
-      Appearance.setColorScheme(theme)
-    }
+    Appearance.setColorScheme(theme)
   }, [theme])
 
   return (

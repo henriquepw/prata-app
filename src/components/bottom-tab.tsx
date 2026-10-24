@@ -112,7 +112,7 @@ export const TabView = forwardRef(
   },
 )
 
-type BtnProps = TabTriggerSlotProps & {
+type BtnProps = Omit<TabTriggerSlotProps, "ref"> & {
   icon: React.ElementType
   index: number
   label: string
@@ -120,7 +120,7 @@ type BtnProps = TabTriggerSlotProps & {
 export const TabButton = forwardRef(
   (
     { index, label, icon, children, isFocused, ...props }: BtnProps,
-    ref: Ref<View>,
+    ref: Ref<React.ComponentRef<typeof View>>,
   ) => {
     const ctx = use(context)
 

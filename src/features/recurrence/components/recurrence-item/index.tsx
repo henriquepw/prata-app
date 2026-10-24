@@ -17,7 +17,7 @@ export function RecurrenceItem({ item }: Props) {
   const [isOpen, openDetail, closeDetail] = useBoolean()
 
   const swipeRef = useRef<SwipeableMethods>(null)
-  const rootRef = useRef<View>(null)
+  const rootRef = useRef<React.ComponentRef<typeof View>>(null)
   const top = useSharedValue(0)
   useEffect(() => {
     rootRef.current?.measure((_x, _y, _width, _height, _pageX, pageY) => {

@@ -12,11 +12,11 @@ export function IntroChartTitle({ radius }: Props) {
   const income = useIncome()
 
   const titleFont = useFont(
-    require("node_modules/@expo-google-fonts/montserrat/400Regular/Montserrat_400Regular.ttf"),
+    require("node_modules/@expo-google-fonts/ibm-plex-mono/400Regular/IBMPlexMono_400Regular.ttf"),
     20,
   )
   const amountFont = useFont(
-    require("node_modules/@expo-google-fonts/montserrat/700Bold/Montserrat_700Bold.ttf"),
+    require("node_modules/@expo-google-fonts/ibm-plex-mono/700Bold/IBMPlexMono_700Bold.ttf"),
     24,
   )
 

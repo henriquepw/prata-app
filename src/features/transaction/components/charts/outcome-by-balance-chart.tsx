@@ -72,7 +72,7 @@ function TotalLabel({ radius, total }: { radius: number; total: number }) {
   const textColor = theme === "light" ? "black" : "white"
 
   const amountFont = useFont(
-    require("node_modules/@expo-google-fonts/montserrat/700Bold/Montserrat_700Bold.ttf"),
+    require("node_modules/@expo-google-fonts/ibm-plex-mono/700Bold/IBMPlexMono_700Bold.ttf"),
     20,
   )
   if (!amountFont) {

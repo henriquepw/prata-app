@@ -1,4 +1,3 @@
-"use client"
 import {
   createIcon,
   type IPrimitiveIcon,

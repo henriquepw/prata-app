@@ -66,7 +66,7 @@ export function YearlyOutcomeChart() {
   })
 
   const font = useFont(
-    require("node_modules/@expo-google-fonts/montserrat/400Regular/Montserrat_400Regular.ttf"),
+    require("node_modules/@expo-google-fonts/ibm-plex-mono/400Regular/IBMPlexMono_400Regular.ttf"),
     12,
   )
 

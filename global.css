@@ -53,8 +53,8 @@
     }
 
     @variant ios {
-      --font-heading: Montserrat-Bold;
-      --font-body: Poppins-Regular;
+      --font-heading: IBMPlexMono-Bold;
+      --font-body: IBMPlexMono-Regular;
     }
   }
 }
@@ -85,8 +85,8 @@
 }
 
 @theme {
-  --font-heading: Montserrat_700Bold;
-  --font-body: Poppins_400Regular;
+  --font-heading: IBMPlexMono_700Bold;
+  --font-body: IBMPlexMono_400Regular;
 
   --text-2xs: 10px;
   --font-weight-extrablack: 950;

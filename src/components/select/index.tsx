@@ -1,5 +1,3 @@
-"use client"
-
 import { UIIcon } from "@gluestack-ui/core/icon/creator"
 import { createSelect } from "@gluestack-ui/core/select/creator"
 import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"

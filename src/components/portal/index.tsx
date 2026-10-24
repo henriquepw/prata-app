@@ -1,4 +1,3 @@
-"use client"
 import { Overlay } from "@gluestack-ui/core/overlay/creator"
 import React from "react"
 import { withUniwind } from "uniwind"

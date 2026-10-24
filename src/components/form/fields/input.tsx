@@ -22,9 +22,9 @@ interface Props extends FieldProps, IInputFieldProps {
   mask?: InputMask
 }
 
-export type InputRef = TextInput
+export type InputRef = React.ComponentRef<typeof TextInput>
 
-export const Input = forwardRef<TextInput, Props>(
+export const Input = forwardRef<InputRef, Props>(
   (
     {
       prefix,

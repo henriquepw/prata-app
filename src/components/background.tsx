@@ -8,7 +8,7 @@ interface Props {
   children?: React.ReactNode
 }
 
-const Background = React.forwardRef<View, Props>(
+const Background = React.forwardRef<React.ComponentRef<typeof View>, Props>(
   ({ className, children }, ref) => {
     const { width, height } = useWindowDimensions()
 
