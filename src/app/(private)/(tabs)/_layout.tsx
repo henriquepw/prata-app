@@ -1,7 +1,7 @@
 import { TabList, TabSlot, Tabs, TabTrigger } from "expo-router/ui"
 import { HomeIcon, PinIcon } from "lucide-react-native"
-import { TransationFab } from "~/features/transaction/components/transation-fab"
 import { TabButton, TabView } from "~/components/bottom-tab"
+import { TransationFab } from "~/features/transaction/components/transation-fab"
 
 export default function TabLayout() {
   return (

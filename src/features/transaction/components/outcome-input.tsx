@@ -58,7 +58,7 @@ export function OutcomeInput({
     <Animated.View entering={ENTERING} exiting={EXITING} layout={LAYOUT}>
       <Box className="flex-row items-center gap-3">
         <Box className="ml-2 w-4 justify-end">
-          <Text className="self-end font-bold text-lg" numberOfLines={1}>
+          <Text className="self-end text-lg font-bold" numberOfLines={1}>
             {index + 1}.
           </Text>
         </Box>
@@ -69,7 +69,7 @@ export function OutcomeInput({
             onFocus={onFocus}
             onSubmitEditing={() => isFocused && descriptionRef.current?.focus()}
             placeholder="0,00"
-            prefix={<MoneyPrefix className="font-normal text-lg" />}
+            prefix={<MoneyPrefix className="text-lg font-normal" />}
             ref={amountRef}
             returnKeyType="next"
             value={value.amount}

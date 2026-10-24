@@ -1,5 +1,5 @@
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import { tva } from "@gluestack-ui/nativewind-utils/tva"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
+import { tva } from "@gluestack-ui/utils/nativewind-utils"
 import React from "react"
 import { View, type ViewProps } from "react-native"
 import { cn } from "~/lib/cn"
@@ -31,7 +31,7 @@ const cardStyle = tva({
     },
     variant: {
       outline: {
-        root: "border border-outline-100",
+        root: "border border-border",
       },
       ghost: {
         root: "rounded-none",

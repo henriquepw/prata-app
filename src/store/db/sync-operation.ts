@@ -1,4 +1,8 @@
-export type SyncOperationEntity = "CATEGORY" | "TAG" | "TRANSACTION" | "RECURRENCE"
+export type SyncOperationEntity =
+  | "CATEGORY"
+  | "TAG"
+  | "TRANSACTION"
+  | "RECURRENCE"
 
 export type SyncOperationKind = "CREATE" | "UPDATE" | "DELETE"
 

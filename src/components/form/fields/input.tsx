@@ -73,7 +73,7 @@ export const Input = forwardRef<TextInput, Props>(
           {...conteinerProps}
           className={cn(
             "gap-2 px-2 text-neutral-500",
-            isActive && "border-primary-500",
+            isActive && "border-primary",
             conteinerProps.className,
           )}
           variant={rest.variant}

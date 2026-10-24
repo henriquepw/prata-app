@@ -81,10 +81,7 @@ export function SignInScreen() {
             </form.AppForm>
             <Box className="mt-2 flex-row items-center justify-center gap-2">
               <Text>Não possui uma conta?</Text>
-              <Link
-                className="text-primary-600 underline"
-                href="/(auth)/sign-up"
-              >
+              <Link className="text-primary underline" href="/(auth)/sign-up">
                 Cadastrar
               </Link>
             </Box>

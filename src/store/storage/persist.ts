@@ -1,7 +1,6 @@
 import { create, type StateCreator } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
-import { storage } from "."
-import { secureStorage } from "./secure"
+import { secureStorage, storage } from "."
 
 export function createPersistStore<T>(
   name: string,

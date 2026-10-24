@@ -1,10 +1,10 @@
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react-native"
 import { useMemo } from "react"
-import { useMontlyTransactions } from "~/features/transaction/store/montly-transactions"
 import { Box } from "~/components/box"
 import { Icon } from "~/components/icon"
 import { SkeletonText } from "~/components/skeleton"
 import { Text } from "~/components/text"
+import { useMontlyTransactions } from "~/features/transaction/store/montly-transactions"
 import { formatAmount } from "~/lib/format-amount"
 import { formatMonth } from "~/lib/format-date"
 
@@ -44,12 +44,10 @@ export function BalanceView() {
 
   return (
     <Box className="my-6 items-center">
-      <Text className="mb-0.5 w-full text-center text-typography-600 capitalize">
+      <Text className="text-muted-foreground mb-0.5 w-full text-center capitalize">
         {formatMonth(new Date())}
       </Text>
-      <Text className="font-bold text-4xl text-primary-500">
-        {totals.current}
-      </Text>
+      <Text className="text-primary text-4xl font-bold">{totals.current}</Text>
       <Box className="w-full flex-row justify-between">
         <Box className="flex-row items-center gap-1">
           <Icon as={ArrowUpIcon} className="text-green-500" />

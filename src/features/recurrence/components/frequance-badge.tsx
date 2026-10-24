@@ -16,7 +16,7 @@ type Props = {
 export function FrequenceBadge({ value }: Props) {
   return (
     <Card className="rounded-md px-1" size="xs">
-      <Text className="text-secondary-500 leading-5 tracking-wide" size="sm">
+      <Text className="text-primary leading-5 tracking-wide" size="sm">
         {frequenceLabel[value]}
       </Text>
     </Card>

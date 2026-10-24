@@ -5,5 +5,5 @@ type Props = {
   className?: string
 }
 export function Divider({ className }: Props) {
-  return <View className={cn("border-b border-b-outline-50", className)} />
+  return <View className={cn("border-b-outline-50 border-b", className)} />
 }

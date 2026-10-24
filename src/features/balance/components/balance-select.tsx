@@ -1,4 +1,3 @@
-import { useBalance } from "~/features/balance/store/balance"
 import { Field } from "~/components/form/field"
 import {
   Select,
@@ -6,6 +5,7 @@ import {
   type SelectProps,
 } from "~/components/form/fields/select"
 import { Skeleton } from "~/components/skeleton"
+import { useBalance } from "~/features/balance/store/balance"
 
 export function BalanceSelect(props: Omit<SelectProps, "children">) {
   const balance = useBalance()

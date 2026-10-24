@@ -1,4 +1,4 @@
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
 import type React from "react"
 import { forwardRef } from "react"
 import { Animated, Easing, Platform, View } from "react-native"
@@ -25,7 +25,7 @@ const Skeleton = forwardRef<
     className,
     variant,
     children,
-    startColor = "bg-background-200",
+    startColor = "bg-accent",
     isLoaded = false,
     speed = 2,
     ...props
@@ -85,7 +85,7 @@ const SkeletonText = forwardRef<
     className,
     _lines,
     isLoaded = false,
-    startColor = "bg-background-200",
+    startColor = "bg-accent",
     gap = 2,
     children,
     ...props

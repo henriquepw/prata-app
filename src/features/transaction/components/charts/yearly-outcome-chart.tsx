@@ -2,6 +2,7 @@ import { Circle, useFont } from "@shopify/react-native-skia"
 import { useMemo } from "react"
 import { View } from "react-native"
 import type { SharedValue } from "react-native-reanimated"
+import { useCSSVariable } from "uniwind"
 import {
   Bar,
   CartesianChart,
@@ -9,7 +10,6 @@ import {
   type Viewport,
 } from "victory-native"
 import { Card, CardTitle } from "~/components/card"
-import { THEME } from "~/components/gluestack-ui-provider/config"
 import { useChartTransactions } from "../../store/chart"
 import { type Transaction, TransactionType } from "../../store/types"
 
@@ -53,10 +53,10 @@ const month = [
 ]
 
 const viewport: Viewport = { x: [-1, 12] } as const
-const barColor = `rgb(${THEME.primary[5]})` as const
 const roundedCorners = { topLeft: 4, topRight: 4 } as const
 
 export function YearlyOutcomeChart() {
+  const barColor = useCSSVariable("--color-primary") as string
   const trx = useChartTransactions()
   const data = useMemo(() => parseChartData(trx.data || []), [trx.data])
 

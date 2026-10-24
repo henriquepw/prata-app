@@ -1,13 +1,12 @@
 "use client"
-import { createButton } from "@gluestack-ui/button"
-import { PrimitiveIcon, UIIcon } from "@gluestack-ui/icon"
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import { tva } from "@gluestack-ui/nativewind-utils/tva"
+import { createButton } from "@gluestack-ui/core/button/creator"
+import { UIIcon } from "@gluestack-ui/core/icon/creator"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
 import {
+  tva,
   useStyleContext,
   withStyleContext,
-} from "@gluestack-ui/nativewind-utils/withStyleContext"
-import { cssInterop } from "nativewind"
+} from "@gluestack-ui/utils/nativewind-utils"
 import React from "react"
 import {
   ActivityIndicator,
@@ -21,51 +20,41 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated"
+import { withUniwind } from "uniwind"
 
 const SCOPE = "BUTTON"
 
 const Root = withStyleContext(Pressable, SCOPE)
+
+const StyledUIIcon = withUniwind(UIIcon)
 
 const UIButton = createButton({
   Root,
   Text,
   Group: View,
   Spinner: ActivityIndicator,
-  Icon: UIIcon,
-})
-
-cssInterop(PrimitiveIcon, {
-  className: {
-    target: "style",
-    nativeStyleToProp: {
-      height: true,
-      width: true,
-      fill: true,
-      color: "classNameColor",
-      stroke: true,
-    },
-  },
+  Icon: StyledUIIcon,
 })
 
 const buttonStyle = tva({
-  base: "group/button rounded bg-primary-500 flex-row items-center justify-center data-[focus-visible=true]:web:outline-none data-[focus-visible=true]:web:ring-2 data-[disabled=true]:opacity-40 gap-2",
+  base: "group/button rounded bg-primary flex-row items-center justify-center data-[focus-visible=true]:web:outline-none data-[focus-visible=true]:web:ring-2 data-[disabled=true]:opacity-40 gap-2",
   variants: {
     action: {
       primary:
-        "bg-primary-500 data-[hover=true]:bg-primary-600 data-[active=true]:bg-primary-700 border-primary-300 data-[hover=true]:border-primary-400 data-[active=true]:border-primary-500 data-[focus-visible=true]:web:ring-indicator-info",
+        "bg-primary data-[hover=true]:bg-primary data-[active=true]:bg-primary border-primary data-[hover=true]:border-primary data-[active=true]:border-primary data-[focus-visible=true]:web:ring-info",
       secondary:
-        "bg-secondary-500 border-secondary-300 data-[hover=true]:bg-secondary-600 data-[hover=true]:border-secondary-400 data-[active=true]:bg-secondary-700 data-[active=true]:border-secondary-700 data-[focus-visible=true]:web:ring-indicator-info",
+        "bg-secondary-500 border-secondary-300 data-[hover=true]:bg-secondary-600 data-[hover=true]:border-secondary-400 data-[active=true]:bg-secondary-700 data-[active=true]:border-secondary-700 data-[focus-visible=true]:web:ring-info",
       positive:
-        "bg-success-500 border-success-300 data-[hover=true]:bg-success-600 data-[hover=true]:border-success-400 data-[active=true]:bg-success-700 data-[active=true]:border-success-500 data-[focus-visible=true]:web:ring-indicator-info",
+        "bg-success border-success data-[hover=true]:bg-success data-[hover=true]:border-success data-[active=true]:bg-success data-[active=true]:border-success data-[focus-visible=true]:web:ring-info",
       negative:
-        "bg-error-500 border-error-300 data-[hover=true]:bg-error-600 data-[hover=true]:border-error-400 data-[active=true]:bg-error-700 data-[active=true]:border-error-500 data-[focus-visible=true]:web:ring-indicator-info",
+        "bg-destructive border-destructive data-[hover=true]:bg-destructive data-[hover=true]:border-destructive data-[active=true]:bg-destructive data-[active=true]:border-destructive data-[focus-visible=true]:web:ring-info",
       default:
-        "bg-transparent data-[hover=true]:bg-background-50 data-[active=true]:bg-transparent",
+        "bg-transparent data-[hover=true]:bg-card data-[active=true]:bg-transparent",
     },
     variant: {
       link: "px-0",
       outline:
-        "bg-transparent border data-[hover=true]:bg-background-50 data-[active=true]:bg-transparent",
+        "bg-transparent border data-[hover=true]:bg-card data-[active=true]:bg-transparent",
       solid: "",
     },
 
@@ -106,47 +95,47 @@ const buttonStyle = tva({
       action: "primary",
       variant: "outline",
       class:
-        "bg-transparent data-[hover=true]:bg-background-50 data-[active=true]:bg-transparent",
+        "bg-transparent data-[hover=true]:bg-card data-[active=true]:bg-transparent",
     },
     {
       action: "secondary",
       variant: "outline",
       class:
-        "bg-transparent data-[hover=true]:bg-background-50 data-[active=true]:bg-transparent",
+        "bg-transparent data-[hover=true]:bg-card data-[active=true]:bg-transparent",
     },
     {
       action: "positive",
       variant: "outline",
       class:
-        "bg-transparent data-[hover=true]:bg-background-50 data-[active=true]:bg-transparent",
+        "bg-transparent data-[hover=true]:bg-card data-[active=true]:bg-transparent",
     },
     {
       action: "negative",
       variant: "outline",
       class:
-        "bg-transparent data-[hover=true]:bg-background-50 data-[active=true]:bg-transparent",
+        "bg-transparent data-[hover=true]:bg-card data-[active=true]:bg-transparent",
     },
   ],
 })
 
 const buttonTextStyle = tva({
-  base: "text-typography-0 font-semibold web:select-none",
+  base: "text-primary-foreground font-semibold web:select-none",
   parentVariants: {
     action: {
       primary:
-        "text-primary-600 data-[hover=true]:text-primary-600 data-[active=true]:text-primary-700",
+        "text-primary data-[hover=true]:text-primary data-[active=true]:text-primary",
       secondary:
-        "text-typography-500 data-[hover=true]:text-typography-600 data-[active=true]:text-typography-700",
+        "text-muted-foreground data-[hover=true]:text-muted-foreground data-[active=true]:text-foreground/80",
       positive:
-        "text-success-600 data-[hover=true]:text-success-600 data-[active=true]:text-success-700",
+        "text-success data-[hover=true]:text-success data-[active=true]:text-success",
       negative:
-        "text-error-600 data-[hover=true]:text-error-600 data-[active=true]:text-error-700",
+        "text-destructive data-[hover=true]:text-destructive data-[active=true]:text-destructive",
     },
     variant: {
       link: "data-[hover=true]:underline data-[active=true]:underline",
       outline: "",
       solid:
-        "text-typography-0 data-[hover=true]:text-typography-0 data-[active=true]:text-typography-0",
+        "text-primary-foreground data-[hover=true]:text-primary-foreground data-[active=true]:text-primary-foreground",
     },
     size: {
       xs: "text-xs",
@@ -161,49 +150,49 @@ const buttonTextStyle = tva({
       variant: "solid",
       action: "primary",
       class:
-        "text-typography-0 data-[hover=true]:text-typography-0 data-[active=true]:text-typography-0",
+        "text-primary-foreground data-[hover=true]:text-primary-foreground data-[active=true]:text-primary-foreground",
     },
     {
       variant: "solid",
       action: "secondary",
       class:
-        "text-typography-800 data-[hover=true]:text-typography-800 data-[active=true]:text-typography-800",
+        "text-foreground data-[hover=true]:text-foreground data-[active=true]:text-foreground",
     },
     {
       variant: "solid",
       action: "positive",
       class:
-        "text-typography-0 data-[hover=true]:text-typography-0 data-[active=true]:text-typography-0",
+        "text-primary-foreground data-[hover=true]:text-primary-foreground data-[active=true]:text-primary-foreground",
     },
     {
       variant: "solid",
       action: "negative",
       class:
-        "text-typography-0 data-[hover=true]:text-typography-0 data-[active=true]:text-typography-0",
+        "text-primary-foreground data-[hover=true]:text-primary-foreground data-[active=true]:text-primary-foreground",
     },
     {
       variant: "outline",
       action: "primary",
       class:
-        "text-primary-500 data-[hover=true]:text-primary-500 data-[active=true]:text-primary-500",
+        "text-primary data-[hover=true]:text-primary data-[active=true]:text-primary",
     },
     {
       variant: "outline",
       action: "secondary",
       class:
-        "text-typography-500 data-[hover=true]:text-primary-600 data-[active=true]:text-typography-700",
+        "text-muted-foreground data-[hover=true]:text-primary data-[active=true]:text-foreground/80",
     },
     {
       variant: "outline",
       action: "positive",
       class:
-        "text-primary-500 data-[hover=true]:text-primary-500 data-[active=true]:text-primary-500",
+        "text-primary data-[hover=true]:text-primary data-[active=true]:text-primary",
     },
     {
       variant: "outline",
       action: "negative",
       class:
-        "text-primary-500 data-[hover=true]:text-primary-500 data-[active=true]:text-primary-500",
+        "text-primary data-[hover=true]:text-primary data-[active=true]:text-primary",
     },
   ],
 })
@@ -215,7 +204,7 @@ const buttonIconStyle = tva({
       link: "data-[hover=true]:underline data-[active=true]:underline",
       outline: "",
       solid:
-        "text-typography-0 data-[hover=true]:text-typography-0 data-[active=true]:text-typography-0",
+        "text-primary-foreground data-[hover=true]:text-primary-foreground data-[active=true]:text-primary-foreground",
     },
     size: {
       xs: "h-3.5 w-3.5",
@@ -226,14 +215,14 @@ const buttonIconStyle = tva({
     },
     action: {
       primary:
-        "text-primary-600 data-[hover=true]:text-primary-600 data-[active=true]:text-primary-700",
+        "text-primary data-[hover=true]:text-primary data-[active=true]:text-primary",
       secondary:
-        "text-typography-500 data-[hover=true]:text-typography-600 data-[active=true]:text-typography-700",
+        "text-muted-foreground data-[hover=true]:text-muted-foreground data-[active=true]:text-foreground/80",
       positive:
-        "text-success-600 data-[hover=true]:text-success-600 data-[active=true]:text-success-700",
+        "text-success data-[hover=true]:text-success data-[active=true]:text-success",
 
       negative:
-        "text-error-600 data-[hover=true]:text-error-600 data-[active=true]:text-error-700",
+        "text-destructive data-[hover=true]:text-destructive data-[active=true]:text-destructive",
     },
   },
   parentCompoundVariants: [
@@ -241,25 +230,25 @@ const buttonIconStyle = tva({
       variant: "solid",
       action: "primary",
       class:
-        "text-typography-0 data-[hover=true]:text-typography-0 data-[active=true]:text-typography-0",
+        "text-primary-foreground data-[hover=true]:text-primary-foreground data-[active=true]:text-primary-foreground",
     },
     {
       variant: "solid",
       action: "secondary",
       class:
-        "text-typography-800 data-[hover=true]:text-typography-800 data-[active=true]:text-typography-800",
+        "text-foreground data-[hover=true]:text-foreground data-[active=true]:text-foreground",
     },
     {
       variant: "solid",
       action: "positive",
       class:
-        "text-typography-0 data-[hover=true]:text-typography-0 data-[active=true]:text-typography-0",
+        "text-primary-foreground data-[hover=true]:text-primary-foreground data-[active=true]:text-primary-foreground",
     },
     {
       variant: "solid",
       action: "negative",
       class:
-        "text-typography-0 data-[hover=true]:text-typography-0 data-[active=true]:text-typography-0",
+        "text-primary-foreground data-[hover=true]:text-primary-foreground data-[active=true]:text-primary-foreground",
     },
   ],
 })

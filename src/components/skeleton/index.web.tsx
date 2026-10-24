@@ -1,4 +1,4 @@
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
 import React from "react"
 import { skeletonStyle, skeletonTextStyle } from "./styles"
 
@@ -15,7 +15,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, ISkeletonProps>(
       variant = "rounded",
       children,
       speed = 2,
-      startColor = "bg-background-200",
+      startColor = "bg-accent",
       isLoaded = false,
       ...props
     },
@@ -51,7 +51,7 @@ const SkeletonText = React.forwardRef<HTMLDivElement, ISkeletonTextProps>(
       className,
       _lines,
       isLoaded = false,
-      startColor = "bg-background-200",
+      startColor = "bg-accent",
       gap = 2,
       children,
       ...props

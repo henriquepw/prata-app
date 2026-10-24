@@ -1,24 +1,20 @@
 import { View } from "react-native"
-import { cssInterop } from "react-native-css-interop"
-import { Pressable } from "react-native-gesture-handler"
+import { Pressable as GHPressable } from "react-native-gesture-handler"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
 } from "react-native-reanimated"
-import type { Recurrence } from "~/features/recurrence/store/types"
+import { withUniwind } from "uniwind"
 import { Box } from "~/components/box"
 import { Text } from "~/components/text"
+import type { Recurrence } from "~/features/recurrence/store/types"
 import { formatAmount } from "~/lib/format-amount"
 import { formatDate } from "~/lib/format-date"
 import { FrequenceBadge } from "../frequance-badge"
 
-cssInterop(Pressable, {
-  className: {
-    target: "style",
-  },
-})
+const Pressable = withUniwind(GHPressable)
 
 type Props = {
   item: Recurrence
@@ -53,7 +49,7 @@ export function RecurrenceCard({ item, onPress }: Props) {
         onPressOut={handlePressOut}
       >
         <Animated.View
-          className="absolute top-0 left-0 h-full w-full rounded border border-outline-100 bg-background-50/50"
+          className="border-border bg-card/50 absolute top-0 left-0 h-full w-full rounded border"
           style={bgStyle}
         />
         <View className="flex-1 flex-row items-end justify-between gap-4 px-1 py-3">
@@ -64,7 +60,7 @@ export function RecurrenceCard({ item, onPress }: Props) {
             </Text>
           </Box>
           <Box className="mr-2 items-end">
-            <Text className="text-typography-500" size="sm">
+            <Text className="text-muted-foreground" size="sm">
               {formatDate(item.startAt)}
             </Text>
             <Text className="font-medium" size="lg">

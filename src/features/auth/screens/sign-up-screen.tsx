@@ -2,7 +2,6 @@ import { Link } from "expo-router"
 import { useRef } from "react"
 import { KeyboardAvoidingView, ScrollView } from "react-native"
 import { z } from "zod"
-import { useSignUp } from "~/features/auth/store/auth"
 import { Box } from "~/components/box"
 import { Card } from "~/components/card"
 import { useAppForm } from "~/components/form"
@@ -10,6 +9,7 @@ import type { InputRef } from "~/components/form/fields/input"
 import { Heading } from "~/components/heading"
 import { ScreenRoot } from "~/components/layouts/screen"
 import { Text } from "~/components/text"
+import { useSignUp } from "~/features/auth/store/auth"
 
 const signUpSchema = z
   .object({
@@ -17,9 +17,7 @@ const signUpSchema = z
       .string({ message: "O nome é obrigatório" })
       .min(3, { message: "O nome é obrigatório" })
       .trim(),
-    email: z
-      .string({ message: "O email é obrigatório" })
-      .email("Deve ser um email válido"),
+    email: z.email("Deve ser um email válido"),
     password: z
       .string({ message: "A senha é obrigatória" })
       .min(8, "Deve ter ao menos 8 caracteres"),
@@ -131,16 +129,11 @@ export function SignUpScreen() {
             </signUpform.AppField>
             <Box className="mt-4">
               <signUpform.AppForm>
-                <signUpform.AppForm>
-                  <signUpform.SubmitButton>Cadastrar</signUpform.SubmitButton>
-                </signUpform.AppForm>
+                <signUpform.SubmitButton>Cadastrar</signUpform.SubmitButton>
               </signUpform.AppForm>
               <Box className="mt-2 flex-row items-center justify-center gap-2">
                 <Text>Já possui uma conta?</Text>
-                <Link
-                  className="text-primary-600 underline"
-                  href="/(auth)/sign-in"
-                >
+                <Link className="text-primary underline" href="/(auth)/sign-in">
                   Entrar
                 </Link>
               </Box>

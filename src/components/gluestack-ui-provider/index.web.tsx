@@ -1,18 +1,9 @@
 "use client"
-import { setFlushStyles } from "@gluestack-ui/nativewind-utils/flush"
-import { OverlayProvider } from "@gluestack-ui/overlay"
-import { ToastProvider } from "@gluestack-ui/toast"
+import { OverlayProvider } from "@gluestack-ui/core/overlay/creator"
+import { ToastProvider } from "@gluestack-ui/core/toast/creator"
 import React, { useEffect, useLayoutEffect } from "react"
-import { config } from "./config"
+import { Uniwind } from "uniwind"
 import { script } from "./script"
-
-const variableStyleTagId = "nativewind-style"
-const createStyle = (styleTagId: string) => {
-  const style = document.createElement("style")
-  style.id = styleTagId
-  style.appendChild(document.createTextNode(""))
-  return style
-}
 
 export const useSafeLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect
@@ -24,35 +15,16 @@ export function GluestackUIProvider({
   mode?: "light" | "dark" | "system"
   children?: React.ReactNode
 }) {
-  let cssVariablesWithMode = ""
-  for (const configKey of Object.keys(config)) {
-    cssVariablesWithMode +=
-      configKey === "dark" ? "\n .dark {\n " : "\n:root {\n"
-    const cssVariables = Object.keys(
-      config[configKey as keyof typeof config],
-    ).reduce(
-      (acc: string, curr: string) =>
-        `${acc}${curr}:${config[configKey as keyof typeof config][curr]}; `,
-      "",
-    )
-    cssVariablesWithMode += `${cssVariables} \n}`
-  }
-
-  setFlushStyles(cssVariablesWithMode)
-
   const handleMediaQuery = React.useCallback((e: MediaQueryListEvent) => {
-    script(e.matches ? "dark" : "light")
+    const resolvedMode = e.matches ? "dark" : "light"
+    script(resolvedMode)
+    Uniwind.setTheme(resolvedMode)
   }, [])
 
   useSafeLayoutEffect(() => {
-    if (mode !== "system") {
-      const documentElement = document.documentElement
-      if (documentElement) {
-        documentElement.classList.add(mode)
-        documentElement.classList.remove(mode === "light" ? "dark" : "light")
-        documentElement.style.colorScheme = mode
-      }
-    }
+    if (mode === "system") return
+    script(mode)
+    Uniwind.setTheme(mode)
   }, [mode])
 
   useSafeLayoutEffect(() => {
@@ -61,22 +33,7 @@ export function GluestackUIProvider({
     media.addListener(handleMediaQuery)
 
     return () => media.removeListener(handleMediaQuery)
-  }, [handleMediaQuery])
-
-  useSafeLayoutEffect(() => {
-    if (typeof window !== "undefined") {
-      const documentElement = document.documentElement
-      if (documentElement) {
-        const head = documentElement.querySelector("head")
-        let style = head?.querySelector(`[id='${variableStyleTagId}']`)
-        if (!style) {
-          style = createStyle(variableStyleTagId)
-          if (head) head.appendChild(style)
-          style.innerHTML = cssVariablesWithMode
-        }
-      }
-    }
-  }, [])
+  }, [handleMediaQuery, mode])
 
   return (
     <>

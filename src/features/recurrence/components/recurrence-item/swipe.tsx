@@ -22,12 +22,12 @@ function RightAction({ drag }: RightActionProps) {
 
   return (
     <Animated.View
-      className="w-full justify-center bg-error-500/80 p-4"
+      className="bg-destructive/80 w-full justify-center p-4"
       style={containerStyle}
     >
       <Animated.View className="flex-row items-center justify-start gap-2">
-        <Icon as={Trash2Icon} className="text-typography-950" size="xl" />
-        <Text className="font-bold text-typography-950">Deletar</Text>
+        <Icon as={Trash2Icon} className="text-foreground" size="xl" />
+        <Text className="text-foreground font-bold">Deletar</Text>
       </Animated.View>
     </Animated.View>
   )

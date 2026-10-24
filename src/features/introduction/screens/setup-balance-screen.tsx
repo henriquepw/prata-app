@@ -8,17 +8,17 @@ import {
 import { PixelRatio, ScrollView, useWindowDimensions } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { z } from "zod"
-import { useUpdateBalance } from "~/features/balance/store/balance"
-import { IntroChartTitle } from "~/features/introduction/components/intro-chart-title"
-import { IntroHeader } from "~/features/introduction/components/intro-header"
-import { getIncome, useIncome } from "~/features/introduction/store/intro"
-import { useCreateRecurrence } from "~/features/recurrence/store/create-recurrence"
 import { Background } from "~/components/background"
 import { Box } from "~/components/box"
 import { Button, ButtonIcon, ButtonText } from "~/components/button"
 import { PieChart } from "~/components/chart/pie"
 import { useAppForm } from "~/components/form"
 import { Text } from "~/components/text"
+import { useUpdateBalance } from "~/features/balance/store/balance"
+import { IntroChartTitle } from "~/features/introduction/components/intro-chart-title"
+import { IntroHeader } from "~/features/introduction/components/intro-header"
+import { getIncome, useIncome } from "~/features/introduction/store/intro"
+import { useCreateRecurrence } from "~/features/recurrence/store/create-recurrence"
 import { getOnlyDigits } from "~/lib/format-amount"
 
 type Piece = {
@@ -132,8 +132,8 @@ export function SetupBalanceScreen() {
                 className="flex-row items-center justify-between gap-2"
                 key={piece.label}
               >
-                <Box className="size-4 items-center justify-center rounded-full bg-primary-500/50">
-                  <Box className="size-2 rounded-full bg-primary-500" />
+                <Box className="bg-primary/50 size-4 items-center justify-center rounded-full">
+                  <Box className="bg-primary size-2 rounded-full" />
                 </Box>
                 <Text className="flex-1" size="3xl">
                   {piece.label}
@@ -153,9 +153,7 @@ export function SetupBalanceScreen() {
                         conteinerProps={{ className: "min-w-24" }}
                         keyboardType="number-pad"
                         mask="NUM"
-                        sufix={
-                          <Text className="text-primary-500 text-xl">%</Text>
-                        }
+                        sufix={<Text className="text-primary text-xl">%</Text>}
                         textAlign="center"
                       />
                       <Button

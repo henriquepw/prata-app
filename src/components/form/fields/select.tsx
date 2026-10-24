@@ -1,4 +1,3 @@
-import type { ISelectItemProps } from "@gluestack-ui/select/lib/types"
 import { useStore } from "@tanstack/react-form"
 import { ChevronDownIcon } from "lucide-react-native"
 import { SafeAreaView } from "react-native"
@@ -18,6 +17,12 @@ import { useToggle } from "~/hooks/use-toggle"
 import { Glass } from "../../glass"
 import { useFieldContext } from "../context"
 import { Field, type FieldProps } from "../field"
+
+type ISelectItemProps = {
+  label: string
+  value: string
+  isDisabled?: boolean
+}
 
 export interface SelectProps extends FieldProps {
   children: React.ReactNode

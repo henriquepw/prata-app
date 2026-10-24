@@ -1,45 +1,34 @@
 "use client"
-import { PrimitiveIcon, UIIcon } from "@gluestack-ui/icon"
-import { createInput } from "@gluestack-ui/input"
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import { tva } from "@gluestack-ui/nativewind-utils/tva"
+import { UIIcon } from "@gluestack-ui/core/icon/creator"
+import { createInput } from "@gluestack-ui/core/input/creator"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
 import {
+  tva,
   useStyleContext,
   withStyleContext,
-} from "@gluestack-ui/nativewind-utils/withStyleContext"
-import { cssInterop } from "nativewind"
+} from "@gluestack-ui/utils/nativewind-utils"
 import React from "react"
 import { Pressable, TextInput, View } from "react-native"
+import { withUniwind } from "uniwind"
 import { Glass } from "../glass"
 
 const SCOPE = "INPUT"
 
+const StyledUIIcon = withUniwind(UIIcon)
+
 const UIInput = createInput({
   Root: withStyleContext(View, SCOPE),
-  Icon: UIIcon,
+  Icon: StyledUIIcon,
   Slot: Pressable,
   Input: TextInput,
 })
 
-cssInterop(PrimitiveIcon, {
-  className: {
-    target: "style",
-    nativeStyleToProp: {
-      height: true,
-      width: true,
-      fill: true,
-      color: "classNameColor",
-      stroke: true,
-    },
-  },
-})
-
 const inputStyle = tva({
   base: [
-    "border-outline-100 flex-row overflow-hidden content-center items-center",
-    "data-[hover=true]:border-outline-400",
-    "data-[focus=true]:border-primary-700 data-[focus=true]:hover:border-primary-700",
-    "data-[disabled=true]:opacity-40 data-[disabled=true]:hover:border-background-300",
+    "border-border flex-row overflow-hidden content-center items-center",
+    "data-[hover=true]:border-input",
+    "data-[focus=true]:border-primary data-[focus=true]:hover:border-primary",
+    "data-[disabled=true]:opacity-40 data-[disabled=true]:hover:border-input",
   ],
 
   variants: {
@@ -52,19 +41,19 @@ const inputStyle = tva({
 
     variant: {
       underlined:
-        "rounded-none border-b data-[invalid=true]:border-b-2 data-[invalid=true]:border-error-700 data-[invalid=true]:hover:border-error-700 data-[invalid=true]:data-[focus=true]:border-error-700 data-[invalid=true]:data-[focus=true]:hover:border-error-700 data-[invalid=true]:data-[disabled=true]:hover:border-error-700",
+        "rounded-none border-b data-[invalid=true]:border-b-2 data-[invalid=true]:border-destructive data-[invalid=true]:hover:border-destructive data-[invalid=true]:data-[focus=true]:border-destructive data-[invalid=true]:data-[focus=true]:hover:border-destructive data-[invalid=true]:data-[disabled=true]:hover:border-destructive",
 
       outline:
-        "rounded border data-[invalid=true]:border-error-700 data-[invalid=true]:hover:border-error-700 data-[invalid=true]:data-[focus=true]:border-error-700 data-[invalid=true]:data-[focus=true]:hover:border-error-700 data-[invalid=true]:data-[disabled=true]:hover:border-error-700 data-[focus=true]:web:ring-1 data-[focus=true]:web:ring-inset data-[focus=true]:web:ring-indicator-primary data-[invalid=true]:web:ring-1 data-[invalid=true]:web:ring-inset data-[invalid=true]:web:ring-indicator-error data-[invalid=true]:data-[focus=true]:hover:web:ring-1 data-[invalid=true]:data-[focus=true]:hover:web:ring-inset data-[invalid=true]:data-[focus=true]:hover:web:ring-indicator-error data-[invalid=true]:data-[disabled=true]:hover:web:ring-1 data-[invalid=true]:data-[disabled=true]:hover:web:ring-inset data-[invalid=true]:data-[disabled=true]:hover:web:ring-indicator-error",
+        "rounded border data-[invalid=true]:border-destructive data-[invalid=true]:hover:border-destructive data-[invalid=true]:data-[focus=true]:border-destructive data-[invalid=true]:data-[focus=true]:hover:border-destructive data-[invalid=true]:data-[disabled=true]:hover:border-destructive data-[focus=true]:web:ring-1 data-[focus=true]:web:ring-inset data-[focus=true]:web:ring-ring data-[invalid=true]:web:ring-1 data-[invalid=true]:web:ring-inset data-[invalid=true]:web:ring-destructive data-[invalid=true]:data-[focus=true]:hover:web:ring-1 data-[invalid=true]:data-[focus=true]:hover:web:ring-inset data-[invalid=true]:data-[focus=true]:hover:web:ring-destructive data-[invalid=true]:data-[disabled=true]:hover:web:ring-1 data-[invalid=true]:data-[disabled=true]:hover:web:ring-inset data-[invalid=true]:data-[disabled=true]:hover:web:ring-destructive",
 
       rounded:
-        "rounded-full border data-[invalid=true]:border-error-700 data-[invalid=true]:hover:border-error-700 data-[invalid=true]:data-[focus=true]:border-error-700 data-[invalid=true]:data-[focus=true]:hover:border-error-700 data-[invalid=true]:data-[disabled=true]:hover:border-error-700 data-[focus=true]:web:ring-1 data-[focus=true]:web:ring-inset data-[focus=true]:web:ring-indicator-primary data-[invalid=true]:web:ring-1 data-[invalid=true]:web:ring-inset data-[invalid=true]:web:ring-indicator-error data-[invalid=true]:data-[focus=true]:hover:web:ring-1 data-[invalid=true]:data-[focus=true]:hover:web:ring-inset data-[invalid=true]:data-[focus=true]:hover:web:ring-indicator-error data-[invalid=true]:data-[disabled=true]:hover:web:ring-1 data-[invalid=true]:data-[disabled=true]:hover:web:ring-inset data-[invalid=true]:data-[disabled=true]:hover:web:ring-indicator-error",
+        "rounded-full border data-[invalid=true]:border-destructive data-[invalid=true]:hover:border-destructive data-[invalid=true]:data-[focus=true]:border-destructive data-[invalid=true]:data-[focus=true]:hover:border-destructive data-[invalid=true]:data-[disabled=true]:hover:border-destructive data-[focus=true]:web:ring-1 data-[focus=true]:web:ring-inset data-[focus=true]:web:ring-ring data-[invalid=true]:web:ring-1 data-[invalid=true]:web:ring-inset data-[invalid=true]:web:ring-destructive data-[invalid=true]:data-[focus=true]:hover:web:ring-1 data-[invalid=true]:data-[focus=true]:hover:web:ring-inset data-[invalid=true]:data-[focus=true]:hover:web:ring-destructive data-[invalid=true]:data-[disabled=true]:hover:web:ring-1 data-[invalid=true]:data-[disabled=true]:hover:web:ring-inset data-[invalid=true]:data-[disabled=true]:hover:web:ring-destructive",
     },
   },
 })
 
 const inputIconStyle = tva({
-  base: "justify-center items-center text-typography-400 fill-none",
+  base: "justify-center items-center text-muted-foreground fill-none",
   parentVariants: {
     size: {
       "2xs": "h-3 w-3",
@@ -82,7 +71,7 @@ const inputSlotStyle = tva({
 })
 
 const inputFieldStyle = tva({
-  base: "flex-1 text-typography-900 py-0 px-3 placeholder:text-typography-500 h-full ios:leading-[0px] web:cursor-text web:data-[disabled=true]:cursor-not-allowed",
+  base: "flex-1 text-foreground py-0 px-3 placeholder:text-muted-foreground h-full ios:leading-[0px] web:cursor-text web:data-[disabled=true]:cursor-not-allowed",
 
   parentVariants: {
     variant: {

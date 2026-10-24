@@ -6,8 +6,6 @@ type Props = {
 }
 export function MoneyPrefix({ className }: Props) {
   return (
-    <Text className={cn("font-bold text-primary-500 text-xl", className)}>
-      R$
-    </Text>
+    <Text className={cn("text-primary text-xl font-bold", className)}>R$</Text>
   )
 }

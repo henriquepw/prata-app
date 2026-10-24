@@ -13,7 +13,7 @@ export function Glass({ children, intensity = 10, className }: Props) {
     <View
       className={cn(
         "overflow-hidden",
-        Platform.OS === "android" && "bg-background-50",
+        Platform.OS === "android" && "bg-card",
         className,
       )}
     >

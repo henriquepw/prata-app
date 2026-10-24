@@ -1,5 +1,5 @@
 import { Text, useFont } from "@shopify/react-native-skia"
-import { useTheme } from "~/shared/store/theme"
+import { useTheme } from "~/store/theme"
 import { useIncome } from "../store/intro"
 
 type Props = {

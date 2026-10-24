@@ -23,7 +23,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated"
 import { Icon } from "~/components/icon"
-import { useTheme } from "~/shared/store/theme"
+import { useTheme } from "~/store/theme"
 import { Box } from "./box"
 import { Text } from "./text"
 
@@ -94,7 +94,7 @@ export const TabView = forwardRef(
         <BlurView
           blurReductionFactor={5}
           className={
-            "absolute bottom-10 left-1/2 -translate-x-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border border-outline-100 px-1.5 py-1"
+            "border-border absolute bottom-10 left-1/2 -translate-x-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border px-1.5 py-1"
           }
           blurMethod={blueMethod}
           intensity={100}
@@ -102,7 +102,7 @@ export const TabView = forwardRef(
           tint={theme}
         >
           <Animated.View
-            className="absolute left-0 h-10 rounded-full border border-primary-700 bg-primary-600/80"
+            className="border-primary bg-primary/80 absolute left-0 h-10 rounded-full border"
             style={bgStyle}
           />
           {children}
@@ -148,8 +148,8 @@ export const TabButton = forwardRef(
           as={icon}
           className={
             isFocused
-              ? "text-typography-0"
-              : "text-typography-800 dark:text-typography-900"
+              ? "text-primary-foreground"
+              : "text-foreground dark:text-foreground"
           }
           size="xl"
         />
@@ -157,8 +157,8 @@ export const TabButton = forwardRef(
           <Text
             className={
               isFocused
-                ? "text-typography-0"
-                : "text-typography-800 dark:text-typography-900"
+                ? "text-primary-foreground"
+                : "text-foreground dark:text-foreground"
             }
           >
             {label}

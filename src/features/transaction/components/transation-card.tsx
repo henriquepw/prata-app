@@ -14,14 +14,14 @@ export function TransationCard({ transaction }: Props) {
 
   return (
     <Box className="flex-1">
-      <Text className="text-typography-500">{dueAt}</Text>
+      <Text className="text-muted-foreground">{dueAt}</Text>
       <Box className="flex-row justify-between gap-2">
         <Text numberOfLines={1} size="lg">
           {transaction.description}
         </Text>
         <Text
           bold
-          className={isIncome ? "text-success-600" : "text-error-600"}
+          className={isIncome ? "text-success" : "text-destructive"}
           size="lg"
         >
           {isIncome ? "" : "-"}

@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@import "uniwind";
+
+/* ─── Theme tokens ───────────────────────────────────────────────
+   Switched at runtime via Uniwind.setTheme('light' | 'dark' | 'system').
+   Values preserve the previous gluestack palette (teal primary). */
+@layer theme {
+  :root {
+    @variant light {
+      --background: 246 246 246;
+      --foreground: 38 38 39;
+      --card: 246 246 246;
+      --popover: 246 246 246;
+      --popover-foreground: 38 38 39;
+      --primary: 20 184 166;
+      --primary-foreground: 254 254 255;
+      --secondary: 242 241 241;
+      --secondary-foreground: 38 38 39;
+      --muted: 242 241 241;
+      --muted-foreground: 140 140 140;
+      --accent: 220 219 219;
+      --accent-foreground: 38 38 39;
+      --destructive: 220 38 38;
+      --success: 42 121 72;
+      --warning: 215 108 31;
+      --info: 11 141 205;
+      --border: 230 230 230;
+      --input: 211 211 211;
+      --ring: 55 55 55;
+    }
+
+    @variant dark {
+      --background: 18 18 18;
+      --foreground: 245 245 245;
+      --card: 39 38 37;
+      --popover: 18 18 18;
+      --popover-foreground: 245 245 245;
+      --primary: 20 184 166;
+      --primary-foreground: 23 23 23;
+      --secondary: 65 64 64;
+      --secondary-foreground: 245 245 245;
+      --muted: 65 64 64;
+      --muted-foreground: 163 163 163;
+      --accent: 83 82 82;
+      --accent-foreground: 245 245 245;
+      --destructive: 249 97 96;
+      --success: 102 181 132;
+      --warning: 253 173 116;
+      --info: 87 194 246;
+      --border: 65 65 65;
+      --input: 115 116 116;
+      --ring: 247 247 247;
+    }
+
+    @variant ios {
+      --font-heading: Montserrat-Bold;
+      --font-body: Poppins-Regular;
+    }
+  }
+}
+
+/* ─── Tailwind v4 color mappings ─────────────────────────────────
+   bg-primary → rgb(var(--primary)), text-foreground → rgb(var(--foreground)), etc. */
+@theme inline {
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-card: rgb(var(--card));
+  --color-popover: rgb(var(--popover));
+  --color-popover-foreground: rgb(var(--popover-foreground));
+  --color-primary: rgb(var(--primary));
+  --color-primary-foreground: rgb(var(--primary-foreground));
+  --color-secondary: rgb(var(--secondary));
+  --color-secondary-foreground: rgb(var(--secondary-foreground));
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-accent: rgb(var(--accent));
+  --color-accent-foreground: rgb(var(--accent-foreground));
+  --color-destructive: rgb(var(--destructive));
+  --color-success: rgb(var(--success));
+  --color-warning: rgb(var(--warning));
+  --color-info: rgb(var(--info));
+  --color-border: rgb(var(--border));
+  --color-input: rgb(var(--input));
+  --color-ring: rgb(var(--ring));
+}
+
+@theme {
+  --font-heading: Montserrat_700Bold;
+  --font-body: Poppins_400Regular;
+
+  --text-2xs: 10px;
+  --font-weight-extrablack: 950;
+  --radius: 0.5rem;
+
+  --shadow-hard-1: -2px 2px 8px 0px rgba(38, 38, 38, 0.2);
+  --shadow-hard-2: 0px 3px 10px 0px rgba(38, 38, 38, 0.2);
+  --shadow-hard-3: 2px 2px 8px 0px rgba(38, 38, 38, 0.2);
+  --shadow-hard-4: 0px -3px 10px 0px rgba(38, 38, 38, 0.2);
+  --shadow-hard-5: 0px 2px 10px 0px rgba(38, 38, 38, 0.1);
+  --shadow-soft-1: 0px 0px 10px rgba(38, 38, 38, 0.1);
+  --shadow-soft-2: 0px 0px 20px rgba(38, 38, 38, 0.2);
+  --shadow-soft-3: 0px 0px 30px rgba(38, 38, 38, 0.1);
+  --shadow-soft-4: 0px 0px 40px rgba(38, 38, 38, 0.1);
+}

@@ -1,13 +1,13 @@
 import { Suspense } from "react"
 import { ScrollView, View } from "react-native"
-import {
-  BalanceView,
-  BalanceViewFallback,
-} from "~/features/balance/components/balance-view"
 import { BottomTabGap } from "~/components/bottom-tab"
 import { Heading } from "~/components/heading"
 import { ScreenRoot } from "~/components/layouts/screen"
 import { SkeletonBarChart } from "~/components/skeleton/skeleton-bar-chart"
+import {
+  BalanceView,
+  BalanceViewFallback,
+} from "~/features/balance/components/balance-view"
 import { OutcomeByBalanceChart } from "../transaction/components/charts/outcome-by-balance-chart"
 import { YearlyOutcomeChart } from "../transaction/components/charts/yearly-outcome-chart"
 import { TransactionLastList } from "../transaction/components/transation-last-list"

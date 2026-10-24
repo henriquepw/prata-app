@@ -1,6 +1,6 @@
 import { Canvas, Path, Skia } from "@shopify/react-native-skia"
 import { useMemo } from "react"
-import { useTheme } from "~/shared/store/theme"
+import { useTheme } from "~/store/theme"
 import { Box } from "../box"
 
 const GAP = 0.055

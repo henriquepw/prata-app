@@ -1,4 +1,4 @@
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
 import type React from "react"
 import { forwardRef, memo } from "react"
 import { headingStyle } from "./styles"

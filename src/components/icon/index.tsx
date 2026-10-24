@@ -4,11 +4,11 @@ import {
   type IPrimitiveIcon,
   PrimitiveIcon,
   Svg,
-} from "@gluestack-ui/icon"
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import { tva } from "@gluestack-ui/nativewind-utils/tva"
-import { cssInterop } from "nativewind"
+} from "@gluestack-ui/core/icon/creator"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
+import { tva } from "@gluestack-ui/utils/nativewind-utils"
 import React from "react"
+import { withUniwind } from "uniwind"
 
 export const UIIcon = createIcon({
   Root: PrimitiveIcon,
@@ -18,7 +18,7 @@ export const UIIcon = createIcon({
 >
 
 const iconStyle = tva({
-  base: "text-typography-950 fill-none pointer-events-none",
+  base: "text-foreground fill-none pointer-events-none",
   variants: {
     size: {
       "2xs": "h-3 w-3",
@@ -31,18 +31,7 @@ const iconStyle = tva({
   },
 })
 
-cssInterop(UIIcon, {
-  className: {
-    target: "style",
-    nativeStyleToProp: {
-      height: true,
-      width: true,
-      fill: true,
-      color: "classNameColor",
-      stroke: true,
-    },
-  },
-})
+const StyledUIIcon = withUniwind(UIIcon)
 
 type IIConProps = IPrimitiveIcon &
   VariantProps<typeof iconStyle> &
@@ -52,7 +41,7 @@ const Icon = React.forwardRef<React.ComponentRef<typeof Svg>, IIConProps>(
   ({ size = "md", className, ...props }, ref) => {
     if (typeof size === "number") {
       return (
-        <UIIcon
+        <StyledUIIcon
           ref={ref}
           {...props}
           className={iconStyle({ class: className })}
@@ -65,7 +54,7 @@ const Icon = React.forwardRef<React.ComponentRef<typeof Svg>, IIConProps>(
       size === undefined
     ) {
       return (
-        <UIIcon
+        <StyledUIIcon
           ref={ref}
           {...props}
           className={iconStyle({ class: className })}
@@ -74,7 +63,7 @@ const Icon = React.forwardRef<React.ComponentRef<typeof Svg>, IIConProps>(
     }
 
     return (
-      <UIIcon
+      <StyledUIIcon
         ref={ref}
         {...props}
         className={iconStyle({ size, class: className })}

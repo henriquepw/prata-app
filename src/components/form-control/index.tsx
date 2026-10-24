@@ -1,15 +1,15 @@
 "use client"
-import { createFormControl } from "@gluestack-ui/form-control"
-import { PrimitiveIcon, UIIcon } from "@gluestack-ui/icon"
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import { tva } from "@gluestack-ui/nativewind-utils/tva"
+import { createFormControl } from "@gluestack-ui/core/form-control/creator"
+import { UIIcon } from "@gluestack-ui/core/icon/creator"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
 import {
+  tva,
   useStyleContext,
   withStyleContext,
-} from "@gluestack-ui/nativewind-utils/withStyleContext"
-import { cssInterop } from "nativewind"
+} from "@gluestack-ui/utils/nativewind-utils"
 import React from "react"
 import { Text, View } from "react-native"
+import { withUniwind } from "uniwind"
 
 const SCOPE = "FORM_CONTROL"
 
@@ -25,7 +25,7 @@ const formControlStyle = tva({
 })
 
 const formControlErrorIconStyle = tva({
-  base: "text-error-700 fill-none",
+  base: "text-destructive fill-none",
   variants: {
     size: {
       "2xs": "h-3 w-3",
@@ -43,7 +43,7 @@ const formControlErrorStyle = tva({
 })
 
 const formControlErrorTextStyle = tva({
-  base: "text-error-700",
+  base: "text-destructive",
   variants: {
     isTruncated: {
       true: "web:truncate",
@@ -87,7 +87,7 @@ const formControlHelperStyle = tva({
 })
 
 const formControlHelperTextStyle = tva({
-  base: "text-typography-500",
+  base: "text-muted-foreground",
   variants: {
     isTruncated: {
       true: "web:truncate",
@@ -131,7 +131,7 @@ const formControlLabelStyle = tva({
 })
 
 const formControlLabelTextStyle = tva({
-  base: "font-medium text-typography-900",
+  base: "font-medium text-foreground",
   variants: {
     isTruncated: {
       true: "web:truncate",
@@ -171,7 +171,7 @@ const formControlLabelTextStyle = tva({
 })
 
 const formControlLabelAstrickStyle = tva({
-  base: "font-medium text-typography-900",
+  base: "font-medium text-foreground",
   variants: {
     isTruncated: {
       true: "web:truncate",
@@ -233,29 +233,18 @@ const FormControlLabelAstrick = React.forwardRef<
   )
 })
 
+const StyledUIIcon = withUniwind(UIIcon)
+
 export const UIFormControl = createFormControl({
   Root: withStyleContext(View, SCOPE),
   Error: View,
   ErrorText: Text,
-  ErrorIcon: UIIcon,
+  ErrorIcon: StyledUIIcon,
   Label: View,
   LabelText: Text,
   LabelAstrick: FormControlLabelAstrick,
   Helper: View,
   HelperText: Text,
-})
-
-cssInterop(PrimitiveIcon, {
-  className: {
-    target: "style",
-    nativeStyleToProp: {
-      height: true,
-      width: true,
-      fill: true,
-      color: true,
-      stroke: true,
-    },
-  },
 })
 
 type IFormControlProps = React.ComponentProps<typeof UIFormControl> &

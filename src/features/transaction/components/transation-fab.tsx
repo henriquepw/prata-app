@@ -57,11 +57,11 @@ function FabItem({
           </Animated.View>
         </Box>
         <Animated.View
-          className="size-10 items-center justify-center rounded-full bg-primary-500"
+          className="bg-primary size-10 items-center justify-center rounded-full"
           entering={ZoomIn.delay(enteringDelay).springify()}
           exiting={ZoomOut.delay(exitingDelay).springify()}
         >
-          <Icon as={icon} className="text-typography-0" />
+          <Icon as={icon} className="text-primary-foreground" />
         </Animated.View>
       </TouchableOpacity>
     </Link>
@@ -147,9 +147,7 @@ export function TransationFab() {
           <Pressable
             className={cn(
               "size-14 items-center justify-center rounded-full",
-              open
-                ? "border-2 border-primary-500 bg-background-0"
-                : "bg-primary-500",
+              open ? "border-primary bg-background border-2" : "bg-primary",
             )}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
@@ -157,7 +155,7 @@ export function TransationFab() {
             <Animated.View style={iconStyle}>
               <Icon
                 as={PlusIcon}
-                className={open ? "text-primary-500" : "text-typography-0"}
+                className={open ? "text-primary" : "text-primary-foreground"}
                 size="xl"
               />
             </Animated.View>

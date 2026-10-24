@@ -10,7 +10,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated"
 import type { AnimatedScrollView } from "react-native-reanimated/lib/typescript/component/ScrollView"
-import { THEME } from "~/components/gluestack-ui-provider/config"
+import { useCSSVariable } from "uniwind"
 
 type IndicatorProps = {
   onPress: () => void
@@ -19,6 +19,7 @@ type IndicatorProps = {
   index: number
 }
 function Indicator({ onPress, offset, width, index }: IndicatorProps) {
+  const primaryColor = useCSSVariable("--color-primary") as string
   const style = useAnimatedStyle(() => {
     const prev = width * (index - 1)
     const curr = width * index
@@ -29,10 +30,9 @@ function Indicator({ onPress, offset, width, index }: IndicatorProps) {
 
     return {
       width: interpolate(offset.value, [prev, curr, next], [8, 16, 8], "clamp"),
-      backgroundColor: withTiming(
-        active ? `rgb(${THEME.primary[5]})` : "white",
-        { duration: 100 },
-      ),
+      backgroundColor: withTiming(active ? primaryColor : "white", {
+        duration: 100,
+      }),
     }
   })
 

@@ -1,4 +1,4 @@
-import "../../assets/global.css"
+import "../../global.css"
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { StatusBar } from "expo-status-bar"
@@ -9,10 +9,10 @@ import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from "react-native-reanimated"
-import { useIsSignedIn } from "~/features/auth/store/auth"
 import { GluestackUIProvider } from "~/components/gluestack-ui-provider"
+import { useIsSignedIn } from "~/features/auth/store/auth"
+import { useTheme } from "~/store/theme"
 import { StoreProvider } from "../shared/store"
-import { useTheme } from "../shared/store/theme"
 
 SplashScreen.setOptions({
   duration: 1000,

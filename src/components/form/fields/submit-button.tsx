@@ -33,7 +33,7 @@ export default function SubmitButton({
           onPress={form.handleSubmit}
         >
           {isLoading || isSubmitting ? (
-            <ButtonSpinner className="text-typography-0" />
+            <ButtonSpinner className="text-primary-foreground" />
           ) : (
             <>
               {leftIcon && <ButtonIcon as={leftIcon} />}

@@ -6,11 +6,9 @@ module.exports = (api) => {
       [
         "babel-preset-expo",
         {
-          jsxImportSource: "nativewind",
           unstable_transformImportMeta: true,
         },
       ],
-      "nativewind/babel",
     ],
     plugins: [
       [
@@ -19,7 +17,6 @@ module.exports = (api) => {
           root: ["./"],
           alias: {
             "~/": "./src/",
-            "tailwind.config": "./tailwind.config.js",
           },
         },
       ],

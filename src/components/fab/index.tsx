@@ -1,39 +1,29 @@
 "use client"
-import { createFab } from "@gluestack-ui/fab"
-import { PrimitiveIcon, UIIcon } from "@gluestack-ui/icon"
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import { tva } from "@gluestack-ui/nativewind-utils/tva"
+import { createFab } from "@gluestack-ui/core/fab/creator"
+import { UIIcon } from "@gluestack-ui/core/icon/creator"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
 import {
+  tva,
   useStyleContext,
   withStyleContext,
-} from "@gluestack-ui/nativewind-utils/withStyleContext"
-import { cssInterop } from "nativewind"
+} from "@gluestack-ui/utils/nativewind-utils"
 import React from "react"
 import { Pressable, Text } from "react-native"
+import { withUniwind } from "uniwind"
 
 const SCOPE = "FAB"
 const Root = withStyleContext(Pressable, SCOPE)
+
+const StyledUIIcon = withUniwind(UIIcon)
+
 const UIFab = createFab({
   Root: Root,
   Label: Text,
-  Icon: UIIcon,
-})
-
-cssInterop(PrimitiveIcon, {
-  className: {
-    target: "style",
-    nativeStyleToProp: {
-      height: true,
-      width: true,
-      fill: true,
-      color: "classNameColor",
-      stroke: true,
-    },
-  },
+  Icon: StyledUIIcon,
 })
 
 const fabStyle = tva({
-  base: "group/fab bg-primary-500 rounded-full z-20 p-4 flex-row items-center justify-center absolute hover:bg-primary-600 active:bg-primary-700 disabled:opacity-40 disabled:pointer-events-all disabled:cursor-not-allowed data-[focus=true]:web:outline-none data-[focus-visible=true]:web:ring-2 data-[focus-visible=true]:web:ring-indicator-info shadow-hard-2",
+  base: "group/fab bg-primary rounded-full z-20 p-4 flex-row items-center justify-center absolute hover:bg-primary active:bg-primary disabled:opacity-40 disabled:pointer-events-all disabled:cursor-not-allowed data-[focus=true]:web:outline-none data-[focus-visible=true]:web:ring-2 data-[focus-visible=true]:web:ring-info shadow-hard-2",
   variants: {
     size: {
       sm: "px-2.5 py-2.5",
@@ -52,7 +42,7 @@ const fabStyle = tva({
 })
 
 const fabLabelStyle = tva({
-  base: "text-typography-50 font-normal font-body tracking-md text-left mx-2",
+  base: "text-primary-foreground font-normal font-body tracking-md text-left mx-2",
   variants: {
     isTruncated: {
       true: "",
@@ -99,7 +89,7 @@ const fabLabelStyle = tva({
 })
 
 const fabIconStyle = tva({
-  base: "text-typography-50 fill-none",
+  base: "text-primary-foreground fill-none",
   variants: {
     size: {
       "2xs": "h-3 w-3",

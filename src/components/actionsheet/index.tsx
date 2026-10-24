@@ -1,16 +1,15 @@
 "use client"
 import { H4 } from "@expo/html-elements"
-import { createActionsheet } from "@gluestack-ui/actionsheet"
-import { PrimitiveIcon, UIIcon } from "@gluestack-ui/icon"
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import { tva } from "@gluestack-ui/nativewind-utils/tva"
+import { createActionsheet } from "@gluestack-ui/core/actionsheet/creator"
+import { UIIcon } from "@gluestack-ui/core/icon/creator"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
+import { tva } from "@gluestack-ui/utils/nativewind-utils"
 import {
   AnimatePresence,
   createMotionAnimatedComponent,
   Motion,
   type MotionComponentProps,
 } from "@legendapp/motion"
-import { cssInterop } from "nativewind"
 import React from "react"
 import {
   FlatList,
@@ -23,6 +22,7 @@ import {
   type ViewStyle,
   VirtualizedList,
 } from "react-native"
+import { withUniwind } from "uniwind"
 
 const ItemWrapper = React.forwardRef<
   React.ComponentRef<typeof Pressable>,
@@ -43,78 +43,44 @@ const AnimatedPressable = createMotionAnimatedComponent(
   Pressable,
 ) as React.ComponentType<IAnimatedPressableProps>
 
+const StyledMotionView = withUniwind(MotionView)
+const StyledAnimatedPressable = withUniwind(AnimatedPressable)
+const StyledScrollView = withUniwind(ScrollView)
+const StyledVirtualizedList = withUniwind(VirtualizedList)
+const StyledFlatList = withUniwind(FlatList)
+const StyledSectionList = withUniwind(SectionList)
+const StyledSectionHeaderText = withUniwind(H4)
+const StyledUIIcon = withUniwind(UIIcon)
+
 export const UIActionsheet = createActionsheet({
   Root: View,
-  Content: MotionView,
+  Content: StyledMotionView,
   Item: ItemWrapper,
   ItemText: Text,
   DragIndicator: View,
   IndicatorWrapper: View,
-  Backdrop: AnimatedPressable,
-  ScrollView: ScrollView,
-  VirtualizedList: VirtualizedList,
-  FlatList: FlatList,
-  SectionList: SectionList,
-  SectionHeaderText: H4,
-  Icon: UIIcon,
+  Backdrop: StyledAnimatedPressable,
+  ScrollView: StyledScrollView,
+  VirtualizedList: StyledVirtualizedList,
+  FlatList: StyledFlatList,
+  SectionList: StyledSectionList,
+  SectionHeaderText: StyledSectionHeaderText,
+  Icon: StyledUIIcon,
   AnimatePresence: AnimatePresence,
-})
-
-cssInterop(UIActionsheet, { className: "style" })
-cssInterop(UIActionsheet.Content, { className: "style" })
-cssInterop(ItemWrapper, { className: "style" })
-cssInterop(UIActionsheet.ItemText, { className: "style" })
-cssInterop(UIActionsheet.DragIndicator, { className: "style" })
-cssInterop(UIActionsheet.DragIndicatorWrapper, { className: "style" })
-cssInterop(UIActionsheet.Backdrop, { className: "style" })
-cssInterop(UIActionsheet.ScrollView, {
-  className: "style",
-  contentContainerClassName: "contentContainerStyle",
-  indicatorClassName: "indicatorStyle",
-})
-cssInterop(UIActionsheet.VirtualizedList, {
-  className: "style",
-  ListFooterComponentClassName: "ListFooterComponentStyle",
-  ListHeaderComponentClassName: "ListHeaderComponentStyle",
-  contentContainerClassName: "contentContainerStyle",
-  indicatorClassName: "indicatorStyle",
-})
-cssInterop(UIActionsheet.FlatList, {
-  className: "style",
-  ListFooterComponentClassName: "ListFooterComponentStyle",
-  ListHeaderComponentClassName: "ListHeaderComponentStyle",
-  columnWrapperClassName: "columnWrapperStyle",
-  contentContainerClassName: "contentContainerStyle",
-  indicatorClassName: "indicatorStyle",
-})
-cssInterop(UIActionsheet.SectionList, { className: "style" })
-cssInterop(UIActionsheet.SectionHeaderText, { className: "style" })
-
-cssInterop(PrimitiveIcon, {
-  className: {
-    target: "style",
-    nativeStyleToProp: {
-      height: true,
-      width: true,
-      fill: true,
-      color: "classNameColor",
-      stroke: true,
-    },
-  },
 })
 
 const actionsheetStyle = tva({ base: "w-full h-full web:pointer-events-none" })
 
 const actionsheetContentStyle = tva({
-  base: "items-center rounded-tl-3xl rounded-tr-3xl p-5 pt-2 bg-background-0 web:pointer-events-auto web:select-none shadow-hard-5 border border-b-0 border-outline-100",
+  base: "items-center rounded-tl-3xl rounded-tr-3xl p-5 pt-2 bg-background web:pointer-events-auto web:select-none shadow-hard-5 border border-b-0 border-border",
 })
 
 const actionsheetItemStyle = tva({
-  base: "w-full flex-row items-center p-3 rounded-sm data-[disabled=true]:opacity-40 data-[disabled=true]:web:pointer-events-auto data-[disabled=true]:web:cursor-not-allowed hover:bg-background-50 active:bg-background-100 data-[focus=true]:bg-background-100 web:data-[focus-visible=true]:bg-background-100 web:data-[focus-visible=true]:outline-indicator-primary gap-2",
+  base: "w-full flex-row items-center p-3 rounded-sm data-[disabled=true]:opacity-40 data-[disabled=true]:web:pointer-events-auto data-[disabled=true]:web:cursor-not-allowed hover:bg-card active:bg-muted data-[focus=true]:bg-muted web:data-[focus-visible=true]:bg-muted web:data-[focus-visible=true]:outline-ring gap-2",
 })
 
 const actionsheetItemTextStyle = tva({
-  base: "text-typography-700 font-normal font-body",
+  base: "text-foreground/80 font-normal font-body",
   variants: {
     isTruncated: {
       true: "",
@@ -145,7 +111,7 @@ const actionsheetItemTextStyle = tva({
 })
 
 const actionsheetDragIndicatorStyle = tva({
-  base: "w-16 h-1 bg-background-400 rounded-full",
+  base: "w-16 h-1 bg-input rounded-full",
 })
 
 const actionsheetDragIndicatorWrapperStyle = tva({
@@ -153,7 +119,7 @@ const actionsheetDragIndicatorWrapperStyle = tva({
 })
 
 const actionsheetBackdropStyle = tva({
-  base: "absolute left-0 top-0 right-0 bottom-0 bg-background-dark web:cursor-default web:pointer-events-auto",
+  base: "absolute left-0 top-0 right-0 bottom-0 bg-[#181719] web:cursor-default web:pointer-events-auto",
 })
 
 const actionsheetScrollViewStyle = tva({
@@ -173,7 +139,7 @@ const actionsheetSectionListStyle = tva({
 })
 
 const actionsheetSectionHeaderTextStyle = tva({
-  base: "leading-5 font-bold font-heading my-0 text-typography-500 p-3 uppercase",
+  base: "leading-5 font-bold font-heading my-0 text-muted-foreground p-3 uppercase",
   variants: {
     isTruncated: {
       true: "",
@@ -215,7 +181,7 @@ const actionsheetSectionHeaderTextStyle = tva({
 })
 
 const actionsheetIconStyle = tva({
-  base: "text-background-500 fill-none",
+  base: "text-muted-foreground fill-none",
   variants: {
     size: {
       "2xs": "h-3 w-3",

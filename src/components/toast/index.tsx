@@ -1,50 +1,42 @@
 "use client"
-import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import { tva } from "@gluestack-ui/nativewind-utils/tva"
+import { createToastHook } from "@gluestack-ui/core/toast/creator"
+import type { VariantProps } from "@gluestack-ui/utils/nativewind-utils"
 import {
+  tva,
   useStyleContext,
   withStyleContext,
-} from "@gluestack-ui/nativewind-utils/withStyleContext"
-import { createToastHook } from "@gluestack-ui/toast"
-import {
-  AnimatePresence,
-  Motion,
-  type MotionComponentProps,
-} from "@legendapp/motion"
-import { cssInterop } from "nativewind"
+} from "@gluestack-ui/utils/nativewind-utils"
 import React from "react"
-import { AccessibilityInfo, Text, View, type ViewStyle } from "react-native"
+import { AccessibilityInfo, Text, View } from "react-native"
+import Animated, { SlideInUp } from "react-native-reanimated"
+import { withUniwind } from "uniwind"
 
-type IMotionViewProps = React.ComponentProps<typeof View> &
-  MotionComponentProps<typeof View, ViewStyle, unknown, unknown, unknown>
+const useToast = createToastHook(View)
 
-const MotionView = Motion.View as React.ComponentType<IMotionViewProps>
-
-const useToast = createToastHook(MotionView, AnimatePresence)
+const AnimatedView = Animated.createAnimatedComponent(View)
+const StyledAnimatedView = withUniwind(AnimatedView)
 const SCOPE = "TOAST"
 
-cssInterop(MotionView, { className: "style" })
-
 const toastStyle = tva({
-  base: "p-4 m-1 rounded-md gap-1 web:pointer-events-auto shadow-hard-5 border-outline-100",
+  base: "p-4 m-1 rounded-md gap-1 web:pointer-events-auto shadow-hard-5 border-border",
   variants: {
     action: {
-      error: "bg-error-800",
-      warning: "bg-warning-700",
-      success: "bg-success-700",
-      info: "bg-info-700",
-      muted: "bg-background-800",
+      error: "bg-destructive",
+      warning: "bg-warning",
+      success: "bg-success",
+      info: "bg-info",
+      muted: "bg-foreground",
     },
 
     variant: {
       solid: "",
-      outline: "border bg-background-0",
+      outline: "border bg-background",
     },
   },
 })
 
 const toastTitleStyle = tva({
-  base: "text-typography-0 font-medium font-body tracking-md text-left",
+  base: "text-primary-foreground font-medium font-body tracking-md text-left",
   variants: {
     isTruncated: {
       true: "",
@@ -89,27 +81,27 @@ const toastTitleStyle = tva({
     {
       variant: "outline",
       action: "error",
-      class: "text-error-800",
+      class: "text-destructive",
     },
     {
       variant: "outline",
       action: "warning",
-      class: "text-warning-800",
+      class: "text-warning",
     },
     {
       variant: "outline",
       action: "success",
-      class: "text-success-800",
+      class: "text-success",
     },
     {
       variant: "outline",
       action: "info",
-      class: "text-info-800",
+      class: "text-info",
     },
     {
       variant: "outline",
       action: "muted",
-      class: "text-background-800",
+      class: "text-foreground",
     },
   ],
 })
@@ -145,13 +137,13 @@ const toastDescriptionStyle = tva({
   },
   parentVariants: {
     variant: {
-      solid: "text-typography-50",
-      outline: "text-typography-900",
+      solid: "text-background",
+      outline: "text-foreground",
     },
   },
 })
 
-const Root = withStyleContext(View, SCOPE)
+const Root = withStyleContext(StyledAnimatedView, SCOPE)
 type IToastProps = React.ComponentProps<typeof Root> & {
   className?: string
 } & VariantProps<typeof toastStyle>
@@ -163,6 +155,7 @@ const Toast = React.forwardRef<React.ComponentRef<typeof Root>, IToastProps>(
   ) {
     return (
       <Root
+        entering={SlideInUp}
         className={toastStyle({ variant, action, class: className })}
         context={{ variant, action }}
         ref={ref}

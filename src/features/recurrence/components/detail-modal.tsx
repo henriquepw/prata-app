@@ -10,13 +10,13 @@ import Animated, {
   ZoomIn,
   ZoomOut,
 } from "react-native-reanimated"
-import type { Recurrence } from "~/features/recurrence/store/types"
 import { Box } from "~/components/box"
 import { Button, ButtonIcon, ButtonText } from "~/components/button"
 import { Card } from "~/components/card"
 import { Divider } from "~/components/divider"
 import { Portal } from "~/components/portal"
 import { Text } from "~/components/text"
+import type { Recurrence } from "~/features/recurrence/store/types"
 import { formatAmount } from "~/lib/format-amount"
 import { formatDate } from "~/lib/format-date"
 import { useSelectRecurrence } from "../store/selected-recurrence"
@@ -52,7 +52,7 @@ export function RecurrenceDetail({
       <GestureHandlerRootView>
         <View className="flex-1 items-center justify-center p-4">
           <Animated.View
-            className="absolute top-0 left-0 bg-background-0/40"
+            className="bg-background/40 absolute top-0 left-0"
             entering={FadeIn}
             exiting={FadeOut}
             style={{ width, height }}
@@ -75,7 +75,7 @@ export function RecurrenceDetail({
                   </Text>
                 </Box>
                 <Box className="items-end">
-                  <Text className="text-typography-500" size="sm">
+                  <Text className="text-muted-foreground" size="sm">
                     {formatDate(item.startAt)}
                   </Text>
                   <Text className="font-medium" size="lg">

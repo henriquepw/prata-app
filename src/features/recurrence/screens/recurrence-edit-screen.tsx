@@ -1,9 +1,6 @@
 import { useRouter } from "expo-router"
 import { SaveIcon } from "lucide-react-native"
 import { z } from "zod"
-import { BalanceSelect } from "~/features/balance/components/balance-select"
-import { Frequence } from "~/features/recurrence/store/types"
-import { TransactionType } from "~/features/transaction/store/types"
 import { Box } from "~/components/box"
 import { useAppForm } from "~/components/form"
 import { DateInput } from "~/components/form/fields/date-input"
@@ -12,6 +9,9 @@ import { MoneyPrefix } from "~/components/form/prefix"
 import { ScreenHeader, ScreenRoot } from "~/components/layouts/screen"
 import { Skeleton } from "~/components/skeleton"
 import { Text } from "~/components/text"
+import { BalanceSelect } from "~/features/balance/components/balance-select"
+import { Frequence } from "~/features/recurrence/store/types"
+import { TransactionType } from "~/features/transaction/store/types"
 import { formatAmount, getOnlyDigits } from "~/lib/format-amount"
 import { parseDate } from "~/lib/parse-date"
 import { frequenceLabel } from "../components/frequance-badge"
@@ -157,7 +157,7 @@ export default function RecurrenceEditScreen() {
               isRequired
               label="Valor"
               mask="MONEY"
-              prefix={<MoneyPrefix className="font-normal text-lg" />}
+              prefix={<MoneyPrefix className="text-lg font-normal" />}
             />
           )}
         </form.AppField>

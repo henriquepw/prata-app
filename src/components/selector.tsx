@@ -79,7 +79,7 @@ export function Selector({ children, onChange, className }: Props) {
         )}
       >
         <Animated.View
-          className="absolute left-0 h-10 rounded bg-primary-500/40"
+          className="bg-primary/40 absolute left-0 h-10 rounded"
           style={bgStyle}
         />
         {children}
@@ -108,7 +108,7 @@ export function SelectorItem({ index, value, label }: ItemProps) {
   return (
     <Pressable onLayout={onLayout} onPress={onPress}>
       <Box className="rounded px-3 py-1">
-        <Text className="text-typography-950" size="lg">
+        <Text className="text-foreground" size="lg">
           {label}
         </Text>
       </Box>

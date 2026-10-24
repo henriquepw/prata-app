@@ -16,8 +16,8 @@ function Point({ title, children }: PointProps) {
   return (
     <>
       <Box className="mt-6 mb-0.5 flex-row items-center gap-1">
-        <Box className="size-3 items-center justify-center rounded-full bg-primary-500/50">
-          <Box className="size-1 rounded-full bg-primary-500" />
+        <Box className="bg-primary/50 size-3 items-center justify-center rounded-full">
+          <Box className="bg-primary size-1 rounded-full" />
         </Box>
         <Heading>{title}</Heading>
       </Box>

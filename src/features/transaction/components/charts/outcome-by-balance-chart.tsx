@@ -1,11 +1,11 @@
 import { Text, useFont } from "@shopify/react-native-skia"
 import { useMemo } from "react"
 import { PixelRatio, useWindowDimensions, View } from "react-native"
-import { type Piece, useBalance } from "~/features/balance/store/balance"
 import { Card, CardTitle } from "~/components/card"
 import { PieChart, type PieSlice } from "~/components/chart/pie"
-import { useTheme } from "~/shared/store/theme"
+import { type Piece, useBalance } from "~/features/balance/store/balance"
 import { formatAmount } from "~/lib/format-amount"
+import { useTheme } from "~/store/theme"
 import { useMontlyTransactions } from "../../store/montly-transactions"
 import { type Transaction, TransactionType } from "../../store/types"
 
