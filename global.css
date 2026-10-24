@@ -1,9 +1,6 @@
 @import "tailwindcss";
 @import "uniwind";
 
-/* ─── Theme tokens ───────────────────────────────────────────────
-   Switched at runtime via Uniwind.setTheme('light' | 'dark' | 'system').
-   Values preserve the previous gluestack palette (teal primary). */
 @layer theme {
   :root {
     @variant light {
@@ -12,7 +9,7 @@
       --card: 246 246 246;
       --popover: 246 246 246;
       --popover-foreground: 38 38 39;
-      --primary: 20 184 166;
+      --primary: 225 134 7;
       --primary-foreground: 254 254 255;
       --secondary: 242 241 241;
       --secondary-foreground: 38 38 39;
@@ -35,7 +32,7 @@
       --card: 39 38 37;
       --popover: 18 18 18;
       --popover-foreground: 245 245 245;
-      --primary: 20 184 166;
+      --primary: 225 134 7;
       --primary-foreground: 23 23 23;
       --secondary: 65 64 64;
       --secondary-foreground: 245 245 245;
@@ -59,8 +56,6 @@
   }
 }
 
-/* ─── Tailwind v4 color mappings ─────────────────────────────────
-   bg-primary → rgb(var(--primary)), text-foreground → rgb(var(--foreground)), etc. */
 @theme inline {
   --color-background: rgb(var(--background));
   --color-foreground: rgb(var(--foreground));

@@ -1,4 +1,5 @@
 import { useCallback } from "react"
+import { Appearance } from "react-native"
 import { Uniwind } from "uniwind"
 import { createPersistStore } from "./storage/persist"
 
@@ -21,5 +22,6 @@ export function useToggleTheme() {
     const newTheme = theme === "dark" ? "light" : "dark"
     useThemeStore.setState({ theme: newTheme })
     Uniwind.setTheme(newTheme)
+    Appearance.setColorScheme(theme)
   }, [theme])
 }
