@@ -1,4 +1,4 @@
-import { Text, useFont } from "@shopify/react-native-skia"
+import { Text, useFont } from "react-native-skia"
 import { useMemo } from "react"
 import { PixelRatio, useWindowDimensions, View } from "react-native"
 import { Card, CardTitle } from "~/components/card"

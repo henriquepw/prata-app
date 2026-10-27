@@ -1,4 +1,4 @@
-import { Circle, useFont } from "@shopify/react-native-skia"
+import { Circle, useFont } from "react-native-skia"
 import { useMemo } from "react"
 import { View } from "react-native"
 import type { SharedValue } from "react-native-reanimated"

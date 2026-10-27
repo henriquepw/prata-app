@@ -1,4 +1,4 @@
-import { Canvas, Path, Skia } from "@shopify/react-native-skia"
+import { Canvas, Path, Skia } from "react-native-skia"
 import { useMemo } from "react"
 import { useTheme } from "~/store/theme"
 import { Box } from "../box"

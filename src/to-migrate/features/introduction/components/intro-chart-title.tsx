@@ -1,4 +1,4 @@
-import { Text, useFont } from "@shopify/react-native-skia"
+import { Text, useFont } from "react-native-skia"
 import { useTheme } from "~/store/theme"
 import { useIncome } from "../store/intro"
 
