@@ -6,7 +6,7 @@ export type AppStateKey =
   | "syncCursor"
   | "lastSyncAt"
 
-export type AppState = {
+export type AppStateItem = {
   key: AppStateKey
   value: string
 }

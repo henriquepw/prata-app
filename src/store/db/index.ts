@@ -1,4 +1,5 @@
 import { openDatabaseSync } from "expo-sqlite"
+import { newId } from "~/lib/id"
 import { APP_STATE_DDL } from "./app-state"
 import { CATEGORY_DDL } from "./category"
 import { RECURRENCE_DDL } from "./recurrence"
@@ -19,11 +20,12 @@ export const SCHEMAS_DDL = `
 
 const DB_NAME = process.env.DB_NAME ?? "local.db"
 const DB_VERSION = 1
+const PROTOCOL_VERSION = 1
 
-export const db = openDatabaseSync(DB_NAME)
+export const localDb = openDatabaseSync(DB_NAME)
 
-async function init() {
-  const result = await db.getFirstAsync<{ user_version: number }>(
+export async function migrateDb() {
+  const result = await localDb.getFirstAsync<{ user_version: number }>(
     "PRAGMA user_version",
   )
   const currentDbVersion = result?.user_version ?? 0
@@ -32,15 +34,18 @@ async function init() {
   }
 
   if (currentDbVersion === 0) {
-    await db.execAsync("PRAGMA journal_mode = WAL")
-    await db.execAsync("PRAGMA foreign_keys = ON")
-    await db.execAsync(SCHEMAS_DDL)
+    await localDb.execAsync("PRAGMA journal_mode = WAL")
+    await localDb.execAsync("PRAGMA foreign_keys = ON")
+    await localDb.execAsync(SCHEMAS_DDL)
+    await localDb.execAsync(`
+       INSERT INTO app_state VALUES(
+         accountId, ${newId()},
+         deviceId, ${newId()},
+         ownerId, ${newId()},
+         protocolVersion, ${PROTOCOL_VERSION},
+       )
+    `)
   }
 
-  await db.execAsync(`PRAGMA user_version = ${DB_VERSION}`)
+  await localDb.execAsync(`PRAGMA user_version = ${DB_VERSION}`)
 }
-
-export const localDb = {
-  init,
-  sql: db.sql,
-} as const

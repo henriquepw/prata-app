@@ -1,3 +1,10 @@
-import StartIntroductionScreen from "~/to-migrate/features/introduction/screens/start-intro-screen"
+import { Background } from "~/components/background"
+import { Text } from "~/components/text"
 
-export default StartIntroductionScreen
+export default function HomeScreen() {
+  return (
+    <Background>
+      <Text>HOME</Text>
+    </Background>
+  )
+}
