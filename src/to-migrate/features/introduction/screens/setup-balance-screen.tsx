@@ -82,7 +82,7 @@ export function SetupBalanceScreen() {
       }
 
       await Promise.all(mutations)
-      router.replace("/(private)/(tabs)")
+      router.replace("/")
     },
   })
 

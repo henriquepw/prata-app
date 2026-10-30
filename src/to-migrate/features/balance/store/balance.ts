@@ -5,8 +5,6 @@ import {
   useQueryClient,
 } from "@tanstack/react-query"
 import { newId } from "~/lib/id"
-import { api } from "~/to-migrate/shared/api"
-import { useIsSignedIn } from "../../../features/auth/store/auth"
 
 const keys = {
   list: ["balance"],
@@ -26,14 +24,11 @@ type Balance = {
 
 const balanceQueryOpts = queryOptions({
   queryKey: keys.list,
-  queryFn: ({ signal }) => {
-    return api.get("me/balance", { signal }).json<Balance>()
-  },
+  queryFn: async (): Promise<Balance> => ({ pieces: [], local: true }),
 })
 
 export function useBalance() {
-  const isSignedIn = useIsSignedIn()
-  return useQuery({ enabled: isSignedIn, ...balanceQueryOpts })
+  return useQuery(balanceQueryOpts)
 }
 
 type BalanceUpdateDTO = Array<{
@@ -47,9 +42,10 @@ export function useUpdateBalance() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (pieces: BalanceUpdateDTO) => {
-      return api.put("me/balance", { json: { pieces } }).json<Balance>()
-    },
+    mutationFn: async (pieces: BalanceUpdateDTO): Promise<Balance> => ({
+      pieces: pieces.map((p) => ({ ...p, id: p.id || newId() })),
+      local: false,
+    }),
     onMutate: (balance) => {
       const old = queryClient.getQueryData<Balance>(keys.list)
       queryClient.setQueryData<Balance>(keys.list, {

@@ -11,7 +11,10 @@ import { Box } from "~/components/box"
 import { Text } from "~/components/text"
 import { formatAmount } from "~/lib/format-amount"
 import { formatDate } from "~/lib/format-date"
-import type { Recurrence } from "~/to-migrate/features/recurrence/store/types"
+import {
+  Frequence,
+  type Recurrence,
+} from "~/to-migrate/features/recurrence/store/types"
 import { FrequenceBadge } from "../frequance-badge"
 
 const Pressable = withUniwind(GHPressable)
@@ -54,7 +57,7 @@ export function RecurrenceCard({ item, onPress }: Props) {
         />
         <View className="flex-1 flex-row items-end justify-between gap-4 px-1 py-3">
           <Box className="ml-2 flex-1 items-start">
-            <FrequenceBadge value={item.frequence} />
+            <FrequenceBadge value={Frequence.MONTHLY} />
             <Text numberOfLines={1} size="lg">
               {item.description}
             </Text>

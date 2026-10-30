@@ -39,11 +39,11 @@ export default function RecurrenceEditScreen() {
 
   const defaultValues: z.output<typeof validator> = {
     amount: formatAmount(recurrence?.amount || 0, false),
-    balanceId: recurrence?.balanceId || "",
+    balanceId: recurrence?.categoryId || "",
     description: recurrence?.description || "",
     endAt: parseDate(recurrence?.endAt),
-    frequence: recurrence?.frequence || Frequence.MONTHLY,
-    type: recurrence?.type || TransactionType.OUTCOME,
+    frequence: Frequence.MONTHLY,
+    type: recurrence?.kind || TransactionType.OUTCOME,
   }
 
   const form = useAppForm({
@@ -98,7 +98,7 @@ export default function RecurrenceEditScreen() {
                 label="Tipo"
                 className="flex-1"
                 initialLabel={
-                  recurrence.type === "OUTCOME" ? "Saída" : "Entrada"
+                  recurrence.kind === "OUTCOME" ? "Saída" : "Entrada"
                 }
               >
                 <SelectItem label="Entrada" value={TransactionType.INCOME} />
@@ -113,7 +113,7 @@ export default function RecurrenceEditScreen() {
                 isRequired
                 label="Frequência"
                 className="flex-1"
-                initialLabel={frequenceLabel[recurrence.frequence]}
+                initialLabel={frequenceLabel[Frequence.MONTHLY]}
               >
                 <SelectItem label="Anual" value={Frequence.YEARLY} />
                 <SelectItem label="Mensal" value={Frequence.MONTHLY} />

@@ -1,7 +1,7 @@
-import { Circle, useFont } from "react-native-skia"
 import { useMemo } from "react"
 import { View } from "react-native"
 import type { SharedValue } from "react-native-reanimated"
+import { Circle, useFont } from "react-native-skia"
 import { useCSSVariable } from "uniwind"
 import {
   Bar,
@@ -24,8 +24,8 @@ function parseChartData(trx: Transaction[]) {
     .map((_, i) => ({ month: i, value: 0 }))
 
   for (const t of trx) {
-    if (t.type === TransactionType.OUTCOME) {
-      const month = new Date(t.receivedAt).getMonth()
+    if (t.kind === TransactionType.OUTCOME) {
+      const month = new Date(t.occurredAt).getMonth()
       data[month].value = data[month].value + t.amount
     }
   }

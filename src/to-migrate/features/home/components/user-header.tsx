@@ -7,19 +7,21 @@ import { Heading } from "~/components/heading"
 import { Skeleton, SkeletonText } from "~/components/skeleton"
 import { Text } from "~/components/text"
 import { useTheme, useToggleTheme } from "~/store/theme"
-import { useIsSignedIn, useLogout } from "~/to-migrate/features/auth/store/auth"
-import { useProfile } from "~/to-migrate/features/user/store/profile"
+
+const placeholderProfile = {
+  isPending: false,
+  data: {
+    avatar: null as string | null,
+    username: "Usuário",
+    email: "usuario@email.com",
+  },
+}
 
 export function UserHeader() {
   const theme = useTheme()
   const toggleTheme = useToggleTheme()
-  const isSignedIn = useIsSignedIn()
-  const profile = useProfile()
-  const logout = useLogout()
-
-  if (!isSignedIn) {
-    return null
-  }
+  const profile = placeholderProfile
+  const logout = () => {}
 
   if (profile.isPending) {
     return (
@@ -46,7 +48,7 @@ export function UserHeader() {
           <UserIcon />
         )}
       </Box>
-      <Link asChild href="/(auth)/sign-up">
+      <Link asChild href="/">
         <Pressable className="flex-1 gap-1 active:opacity-50">
           <Heading className="text-foreground leading-none" numberOfLines={1}>
             {profile.data.username}

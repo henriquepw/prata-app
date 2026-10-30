@@ -1,6 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { formatISO } from "date-fns"
-import { api } from "~/to-migrate/shared/api"
 import { type Frequence, queryKeys } from "./types"
 
 export type RecurrenceEditDTO = {
@@ -12,14 +10,7 @@ export type RecurrenceEditDTO = {
   endAt?: Date
 }
 
-async function updateRecurrence({ id, ...dto }: RecurrenceEditDTO) {
-  await api.patch(`me/recurrences/${id}`, {
-    json: {
-      ...dto,
-      endAt: dto.endAt ? formatISO(dto.endAt) : undefined,
-    },
-  })
-}
+async function updateRecurrence(_dto: RecurrenceEditDTO) {}
 
 export function useUpdateRecurrence() {
   const queryClient = useQueryClient()

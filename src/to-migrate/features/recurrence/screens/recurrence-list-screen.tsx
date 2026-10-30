@@ -35,7 +35,7 @@ export function RecurrentListScreen() {
       <Selector
         className="mb-2"
         onChange={(type) =>
-          setReccurencesParams({ type: type as TransactionType })
+          setReccurencesParams({ kind: type as TransactionType })
         }
       >
         <SelectorItem

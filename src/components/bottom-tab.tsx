@@ -1,11 +1,13 @@
 import { BlurView } from "expo-blur"
 import { LinearGradient } from "expo-linear-gradient"
-import { useNavigation } from "expo-router"
+import { useIsFocused } from "expo-router"
 import type { TabTriggerSlotProps } from "expo-router/ui"
 import {
+  type ComponentRef,
   createContext,
   forwardRef,
   type Ref,
+  type RefObject,
   use,
   useMemo,
   useRef,
@@ -41,17 +43,18 @@ const context = createContext({} as TabStore)
 
 type ViewProps = {
   children: React.ReactNode
+  blurTarget: RefObject<ComponentRef<typeof View> | null>
 }
 export const TabView = forwardRef(
-  ({ children }: ViewProps, ref: Ref<BlurView>) => {
+  ({ children, blurTarget }: ViewProps, ref: Ref<BlurView>) => {
     const theme = useTheme()
     const tabRefs = useRef<TabAttr[]>([])
     const translate = useSharedValue(4)
     const scaleY = useSharedValue(1)
     const width = useSharedValue(0)
 
-    const navigation = useNavigation()
-    const blueMethod = navigation.isFocused() ? "dimezisBlurView" : "none"
+    const isFocused = useIsFocused()
+    const blurMethod = isFocused ? "dimezisBlurView" : "none"
 
     const bgStyle = useAnimatedStyle(() => ({
       transform: [{ translateX: translate.value }, { scaleY: scaleY.value }],
@@ -66,9 +69,12 @@ export const TabView = forwardRef(
             translateX += BTN_GAP + (t.width ?? 0)
           }
 
-          translate.value = withSpring(translateX, { damping: 25 })
+          translate.value = withSpring(translateX, { damping: 80 })
           width.value = withSpring(tabRefs.current[idx].width)
-          scaleY.value = withSequence(withSpring(0.9), withSpring(1))
+          scaleY.value = withSequence(
+            withSpring(0.9, { duration: 200 }),
+            withSpring(1),
+          )
         },
         setTabRef: (ref: TabAttr, idx: number) => {
           tabRefs.current[idx] = ref
@@ -96,7 +102,8 @@ export const TabView = forwardRef(
           className={
             "border-border absolute bottom-10 left-1/2 -translate-x-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border px-1.5 py-1"
           }
-          blurMethod={blueMethod}
+          blurMethod={blurMethod}
+          blurTarget={blurTarget}
           intensity={100}
           ref={ref}
           tint={theme}

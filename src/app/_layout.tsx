@@ -25,9 +25,7 @@ configureReanimatedLogger({
   strict: false,
 })
 
-function Main() {
-  return <Stack screenOptions={{ headerShown: false }} />
-}
+const screenOptions = { headerShown: false }
 
 export default function RootLayout() {
   const theme = useTheme()
@@ -41,7 +39,7 @@ export default function RootLayout() {
       <GestureHandlerRootView>
         <QueryProvider>
           <StatusBar style={theme === "dark" ? "light" : "dark"} />
-          <Main />
+          <Stack screenOptions={screenOptions} />
         </QueryProvider>
       </GestureHandlerRootView>
     </GluestackUIProvider>

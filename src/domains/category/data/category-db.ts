@@ -5,9 +5,7 @@ import type { Category, CategoryColor } from "~/store/db/category"
 export type CategoryQueryParams = {
   search?: string
 }
-export async function getCategories(
-  query: CategoryQueryParams,
-): Promise<Category[]> {
+export async function getAll(query: CategoryQueryParams): Promise<Category[]> {
   return localDb.getAllAsync(
     "SELECT * from categories WHERE name LIKE ?",
     query.search ?? "",
@@ -21,9 +19,7 @@ type CreateCategoryInput = {
   monthlyLimit?: number
 }
 
-export async function createCategory(
-  input: CreateCategoryInput,
-): Promise<Category> {
+async function create(input: CreateCategoryInput): Promise<Category> {
   const now = Date.now().toString()
 
   const category: Category = {
@@ -56,7 +52,7 @@ export async function createCategory(
   return category
 }
 
-export async function updateCategory(category: Category): Promise<Category> {
+async function update(category: Category): Promise<Category> {
   const now = Date.now().toString()
   category.updatedAt = now
 
@@ -80,7 +76,7 @@ export async function updateCategory(category: Category): Promise<Category> {
   return category
 }
 
-export async function deleteCategory(category: Category): Promise<Category> {
+async function remove(category: Category): Promise<Category> {
   const now = Date.now().toString()
   category.deletedAt = now
 
@@ -96,3 +92,10 @@ export async function deleteCategory(category: Category): Promise<Category> {
 
   return category
 }
+
+export const categoryDb = {
+  getAll,
+  create,
+  update,
+  remove,
+} as const

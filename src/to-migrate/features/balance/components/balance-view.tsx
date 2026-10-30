@@ -27,7 +27,7 @@ export function BalanceView() {
     let income = 0
     let outcome = 0
     for (const t of transations.data || []) {
-      if (t.type === "INCOME") {
+      if (t.kind === "INCOME") {
         income += t.amount
       } else {
         outcome += t.amount

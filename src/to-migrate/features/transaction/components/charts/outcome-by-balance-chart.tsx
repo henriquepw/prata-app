@@ -1,6 +1,6 @@
-import { Text, useFont } from "react-native-skia"
 import { useMemo } from "react"
 import { PixelRatio, useWindowDimensions, View } from "react-native"
+import { Text, useFont } from "react-native-skia"
 import { Card, CardTitle } from "~/components/card"
 import { PieChart, type PieSlice } from "~/components/chart/pie"
 import { formatAmount } from "~/lib/format-amount"
@@ -20,14 +20,14 @@ function parseChartData(trx: Transaction[] = [], pieces: Piece[] = []) {
   }
 
   for (const t of trx) {
-    if (t.type === TransactionType.OUTCOME && t.balanceId) {
-      const slice = map.get(t.balanceId)
+    if (t.kind === TransactionType.OUTCOME && t.categoryId) {
+      const slice = map.get(t.categoryId)
       if (!slice) {
         continue
       }
 
       total += t.amount
-      map.set(t.balanceId, {
+      map.set(t.categoryId, {
         ...slice,
         percent: +slice.percent + t.amount,
       })

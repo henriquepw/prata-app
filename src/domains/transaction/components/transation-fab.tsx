@@ -119,7 +119,7 @@ export function TransationFab() {
             <FabItem
               enteringDelay={160}
               exitingDelay={0}
-              href="/(private)/recurrences/register"
+              href="/recurrences/register"
               icon={PinIcon}
               label="Fixos"
               onPress={onPressOut}
@@ -127,7 +127,7 @@ export function TransationFab() {
             <FabItem
               enteringDelay={80}
               exitingDelay={80}
-              href="/(private)/transations/new-income"
+              href="/transations/new-income"
               icon={ArrowUpIcon}
               label="Entrada"
               onPress={onPressOut}
@@ -135,7 +135,7 @@ export function TransationFab() {
             <FabItem
               enteringDelay={0}
               exitingDelay={160}
-              href="/(private)/transations/new-outcome"
+              href="/transations/new-outcome"
               icon={ArrowDownIcon}
               label="Saída"
               onPress={onPressOut}

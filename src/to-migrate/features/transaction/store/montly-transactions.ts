@@ -1,14 +1,13 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { api } from "~/to-migrate/shared/api"
 import { queryKeys, type Transaction } from "./types"
 
-function getMontlyTransactions(signal?: AbortSignal) {
-  return api.get("me/transactions/month", { signal }).json<Transaction[]>()
+async function getMontlyTransactions(): Promise<Transaction[]> {
+  return []
 }
 
 export function useMontlyTransactions() {
   return useSuspenseQuery({
     queryKey: queryKeys.month,
-    queryFn: ({ signal }) => getMontlyTransactions(signal),
+    queryFn: getMontlyTransactions,
   })
 }

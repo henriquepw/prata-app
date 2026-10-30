@@ -9,8 +9,8 @@ type Props = {
 }
 export function TransationCard({ transaction }: Props) {
   const amount = formatAmount(transaction.amount)
-  const dueAt = formatDate(transaction.receivedAt)
-  const isIncome = transaction.type === TransactionType.INCOME
+  const dueAt = formatDate(transaction.occurredAt)
+  const isIncome = transaction.kind === TransactionType.INCOME
 
   return (
     <Box className="flex-1">

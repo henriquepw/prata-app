@@ -69,7 +69,7 @@ export default function RegisterIncomePage() {
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        <Box className="flex-grow gap-4">
+        <Box className="grow gap-4">
           <form.AppField name="receivedAt">
             {(field) => <field.DateInput label="Data" />}
           </form.AppField>

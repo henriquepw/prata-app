@@ -18,7 +18,10 @@ import { Portal } from "~/components/portal"
 import { Text } from "~/components/text"
 import { formatAmount } from "~/lib/format-amount"
 import { formatDate } from "~/lib/format-date"
-import type { Recurrence } from "~/to-migrate/features/recurrence/store/types"
+import {
+  Frequence,
+  type Recurrence,
+} from "~/to-migrate/features/recurrence/store/types"
 import { useSelectRecurrence } from "../store/selected-recurrence"
 import { FrequenceBadge } from "./frequance-badge"
 
@@ -69,7 +72,7 @@ export function RecurrenceDetail({
             <Card contentClassName="gap-2">
               <Box className="flex-row items-end justify-between gap-4">
                 <Box className="flex-1 items-start">
-                  <FrequenceBadge value={item.frequence} />
+                  <FrequenceBadge value={Frequence.MONTHLY} />
                   <Text numberOfLines={1} size="lg">
                     {item.description}
                   </Text>

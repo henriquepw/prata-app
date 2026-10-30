@@ -1,21 +1,16 @@
-export enum TransactionType {
-  INCOME = "INCOME",
-  OUTCOME = "OUTCOME",
-}
+import type { Transaction, TransactionKind } from "~/store/db/transaction"
 
-export type Transaction = {
-  id: string
-  balanceId?: string
-  type: TransactionType
-  description: string
-  amount: number
-  receivedAt: string
-  createdAt: string
-  updatedAt: string
-}
+export type { Transaction }
+
+export const TransactionType = {
+  INCOME: "INCOME",
+  OUTCOME: "OUTCOME",
+} as const satisfies Record<TransactionKind, TransactionKind>
+
+export type TransactionType = TransactionKind
 
 export type TransactionFilters = {
-  type: TransactionType
+  kind: TransactionKind
 }
 
 export const queryKeys = {

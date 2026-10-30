@@ -36,7 +36,7 @@ export function RegisterIncomeScreen() {
     },
     onSubmit: ({ value }) => {
       setIncome(value)
-      router.push("/intro/balance")
+      router.push("/")
     },
   })
 
@@ -73,7 +73,7 @@ export function RegisterIncomeScreen() {
         </Box>
 
         <Box className="mt-auto flex-row items-center justify-between gap-2">
-          <Link asChild href="/intro/balance">
+          <Link asChild href="/">
             <Button variant="outline">
               <ButtonText>Pular</ButtonText>
             </Button>

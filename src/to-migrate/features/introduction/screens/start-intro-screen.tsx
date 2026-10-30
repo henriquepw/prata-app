@@ -48,7 +48,7 @@ export default function StartIntroductionScreen() {
           pellentesque.
         </Point>
 
-        <Link asChild href="/intro/income">
+        <Link asChild href="/">
           <Button className="mt-auto ml-auto">
             <ButtonText>Avançar</ButtonText>
             <ButtonIcon as={ChevronRightIcon} />

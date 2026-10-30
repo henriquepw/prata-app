@@ -1,7 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { formatISO } from "~/lib/format-date"
-import { api, type Page } from "~/to-migrate/shared/api"
-import { useIsSignedIn } from "../../auth/store/auth"
+import type { Page } from "~/store/api"
 import {
   queryKeys,
   type Transaction,
@@ -10,18 +8,10 @@ import {
 } from "./types"
 
 export function useTransactions(filters?: TransactionFilters) {
-  const isSignedIn = useIsSignedIn()
-
   return useQuery({
-    enabled: !!isSignedIn,
     queryKey: queryKeys.list(filters),
-    queryFn: ({ signal }) => {
-      return api
-        .get<Page<Transaction>>("me/transactions", {
-          searchParams: filters,
-          signal,
-        })
-        .json()
+    queryFn: async (): Promise<Page<Transaction>> => {
+      return { items: [] }
     },
   })
 }
@@ -38,16 +28,7 @@ export function useCreateTransaction() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (payload: TransactionCreateDTO[]) => {
-      return api
-        .post("me/transactions", {
-          json: payload.map((p) => ({
-            ...p,
-            receivedAt: formatISO(p.receivedAt),
-          })),
-        })
-        .json<Transaction>()
-    },
+    mutationFn: async (_payload: TransactionCreateDTO[]) => {},
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.all })
     },

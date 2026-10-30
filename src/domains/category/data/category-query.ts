@@ -1,11 +1,5 @@
 import { queryOptions, useMutation } from "@tanstack/react-query"
-import {
-  type CategoryQueryParams,
-  createCategory,
-  deleteCategory,
-  getCategories,
-  updateCategory,
-} from "./category-db"
+import { type CategoryQueryParams, categoryDb } from "./category-db"
 
 const categoryKeys = {
   all: ["categories"],
@@ -15,12 +9,12 @@ const categoryKeys = {
 export const categoriesQueryOpts = (query: CategoryQueryParams) =>
   queryOptions({
     queryKey: categoryKeys.list(query),
-    queryFn: () => getCategories(query),
+    queryFn: () => categoryDb.getAll(query),
   })
 
 export function useCreateCategory() {
   return useMutation({
-    mutationFn: createCategory,
+    mutationFn: categoryDb.create,
     meta: {
       errorMessage: "Não foi possível cadastrar a categória",
       invalidateQueries: [categoryKeys.all],
@@ -30,7 +24,7 @@ export function useCreateCategory() {
 
 export function useUpdateCategory() {
   return useMutation({
-    mutationFn: updateCategory,
+    mutationFn: categoryDb.update,
     meta: {
       errorMessage: "Não foi possível atualizar a categória",
       invalidateQueries: [categoryKeys.all],
@@ -38,9 +32,9 @@ export function useUpdateCategory() {
   })
 }
 
-export function useDeleteCategory() {
+export function useRemoveCategory() {
   return useMutation({
-    mutationFn: deleteCategory,
+    mutationFn: categoryDb.remove,
     meta: {
       errorMessage: "Não foi possível deletar a categória",
       invalidateQueries: [categoryKeys.all],
