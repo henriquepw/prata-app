@@ -37,14 +37,13 @@ export async function migrateDb() {
     await localDb.execAsync("PRAGMA journal_mode = WAL")
     await localDb.execAsync("PRAGMA foreign_keys = ON")
     await localDb.execAsync(SCHEMAS_DDL)
-    await localDb.execAsync(`
-       INSERT INTO app_state VALUES(
-         accountId, ${newId()},
-         deviceId, ${newId()},
-         ownerId, ${newId()},
-         protocolVersion, ${PROTOCOL_VERSION},
-       )
-    `)
+    await localDb.runAsync(
+      "INSERT INTO app_state (key, value) VALUES (accountId, ?), (deviceId, ?), (ownerId, ?), (protocolVersion, ?)",
+      newId(),
+      newId(),
+      newId(),
+      String(PROTOCOL_VERSION),
+    )
   }
 
   await localDb.execAsync(`PRAGMA user_version = ${DB_VERSION}`)

@@ -31,7 +31,7 @@ export default function RootLayout() {
   const theme = useTheme()
 
   useEffect(() => {
-    migrateDb().then(() => SplashScreen.hide())
+    migrateDb().finally(() => SplashScreen.hide())
   }, [])
 
   return (
