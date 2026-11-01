@@ -88,20 +88,9 @@ export const TabView = forwardRef(
 
     return (
       <context.Provider value={ctx}>
-        <Box className="absolute bottom-0 h-24 w-full">
-          <LinearGradient
-            colors={[
-              "transparent",
-              theme === "dark" ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.3)",
-            ]}
-            style={{ flex: 1 }}
-          />
-        </Box>
         <BlurView
           blurReductionFactor={5}
-          className={
-            "border-border absolute bottom-10 left-1/2 -translate-x-1/2 flex-row items-center gap-1 overflow-hidden rounded-full border px-1.5 py-1"
-          }
+          className="border-border flex-row items-center gap-1 overflow-hidden rounded-full border px-1.5 py-1"
           blurMethod={blurMethod}
           blurTarget={blurTarget}
           intensity={100}
@@ -146,19 +135,19 @@ export const TabButton = forwardRef(
       <Pressable
         ref={ref}
         {...props}
-        className="h-11 flex-row items-center gap-2 rounded-full px-4 active:opacity-50"
+        className="h-11 flex-row items-center gap-2 rounded-full pr-4 pl-2.5"
         onLayout={onLayout}
         onPress={onPress}
         style={{ justifyContent: "center", alignItems: "center" }}
       >
         <Icon
           as={icon}
+          size="xl"
           className={
             isFocused
               ? "text-primary-foreground"
               : "text-foreground dark:text-foreground"
           }
-          size="xl"
         />
         {!!label && (
           <Text

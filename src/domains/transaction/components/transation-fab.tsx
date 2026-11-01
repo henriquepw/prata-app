@@ -5,6 +5,7 @@ import {
   PinIcon,
   PlusIcon,
 } from "lucide-react-native"
+import { Activity } from "react"
 import { Platform, Pressable, TouchableOpacity } from "react-native"
 import Animated, {
   FadeIn,
@@ -17,7 +18,6 @@ import Animated, {
   ZoomIn,
   ZoomOut,
 } from "react-native-reanimated"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Box } from "~/components/box"
 import { Glass } from "~/components/glass"
 import { Icon } from "~/components/icon"
@@ -50,7 +50,7 @@ function FabItem({
           <Animated.View
             entering={SlideInRight.delay(enteringDelay + 150)
               .springify()
-              .damping(15)}
+              .damping(90)}
             exiting={SlideOutRight.delay(exitingDelay).springify().mass(5)}
           >
             <Text size="xl">{label}</Text>
@@ -69,7 +69,6 @@ function FabItem({
 }
 
 export function TransationFab() {
-  const { bottom, right } = useSafeAreaInsets()
   const [open, setTogger] = useToggle()
 
   const scale = useSharedValue(1)
@@ -96,72 +95,54 @@ export function TransationFab() {
   }
 
   return (
-    <>
+    <Box className="flex items-end">
       {open && (
-        <Animated.View
-          className="absolute inset-0 top-0 flex-1 bg-transparent"
-          entering={FadeIn}
-          exiting={FadeOut}
-          onTouchStart={onPressOut}
-        >
-          <Glass className="flex-1" intensity={20} />
-        </Animated.View>
+        <Box className="absolute top-0 left-0 -translate-y-full mr-2 mb-4 flex items-end gap-4">
+          <FabItem
+            enteringDelay={160}
+            exitingDelay={0}
+            href="/recurrences/register"
+            icon={PinIcon}
+            label="Fixos"
+            onPress={onPressOut}
+          />
+          <FabItem
+            enteringDelay={80}
+            exitingDelay={80}
+            href="/transations/new-income"
+            icon={ArrowUpIcon}
+            label="Entrada"
+            onPress={onPressOut}
+          />
+          <FabItem
+            enteringDelay={0}
+            exitingDelay={160}
+            href="/transations/new-outcome"
+            icon={ArrowDownIcon}
+            label="Saída"
+            onPress={onPressOut}
+          />
+        </Box>
       )}
-      <Box
-        className={cn(
-          "absolute right-8 bottom-0 flex items-end",
-          Platform.OS !== "ios" && "bottom-3",
-        )}
-        style={{ paddingBottom: bottom, paddingRight: right }}
-      >
-        {open && (
-          <Box className="mr-2 mb-4 flex items-end gap-4">
-            <FabItem
-              enteringDelay={160}
-              exitingDelay={0}
-              href="/recurrences/register"
-              icon={PinIcon}
-              label="Fixos"
-              onPress={onPressOut}
-            />
-            <FabItem
-              enteringDelay={80}
-              exitingDelay={80}
-              href="/transations/new-income"
-              icon={ArrowUpIcon}
-              label="Entrada"
-              onPress={onPressOut}
-            />
-            <FabItem
-              enteringDelay={0}
-              exitingDelay={160}
-              href="/transations/new-outcome"
-              icon={ArrowDownIcon}
-              label="Saída"
-              onPress={onPressOut}
-            />
-          </Box>
-        )}
 
-        <Animated.View style={btnStyle}>
-          <Pressable
-            className={cn(
-              "size-14 items-center justify-center rounded-full",
-              open ? "border-primary bg-background border-2" : "bg-primary",
-            )}
-            onPressIn={onPressIn}
-            onPressOut={onPressOut}
-          >
-            <Animated.View style={iconStyle}>
-              <Icon
-                as={PlusIcon}
-                className={open ? "text-primary" : "text-primary-foreground"}
-                size="xl"
-              />
-            </Animated.View>
-          </Pressable>
-        </Animated.View>
-      </Box>
-    </>
+      <Animated.View style={btnStyle}>
+        <Pressable
+          className={cn(
+            "size-13.5 items-center justify-center rounded-full",
+            open ? "border-primary bg-background border-2" : "bg-primary",
+          )}
+          onPressIn={onPressIn}
+          onPressOut={onPressOut}
+        >
+          <Animated.View style={iconStyle}>
+            <Icon
+              as={PlusIcon}
+              className={open ? "text-primary" : "text-primary-foreground"}
+              size="xl"
+            />
+          </Animated.View>
+        </Pressable>
+      </Animated.View>
+    </Box>
   )
 }
